@@ -1,0 +1,96 @@
+﻿using Atracciones.Backend.DataAccess.Context;
+using Atracciones.Backend.DataAccess.Repositories.Interfaces;
+using Atracciones.Backend.DataManagement.Interfaces;
+using Microsoft.EntityFrameworkCore.Storage;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Atracciones.Backend.DataManagement.Services
+{
+    public class UnitOfWork : IUnitOfWork
+    {
+        private readonly AtraccionesDbContext _context;
+        private IDbContextTransaction? _transaction;
+
+        public IUsuarioRepository UsuarioRepository { get; }
+        public IClienteRepository ClienteRepository { get; }
+        public IReservaRepository ReservaRepository { get; }
+        public ITicketRepository TicketRepository { get; }
+        public IAtraccionRepository AtraccionRepository { get; }
+        public IImagenRepository ImagenRepository { get; }
+        public ICategoriaRepository CategoriaRepository { get; }
+        public IDestinoRepository DestinoRepository { get; }
+        public IIncluyeRepository IncluyeRepository { get; }
+        public IFacturaRepository FacturaRepository { get; }
+        public IDatosFacturacionRepository DatosFacturacionRepository { get; }
+        public IResenaRepository ResenaRepository { get; }
+
+        public UnitOfWork(
+            AtraccionesDbContext context,
+            IUsuarioRepository usuarioRepository,
+            IClienteRepository clienteRepository,
+            IReservaRepository reservaRepository,
+            ITicketRepository ticketRepository,
+            IAtraccionRepository atraccionRepository,
+            IImagenRepository imagenRepository,
+            ICategoriaRepository categoriaRepository,
+            IDestinoRepository destinoRepository,
+            IIncluyeRepository incluyeRepository,
+            IFacturaRepository facturaRepository,
+            IDatosFacturacionRepository datosFacturacionRepository,
+            IResenaRepository resenaRepository
+        )
+        {
+            _context = context;
+
+            UsuarioRepository = usuarioRepository;
+            ClienteRepository = clienteRepository;
+            ReservaRepository = reservaRepository;
+            TicketRepository = ticketRepository;
+            AtraccionRepository = atraccionRepository;
+            ImagenRepository = imagenRepository;
+            CategoriaRepository = categoriaRepository;
+            DestinoRepository = destinoRepository;
+            IncluyeRepository = incluyeRepository;
+            FacturaRepository = facturaRepository;
+            DatosFacturacionRepository = datosFacturacionRepository;
+            ResenaRepository = resenaRepository;
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task BeginTransactionAsync()
+        {
+            _transaction = await _context.Database.BeginTransactionAsync();
+        }
+
+        public async Task CommitAsync()
+        {
+            if (_transaction != null)
+            {
+                await _context.SaveChangesAsync();
+                await _transaction.CommitAsync();
+            }
+        }
+
+        public async Task RollbackAsync()
+        {
+            if (_transaction != null)
+            {
+                await _transaction.RollbackAsync();
+            }
+        }
+
+        public void Dispose()
+        {
+            _transaction?.Dispose();
+            _context.Dispose();
+        }
+    }
+}

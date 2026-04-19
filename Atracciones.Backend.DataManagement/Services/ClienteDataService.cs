@@ -1,0 +1,52 @@
+﻿using Atracciones.Backend.DataAccess.Queries.Interfaces;
+using Atracciones.Backend.DataManagement.Interfaces;
+using Atracciones.Backend.DataManagement.Mappers;
+using Atracciones.Backend.DataManagement.Models.Cliente;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Atracciones.Backend.DataManagement.Services
+{
+    public class ClienteDataService : IClienteDataService
+    {
+        private readonly IClienteQuery _query;
+        private readonly IUnitOfWork _uow;
+
+        public ClienteDataService(IClienteQuery query, IUnitOfWork uow)
+        {
+            _query = query;
+            _uow = uow;
+        }
+
+        public async Task<ClienteModel?> GetByUsuarioAsync(int usuarioId)
+        {
+            var entity = await _query.GetByUsuarioAsync(usuarioId);
+            return entity == null ? null : ClienteMapper.ToModel(entity);
+        }
+
+        public async Task<int> CreateAsync(ClienteCreateModel model)
+        {
+            var entity = ClienteMapper.ToEntity(model);
+            await _uow.ClienteRepository.CreateAsync(entity);
+            return entity.CliId;
+        }
+
+        public async Task UpdateAsync(ClienteUpdateModel model)
+        {
+            var entity = await _uow.ClienteRepository.GetByIdAsync(model.Id)
+                ?? throw new Exception("Cliente no encontrado");
+
+            ClienteMapper.UpdateEntity(entity, model);
+
+            await _uow.ClienteRepository.UpdateAsync(entity);
+        }
+
+        public async Task SoftDeleteAsync(int id)
+        {
+            await _uow.ClienteRepository.SoftDeleteAsync(id);
+        }
+    }
+}

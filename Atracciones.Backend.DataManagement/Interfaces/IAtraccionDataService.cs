@@ -1,0 +1,28 @@
+﻿using Atracciones.Backend.DataManagement.Models;
+using Atracciones.Backend.DataManagement.Models.Atraccion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Atracciones.Backend.DataManagement.Interfaces
+{
+    public interface IAtraccionDataService
+    {
+        Task<DataPagedResult<AtraccionModel>> GetPagedAsync(
+            int page,
+            int size,
+            string? search,
+            int? destinoId,
+            int? categoriaId);
+
+        Task<AtraccionModel?> GetByIdAsync(int id);
+
+        Task<int> CreateAsync(AtraccionCreateModel model);
+
+        Task UpdateAsync(AtraccionUpdateModel model);
+
+        Task SoftDeleteAsync(int id);
+    }
+}

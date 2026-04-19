@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Atracciones.Backend.Api/obj
+/Atracciones.Backend.Business/obj
+/Atracciones.Backend.DataAccess/bin/Debug/net8.0
+/Atracciones.Backend.DataAccess/obj
+/Atracciones.Backend.DataManagement/bin/Debug/net8.0
+/Atracciones.Backend.DataManagement/obj
+*.user
+*.http
