@@ -2,6 +2,7 @@
 using Atracciones.Backend.DataManagement.Models;
 using Atracciones.Backend.DataManagement.Models.Categoria;
 using Atracciones.Backend.DataManagement.Models.Destino;
+using Atracciones.Backend.DataManagement.Models.Incluye;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,10 @@ namespace Atracciones.Backend.DataManagement.Mappers
             entity.DesNombre = model.Nombre;
             entity.DesPais = model.Pais;
             entity.DesImagenUrl = model.ImagenUrl;
+        }
+        public static void UpdateEntity(Incluye entity, IncluyeUpdateModel model)
+        {
+            entity.IncDescripcion = model.Descripcion;
         }
     }
 }

@@ -8,5 +8,7 @@ using System.Threading.Tasks;
 
 namespace Atracciones.Backend.DataAccess.Repositories.Interfaces
 {
-    public interface IUsuarioRepository : IRepository<Usuario> { }
+    public interface IUsuarioRepository : IRepository<Usuario> {
+        Task<Usuario?> LoginAsync(string login, string password);
+    }
 }

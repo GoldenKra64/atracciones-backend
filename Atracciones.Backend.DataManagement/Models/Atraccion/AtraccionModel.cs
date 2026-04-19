@@ -1,6 +1,7 @@
 ﻿using Atracciones.Backend.DataManagement.Models.Categoria;
 using Atracciones.Backend.DataManagement.Models.Destino;
 using Atracciones.Backend.DataManagement.Models.Imagen;
+using Atracciones.Backend.DataManagement.Models.Incluye;
 using System;
 using System.Collections.Generic;
 using System.Linq;

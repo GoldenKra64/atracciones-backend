@@ -13,6 +13,12 @@ namespace Atracciones.Backend.DataManagement.Interfaces
 
         Task UpdateAsync(UsuarioUpdateModel model);
 
+        Task<UsuarioModel?> GetByIdAsync(int id);
+
+        Task<UsuarioModel?> LoginAsync(string login, string password);
+
+        Task ChangePasswordAsync(int usuarioId, string actual, string nuevo);
+
         Task SoftDeleteAsync(int id);
     }
 }

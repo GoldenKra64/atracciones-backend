@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atracciones.Backend.DataManagement.Models
+namespace Atracciones.Backend.Business.DTOs.Imagen
 {
-    public class IncluyeModel
+    public class ImagenResponse
     {
         public int Id { get; set; }
-        public string Descripcion { get; set; } = null!;
+        public string Url { get; set; } = null!;
     }
 }

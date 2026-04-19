@@ -1,4 +1,4 @@
-﻿using Atracciones.Backend.DataManagement.Models;
+﻿using Atracciones.Backend.DataManagement.Models.Incluye;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +9,12 @@ namespace Atracciones.Backend.DataManagement.Interfaces
 {
     public interface IIncluyeDataService
     {
-        Task<List<IncluyeModel>> GetAllAsync();
+        Task<int> CreateAsync(IncluyeCreateModel model);
 
-        Task<int> CreateAsync(IncluyeModel model);
+        Task UpdateAsync(IncluyeUpdateModel model);
+
+        Task<IEnumerable<IncluyeModel>> GetAllAsync();
+
+        Task SoftDeleteAsync(int id);
     }
 }

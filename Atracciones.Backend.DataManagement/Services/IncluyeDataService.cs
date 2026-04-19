@@ -2,7 +2,7 @@
 using Atracciones.Backend.DataAccess.Repositories.Interfaces;
 using Atracciones.Backend.DataManagement.Interfaces;
 using Atracciones.Backend.DataManagement.Mappers;
-using Atracciones.Backend.DataManagement.Models;
+using Atracciones.Backend.DataManagement.Models.Incluye;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +20,7 @@ namespace Atracciones.Backend.DataManagement.Services
             _repo = repo;
         }
 
-        public async Task<List<IncluyeModel>> GetAllAsync()
-        {
-            var data = await _repo.GetAllAsync();
-            return data.Select(CatalogosMapper.ToModel).ToList();
-        }
-
-        public async Task<int> CreateAsync(IncluyeModel model)
+        public async Task<int> CreateAsync(IncluyeCreateModel model)
         {
             var entity = new Incluye
             {
@@ -36,6 +30,30 @@ namespace Atracciones.Backend.DataManagement.Services
 
             await _repo.CreateAsync(entity);
             return entity.IncId;
+        }
+
+        public async Task<IEnumerable<IncluyeModel>> GetAllAsync()
+        {
+            var data = await _repo.GetAllAsync();
+            return data.Select(CatalogosMapper.ToModel).ToList();
+        }
+        public async Task UpdateAsync(IncluyeUpdateModel model)
+        {
+            var entity = await _repo.GetByIdAsync(model.Id)
+                ?? throw new Exception("Incluye no encontrado");
+
+            CatalogosMapper.UpdateEntity(entity, model);
+
+            await _repo.UpdateAsync(entity);
+        }
+        public async Task SoftDeleteAsync(int id)
+        {
+            var entity = await _repo.GetByIdAsync(id)
+                ?? throw new Exception("Incluye no encontrado");
+
+            entity.IncEstado = "INA";
+
+            await _repo.UpdateAsync(entity);
         }
     }
 }

@@ -11,3 +11,4 @@
 /Atracciones.Backend.DataManagement/obj
 *.user
 *.http
+/Atracciones.Backend.Business/bin/Debug/net8.0

@@ -48,5 +48,16 @@ namespace Atracciones.Backend.DataManagement.Services
         {
             await _uow.ClienteRepository.SoftDeleteAsync(id);
         }
+        public async Task<ClienteModel?> GetByIdAsync(int id)
+        {
+            var entity = await _uow.ClienteRepository.GetByIdAsync(id);
+            return entity == null ? null : ClienteMapper.ToModel(entity);
+        }
+
+        public async Task<IEnumerable<ClienteModel>> GetAllAsync()
+        {
+            var data = await _uow.ClienteRepository.GetAllAsync();
+            return data.Select(ClienteMapper.ToModel);
+        }
     }
 }

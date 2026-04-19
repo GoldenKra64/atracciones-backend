@@ -10,12 +10,12 @@ namespace Atracciones.Backend.DataManagement.Interfaces
 {
     public interface IReservaDataService
     {
-        Task<DataPagedResult<ReservaModel>> GetByClienteAsync(int clienteId, int page, int size);
-
-        Task<ReservaModel?> GetDetalleAsync(int reservaId);
-
         Task<int> CreateAsync(ReservaCreateModel model);
 
-        Task CancelAsync(int reservaId);
+        Task<ReservaModel?> GetByIdAsync(int id);
+
+        Task<DataPagedResult<ReservaModel>> GetByClienteAsync(int clienteId, int page, int size);
+
+        Task SoftDeleteAsync(int id);
     }
 }

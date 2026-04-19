@@ -1,4 +1,5 @@
-﻿using Atracciones.Backend.DataManagement.Models;
+﻿using Atracciones.Backend.DataAccess.Filters;
+using Atracciones.Backend.DataManagement.Models;
 using Atracciones.Backend.DataManagement.Models.Atraccion;
 using System;
 using System.Collections.Generic;
@@ -24,5 +25,7 @@ namespace Atracciones.Backend.DataManagement.Interfaces
         Task UpdateAsync(AtraccionUpdateModel model);
 
         Task SoftDeleteAsync(int id);
+
+        Task<DataPagedResult<AtraccionModel>> SearchAsync(AtraccionFilterModel filter);
     }
 }

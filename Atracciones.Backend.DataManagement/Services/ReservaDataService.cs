@@ -65,9 +65,15 @@ namespace Atracciones.Backend.DataManagement.Services
             }
         }
 
-        public async Task CancelAsync(int reservaId)
+        public async Task SoftDeleteAsync(int reservaId)
         {
             await _uow.ReservaRepository.SoftDeleteAsync(reservaId);
+        }
+
+        public async Task<ReservaModel?> GetByIdAsync(int id)
+        {
+            var entity = await _uow.ReservaRepository.GetByIdAsync(id);
+            return entity == null ? null : ReservaMapper.ToModel(entity);
         }
     }
 }

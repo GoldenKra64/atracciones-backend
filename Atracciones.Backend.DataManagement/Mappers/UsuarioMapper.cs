@@ -20,6 +20,17 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Login = entity.UsuLogin
             };
         }
+        public static Usuario ToEntity(UsuarioCreateModel entity)
+        {
+            return new Usuario
+            {
+                UsuGuid = Guid.NewGuid(),
+                UsuLogin = entity.Login,
+                UsuPasswordHash = entity.Password,
+                UsuarioRoles = entity.RolIds.Select(rolId => new UsuarioRol { RolId = rolId }).ToList(),
+                UsuEstado = "ACT",
+            };
+        }
         public static void UpdateEntity(Usuario entity, UsuarioUpdateModel model)
         {
             entity.UsuLogin = model.Login;

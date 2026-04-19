@@ -10,5 +10,7 @@ namespace Atracciones.Backend.DataManagement.Models.Usuario
     {
         public int Id { get; set; }
         public string Login { get; set; } = null!;
+
+        public List<int> RolIds { get; set; } = new List<int>();
     }
 }

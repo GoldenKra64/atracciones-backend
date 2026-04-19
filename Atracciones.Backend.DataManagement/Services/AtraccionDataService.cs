@@ -1,4 +1,5 @@
-﻿using Atracciones.Backend.DataAccess.Queries.Interfaces;
+﻿using Atracciones.Backend.DataAccess.Filters;
+using Atracciones.Backend.DataAccess.Queries.Interfaces;
 using Atracciones.Backend.DataManagement.Interfaces;
 using Atracciones.Backend.DataManagement.Mappers;
 using Atracciones.Backend.DataManagement.Models;
@@ -63,6 +64,18 @@ namespace Atracciones.Backend.DataManagement.Services
         public async Task SoftDeleteAsync(int id)
         {
             await _uow.AtraccionRepository.SoftDeleteAsync(id);
+        }
+        public async Task<DataPagedResult<AtraccionModel>> SearchAsync(AtraccionFilterModel filter)
+        {
+            var data = await _query.SearchAsync(filter);
+
+            return new DataPagedResult<AtraccionModel>
+            {
+                Items = data.Items.Select(AtraccionMapper.ToModel),
+                TotalRecords = data.TotalRecords,
+                PageNumber = data.PageNumber,
+                PageSize = data.PageSize
+            };
         }
     }
 }

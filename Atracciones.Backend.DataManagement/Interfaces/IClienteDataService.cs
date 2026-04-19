@@ -10,6 +10,8 @@ namespace Atracciones.Backend.DataManagement.Interfaces
     public interface IClienteDataService
     {
         Task<ClienteModel?> GetByUsuarioAsync(int usuarioId);
+        Task<ClienteModel?> GetByIdAsync(int id);
+        Task<IEnumerable<ClienteModel>> GetAllAsync();
 
         Task<int> CreateAsync(ClienteCreateModel model);
 
