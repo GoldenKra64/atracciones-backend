@@ -30,9 +30,9 @@ namespace Atracciones.Backend.DataAccess.Entities
         public string? CliIpEliminacion { get; set; }
 
         public string CliEstado { get; set; } = null!;
-        public byte[] CliRowVersion { get; set; } = null!;
 
         // Navegación
         public Usuario Usuario { get; set; } = null!;
+        public ICollection<Reserva> Reservas { get; set; }
     }
 }

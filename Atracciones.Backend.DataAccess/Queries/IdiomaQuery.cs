@@ -22,7 +22,7 @@ namespace Atracciones.Backend.DataAccess.Queries
         public async Task<List<Idioma>> GetAllAsync()
         {
             return await _context.Idiomas
-                .OrderBy(x => x.IdiNombre)
+                .OrderBy(x => x.IdNombre)
                 .ToListAsync();
         }
     }

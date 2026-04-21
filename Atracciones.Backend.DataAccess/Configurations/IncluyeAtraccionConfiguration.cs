@@ -13,9 +13,20 @@ namespace Atracciones.Backend.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<IncluyeAtraccion> builder)
         {
-            builder.ToTable("INCLUYE_ATRACCION");
+            builder.ToTable("ATRACCION_INCLUYE");
 
             builder.HasKey(x => new { x.IncId, x.AtId });
+
+            builder.Property(e => e.IncId).HasColumnName("inc_id");
+            builder.Property(e => e.AtId).HasColumnName("at_id");
+
+            builder.Property(e => e.AiFechaIngreso).HasColumnName("ai_fecha_ingreso");
+            builder.Property(e => e.AiUsuarioIngreso).HasColumnName("ai_usuario_ingreso");
+
+            builder.Property(e => e.AiFechaEliminacion).HasColumnName("ai_fecha_eliminacion");
+            builder.Property(e => e.AiUsuarioEliminacion).HasColumnName("ai_usuario_eliminacion");
+
+            builder.Property(e => e.AiEstado).HasColumnName("ai_estado");
 
             builder.HasOne(x => x.Incluye)
                 .WithMany(i => i.IncluyeAtracciones)

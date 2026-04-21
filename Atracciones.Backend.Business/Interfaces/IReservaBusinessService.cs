@@ -10,7 +10,7 @@ namespace Atracciones.Backend.Business.Interfaces
 {
     public interface IReservaBusinessService
     {
-        /*Task<ReservaResponse> GetByIdAsync(int id);*/
+        Task<ReservaResponse> GetByIdAsync(int id);
 
         Task<PagedResponse<ReservaResponse>> GetByClienteAsync(
             int clienteId,

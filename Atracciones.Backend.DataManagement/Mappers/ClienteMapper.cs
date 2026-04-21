@@ -23,7 +23,8 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Correo = entity.CliCorreo,
                 Nombres = entity.CliNombres,
                 Apellidos = entity.CliApellidos,
-                Telefono = entity.CliTelefono
+                Telefono = entity.CliTelefono,
+                Direccion = entity.CliDireccion
             };
         }
 
@@ -37,6 +38,11 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 CliCorreo = model.Correo,
                 CliNombres = model.Nombres,
                 CliApellidos = model.Apellidos,
+                CliTelefono = model.Telefono,
+                CliDireccion = model.Direccion,
+                CliFechaIngreso = DateTime.UtcNow,
+                CliUsuarioIngreso = "System",
+                CliIpIngreso = "127.0.0.1",
                 CliEstado = "ACT"
             };
         }
@@ -47,6 +53,8 @@ namespace Atracciones.Backend.DataManagement.Mappers
             entity.CliCorreo = model.Correo;
             entity.CliNombres = model.Nombres;
             entity.CliApellidos = model.Apellidos;
+            entity.CliDireccion = model.Direccion;
+            entity.CliTelefono = model.Telefono;
         }
     }
 }

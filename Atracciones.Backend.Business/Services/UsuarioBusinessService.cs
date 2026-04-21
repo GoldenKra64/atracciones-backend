@@ -1,10 +1,14 @@
-﻿using Atracciones.Backend.Business.DTOs.Usuario;
+﻿using Atracciones.Backend.Business.Common;
+using Atracciones.Backend.Business.DTOs;
+using Atracciones.Backend.Business.DTOs.Usuario;
+using Atracciones.Backend.Business.Exceptions;
 using Atracciones.Backend.Business.Interfaces;
 using Atracciones.Backend.Business.Mappers;
 using Atracciones.Backend.DataManagement.Interfaces;
-using Microservicio.Clientes.Business.Exceptions;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +18,12 @@ namespace Atracciones.Backend.Business.Services
     public class UsuarioBusinessService : IUsuarioBusinessService
     {
         private readonly IUsuarioDataService _dataService;
+        private readonly JwtSettings _jwtSettings;
 
-        public UsuarioBusinessService(IUsuarioDataService dataService)
+        public UsuarioBusinessService(IUsuarioDataService dataService, IOptions<JwtSettings> jwtOptions)
         {
             _dataService = dataService;
+            _jwtSettings = jwtOptions.Value;
         }
 
         public async Task<UsuarioResponse> GetByIdAsync(int id)
@@ -40,14 +46,24 @@ namespace Atracciones.Backend.Business.Services
             await _dataService.UpdateAsync(model);
         }
 
-        public async Task<UsuarioResponse> LoginAsync(LoginRequest request)
+        public async Task<LoginResponse> LoginAsync(LoginRequest request)
         {
             var data = await _dataService.LoginAsync(request.Login, request.Password);
 
             if (data == null)
                 throw new UnauthorizedBusinessException("Credenciales inválidas");
 
-            return UsuarioBusinessMapper.ToResponse(data);
+            var token = GenerateJwt.GenerateJwtToken(_jwtSettings, data.Login, data.Roles);
+
+            return new LoginResponse
+            {
+                Success = true,
+                Message = "Login exitoso",
+                Token = token.Token,
+                Expiration = token.Expiration,
+                Username = data.Login,
+                Roles = data.Roles
+            };
         }
 
         public async Task ChangePasswordAsync(ChangePasswordRequest request)

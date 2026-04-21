@@ -35,7 +35,10 @@ namespace Atracciones.Backend.DataManagement.Services
                 DesNombre = model.Nombre,
                 DesPais = model.Pais,
                 DesImagenUrl = model.ImagenUrl,
-                DesEstado = "ACT"
+                DesEstado = "ACT",
+                DesFechaIngreso = DateTime.UtcNow,
+                DesUsuarioIngreso = "system",
+                DesIpIngreso = "127.0.0.1"
             };
 
             await _uow.DestinoRepository.CreateAsync(entity);

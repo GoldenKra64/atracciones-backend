@@ -17,9 +17,9 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Id = entity.TicId,
                 Guid = entity.TicGuid,
                 Estado = entity.TicEstado,
-                Nombre = entity.TicNombre,
+                Nombre = entity.TicTitulo,
                 Precio = entity.TicPrecio,
-                Stock = entity.TicStock,
+                Stock = entity.TicCuposDisponibles,
                 AtraccionId = entity.AtId
             };
         }
@@ -29,17 +29,17 @@ namespace Atracciones.Backend.DataManagement.Mappers
             return new Ticket
             {
                 AtId = model.AtraccionId,
-                TicNombre = model.Nombre,
+                TicTitulo = model.Nombre,
                 TicPrecio = model.Precio,
-                TicStock = model.Stock,
+                TicCuposDisponibles = model.Stock,
                 TicEstado = "ACT"
             };
         }
         public static void UpdateEntity(Ticket entity, TicketUpdateModel model)
         {
-            entity.TicNombre = model.Nombre;
+            entity.TicTitulo = model.Nombre;
             entity.TicPrecio = model.Precio;
-            entity.TicStock = model.Stock;
+            entity.TicCuposDisponibles = model.Stock;
         }
     }
 }

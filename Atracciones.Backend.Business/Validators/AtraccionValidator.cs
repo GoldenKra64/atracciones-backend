@@ -1,5 +1,5 @@
 ﻿using Atracciones.Backend.Business.DTOs.Atracciones;
-using Microservicio.Clientes.Business.Exceptions;
+using Atracciones.Backend.Business.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

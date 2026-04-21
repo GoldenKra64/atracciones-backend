@@ -119,7 +119,7 @@ namespace Atracciones.Backend.DataAccess.Queries
             if (filter.IdiomaIds != null && filter.IdiomaIds.Any())
             {
                 query = query.Where(x =>
-                    x.IdiomaAtracciones.Any(ia => filter.IdiomaIds.Contains(ia.IdiId)));
+                    x.IdiomaAtracciones.Any(ia => filter.IdiomaIds.Contains(ia.IdId)));
             }
 
             // 💰 Precio

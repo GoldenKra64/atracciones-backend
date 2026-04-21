@@ -18,7 +18,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 AtraccionId = entity.AtId,
                 Calificacion = entity.ResenaCalificacion,
                 Comentario = entity.ResenaComentario,
-                Fecha = entity.ResenaFecha
+                Fecha = entity.ResenaFechaCreacion
             };
         }
 
@@ -30,7 +30,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 AtId = model.AtraccionId,
                 ResenaCalificacion = model.Calificacion,
                 ResenaComentario = model.Comentario,
-                ResenaFecha = DateTime.UtcNow,
+                ResenaFechaCreacion = DateTime.UtcNow,
                 ResenaEstado = "ACT"
             };
         }

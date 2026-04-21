@@ -25,7 +25,10 @@ namespace Atracciones.Backend.DataManagement.Services
                 AtId = model.AtraccionId,
                 ImgUrl = model.Url,
                 ImgDescripcion = model.Descripcion,
-                ImgEstado = "ACT"
+                ImgEstado = "ACT",
+                ImgFechaIngreso = DateTime.UtcNow,
+                ImgIpIngreso = "127.0.1",
+                ImgUsuarioIngreso = "system" // Solo es para pruebas
             };
 
             await _uow.ImagenRepository.CreateAsync(entity);

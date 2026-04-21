@@ -13,19 +13,67 @@ namespace Atracciones.Backend.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Resena> builder)
         {
-            builder.ToTable("RESENA");
+            builder.ToTable("RESENIA");
 
-            builder.HasKey(x => x.ResenaId);
+            // 🔑 PK
+            builder.HasKey(e => e.ResenaId);
 
-            builder.Property(x => x.ResenaCalificacion)
-                .IsRequired();
+            // 🔗 Columnas
+            builder.Property(e => e.ResenaId).HasColumnName("rsn_id");
+            builder.Property(e => e.ResenaGuid).HasColumnName("rsn_guid");
 
-            builder.Property(x => x.ResenaComentario)
-                .HasMaxLength(1000);
+            builder.Property(e => e.AtId).HasColumnName("at_id");
+            builder.Property(e => e.RevId).HasColumnName("rev_id");
+            builder.Property(e => e.CliId).HasColumnName("cli_id");
 
-            builder.HasOne(x => x.Cliente)
-                .WithMany()
-                .HasForeignKey(x => x.CliId);
+            builder.Property(e => e.ResenaComentario)
+                   .HasColumnName("rsn_comentario")
+                   .HasMaxLength(1000);
+
+            builder.Property(e => e.ResenaCalificacion)
+                   .HasColumnName("rsn_rating");
+
+            builder.Property(e => e.ResenaFechaCreacion)
+                   .HasColumnName("rsn_fecha_creacion");
+
+            builder.Property(e => e.ResenaUsuarioCreacion)
+                   .HasColumnName("rsn_usuario_creacion")
+                   .HasMaxLength(100);
+
+            builder.Property(e => e.ResenaIpCreacion)
+                   .HasColumnName("rsn_ip_creacion")
+                   .HasMaxLength(45);
+
+            builder.Property(e => e.ResenaFechaMod)
+                   .HasColumnName("rsn_fecha_mod");
+
+            builder.Property(e => e.ResenaUsuarioMod)
+                   .HasColumnName("rsn_usuario_mod")
+                   .HasMaxLength(100);
+
+            builder.Property(e => e.ResenaIpMod)
+                   .HasColumnName("rsn_ip_mod")
+                   .HasMaxLength(45);
+
+            builder.Property(e => e.ResenaFechaEliminacion)
+                   .HasColumnName("rsn_fecha_eliminacion");
+
+            builder.Property(e => e.ResenaUsuarioEliminacion)
+                   .HasColumnName("rsn_usuario_eliminacion")
+                   .HasMaxLength(100);
+
+            builder.Property(e => e.ResenaIpEliminacion)
+                   .HasColumnName("rsn_ip_eliminacion")
+                   .HasMaxLength(45);
+
+            builder.Property(e => e.ResenaEstado)
+                   .HasColumnName("rsn_estado")
+                   .HasMaxLength(3);
+
+            builder.HasOne(e => e.Reserva)
+           .WithMany(r => r.Resenas)
+           .HasForeignKey(e => e.RevId)
+           .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Atraccion)
                 .WithMany()

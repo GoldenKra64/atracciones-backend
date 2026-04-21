@@ -26,9 +26,10 @@ namespace Atracciones.Backend.Business.Mappers
 
                 DatosFacturacion = new DatosFacturacionModel
                 {
-                    RazonSocial = request.DatosFacturacion.RazonSocial,
-                    Ruc = request.DatosFacturacion.Ruc,
-                    Direccion = request.DatosFacturacion.Direccion
+                    Nombres = request.DatosFacturacion.Nombres,
+                    Apellidos = request.DatosFacturacion.Apellidos,
+                    Correo = request.DatosFacturacion.Correo,
+                    Telefono = request.DatosFacturacion.Telefono
                 }
             };
         }

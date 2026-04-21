@@ -13,9 +13,12 @@ namespace Atracciones.Backend.DataAccess.Entities
 
         public int AtId { get; set; }
 
-        public string TicNombre { get; set; } = null!;
+        public string TicTitulo { get; set; } = null!;
         public decimal TicPrecio { get; set; }
-        public int TicStock { get; set; }
+
+        public string TicTipoParticipante { get; set; } = null!;
+        public int TicCapacidadMaxima { get; set; }
+        public int TicCuposDisponibles { get; set; }
 
         public DateTime TicFechaIngreso { get; set; }
         public string TicUsuarioIngreso { get; set; } = null!;

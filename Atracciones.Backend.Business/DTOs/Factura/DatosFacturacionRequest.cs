@@ -8,8 +8,9 @@ namespace Atracciones.Backend.Business.DTOs.Factura
 {
     public class DatosFacturacionRequest
     {
-        public string RazonSocial { get; set; } = null!;
-        public string Ruc { get; set; } = null!;
-        public string? Direccion { get; set; }
+        public string Nombres { get; set; } = null!;
+        public string Apellidos { get; set; } = null!;
+        public string Telefono { get; set; } = null!;
+        public string Correo { get; set; } = null!;
     }
 }

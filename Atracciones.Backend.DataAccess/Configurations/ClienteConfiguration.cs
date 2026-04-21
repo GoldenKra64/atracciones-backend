@@ -13,9 +13,35 @@ namespace Atracciones.Backend.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Cliente> builder)
         {
-            builder.ToTable("CLIENTE");
+            builder.ToTable("CLIENTES");
 
             builder.HasKey(x => x.CliId);
+
+            builder.Property(e => e.CliId).HasColumnName("cli_id");
+            builder.Property(e => e.CliGuid).HasColumnName("cli_guid");
+
+            builder.Property(e => e.UsuId).HasColumnName("usu_id");
+
+            builder.Property(e => e.CliTipoIdentificacion).HasColumnName("cli_tipo_identificacion");
+            builder.Property(e => e.CliNumeroIdentificacion).HasColumnName("cli_numero_identificacion");
+
+            builder.Property(e => e.CliNombres).HasColumnName("cli_nombres");
+            builder.Property(e => e.CliApellidos).HasColumnName("cli_apellidos");
+
+            builder.Property(e => e.CliCorreo).HasColumnName("cli_correo");
+            builder.Property(e => e.CliTelefono).HasColumnName("cli_telefono");
+            builder.Property(e => e.CliDireccion).HasColumnName("cli_direccion");
+
+            builder.Property(e => e.CliFechaIngreso).HasColumnName("cli_fecha_ingreso");
+            builder.Property(e => e.CliUsuarioIngreso).HasColumnName("cli_usuario_ingreso");
+            builder.Property(e => e.CliIpIngreso).HasColumnName("cli_ip_ingreso");
+
+            builder.Property(e => e.CliFechaEliminacion).HasColumnName("cli_fecha_eliminacion");
+            builder.Property(e => e.CliUsuarioEliminacion).HasColumnName("cli_usuario_eliminacion");
+            builder.Property(e => e.CliIpEliminacion).HasColumnName("cli_ip_eliminacion");
+
+            builder.Property(e => e.CliEstado).HasColumnName("cli_estado");
+
 
             builder.Property(x => x.CliTipoIdentificacion)
                 .IsRequired()
@@ -38,10 +64,6 @@ namespace Atracciones.Backend.DataAccess.Configurations
             builder.Property(x => x.CliEstado)
                 .IsRequired()
                 .HasMaxLength(20);
-
-            // 🔥 RowVersion (concurrencia)
-            builder.Property(x => x.CliRowVersion)
-                .IsRowVersion();
 
             // 🔥 Relación Usuario
             builder.HasOne(x => x.Usuario)

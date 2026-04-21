@@ -14,9 +14,10 @@ namespace Atracciones.Backend.Business.Mappers
         {
             return new DatosFacturacionModel
             {
-                RazonSocial = request.RazonSocial,
-                Ruc = request.Ruc,
-                Direccion = request.Direccion
+                Nombres = request.Nombres,
+                Apellidos = request.Apellidos,
+                Telefono = request.Telefono,
+                Correo = request.Correo
             };
         }
 
@@ -24,8 +25,10 @@ namespace Atracciones.Backend.Business.Mappers
         {
             return new DatosFacturacionResponse
             {
-                RazonSocial = model.RazonSocial,
-                Ruc = model.Ruc
+                Nombres = model.Nombres,
+                Apellidos = model.Apellidos,
+                Telefono = model.Telefono,
+                Correo = model.Correo
             };
         }
     }

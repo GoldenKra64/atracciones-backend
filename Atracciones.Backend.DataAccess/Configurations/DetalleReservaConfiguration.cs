@@ -13,15 +13,23 @@ namespace Atracciones.Backend.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<DetalleReserva> builder)
         {
-            builder.ToTable("DETALLE_RESERVA");
+            builder.ToTable("RESERVA_DETALLE");
 
-            builder.HasKey(x => x.DetResId);
+            // 🔑 PK
+            builder.HasKey(e => e.DetResId);
 
-            builder.Property(x => x.DetPrecioUnitario)
-                .HasColumnType("decimal(10,2)");
+            // 🔗 Columnas
+            builder.Property(e => e.DetResId).HasColumnName("rdet_id");
+            builder.Property(e => e.DetResGuid).HasColumnName("rdet_guid");
 
-            builder.Property(x => x.DetSubtotal)
-                .HasColumnType("decimal(10,2)");
+            builder.Property(e => e.ResId).HasColumnName("rev_id");
+            builder.Property(e => e.TicId).HasColumnName("tck_id");
+
+            builder.Property(e => e.DetTitulo).HasColumnName("rdet_titulo");
+
+            builder.Property(e => e.DetCantidad).HasColumnName("rdet_cantidad");
+            builder.Property(e => e.DetPrecioUnitario).HasColumnName("rdet_precio_unit");
+            builder.Property(e => e.DetSubtotal).HasColumnName("rdet_subtotal");
 
             builder.HasOne(x => x.Reserva)
                 .WithMany(r => r.Detalles)

@@ -13,8 +13,6 @@ namespace Atracciones.Backend.DataAccess.Entities
         public int UsuId { get; set; }
         public int RolId { get; set; }
 
-        public string UsuRolEstado { get; set; } = null!;
-
         // Navegación
         public Usuario Usuario { get; set; } = null!;
         public Rol Rol { get; set; } = null!;

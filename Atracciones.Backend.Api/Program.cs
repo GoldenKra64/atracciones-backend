@@ -1,25 +1,48 @@
+﻿using Atracciones.Backend.Api.Extensions;
+using Atracciones.Backend.Api.Middleware;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ===============================
+// EXTENSIONS (CONFIGURACIÓN)
+// ===============================
+builder.Services.AddApiVersioningExtension();
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddCorsExtension();
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddSwaggerExtension();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
+// ===============================
+// BUILD
+// ===============================
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// ===============================
+// MIDDLEWARE
+// ===============================
 
-app.UseHttpsRedirection();
+// Manejo global de errores (primero)
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+// Swagger
+app.UseSwaggerExtension();
+app.UseSwagger();
+app.UseSwaggerUI();
+
+// CORS
+app.UseCorsExtension();
+
+// Seguridad
+app.UseAuthentication();
 app.UseAuthorization();
 
+// ===============================
+// ENDPOINTS
+// ===============================
 app.MapControllers();
 
 app.Run();

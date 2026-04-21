@@ -12,3 +12,4 @@
 *.user
 *.http
 /Atracciones.Backend.Business/bin/Debug/net8.0
+/Atracciones.Backend.Api/bin/Debug/net8.0

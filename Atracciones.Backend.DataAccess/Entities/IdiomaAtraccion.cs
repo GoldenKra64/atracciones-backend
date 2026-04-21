@@ -8,7 +8,7 @@ namespace Atracciones.Backend.DataAccess.Entities
 {
     public class IdiomaAtraccion
     {
-        public int IdiId { get; set; }
+        public int IdId { get; set; }
         public int AtId { get; set; }
 
         public Idioma Idioma { get; set; } = null!;

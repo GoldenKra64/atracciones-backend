@@ -20,7 +20,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Estado = entity.ResEstado,
 
                 ClienteId = entity.CliId,
-                FechaReserva = entity.ResFechaReserva,
+                FechaReserva = entity.ResFechaReservaUtc,
                 Total = entity.ResTotal,
 
                 Detalles = entity.Detalles?
@@ -43,7 +43,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
             return new Reserva
             {
                 CliId = model.ClienteId,
-                ResFechaReserva = DateTime.UtcNow,
+                ResFechaReservaUtc = DateTime.UtcNow,
                 ResEstado = "ACT",
 
                 Detalles = model.Detalles.Select(d => new DetalleReserva

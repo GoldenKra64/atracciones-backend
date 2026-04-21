@@ -22,9 +22,9 @@ namespace Atracciones.Backend.DataAccess.Queries
         public async Task<List<Resena>> GetByAtraccionAsync(int atraccionId)
         {
             return await _context.Resenas
-                .Include(r => r.Cliente)
+                .Include(r => r.Atraccion)
                 .Where(r => r.AtId == atraccionId)
-                .OrderByDescending(r => r.ResenaFecha)
+                .OrderByDescending(r => r.ResenaFechaCreacion)
                 .ToListAsync();
         }
     }

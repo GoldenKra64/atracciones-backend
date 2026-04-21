@@ -11,18 +11,30 @@ namespace Atracciones.Backend.DataAccess.Entities
         public int ResenaId { get; set; }
         public Guid ResenaGuid { get; set; }
 
-        public int CliId { get; set; }
         public int AtId { get; set; }
+        public int CliId { get; set; }
+        public int? RevId { get; set; }
 
         public int ResenaCalificacion { get; set; }
         public string? ResenaComentario { get; set; }
 
-        public DateTime ResenaFecha { get; set; }
+        public DateTime ResenaFechaCreacion { get; set; }
+        public string ResenaUsuarioCreacion { get; set; } = null!;
+        public string ResenaIpCreacion { get; set; } = null!;
+
+        public DateTime? ResenaFechaMod { get; set; }
+        public string? ResenaUsuarioMod { get; set; }
+        public string? ResenaIpMod { get; set; }
+
+        public DateTime? ResenaFechaEliminacion { get; set; }
+        public string? ResenaUsuarioEliminacion { get; set; }
+        public string? ResenaIpEliminacion { get; set; }
 
         public string ResenaEstado { get; set; } = null!;
 
         // Navegación
-        public Cliente Cliente { get; set; } = null!;
         public Atraccion Atraccion { get; set; } = null!;
+        public Reserva? Reserva { get; set; }
+        public Cliente Cliente { get; set; } = null!;
     }
 }

@@ -43,9 +43,9 @@ namespace Atracciones.Backend.DataManagement.Mappers
         {
             return new IdiomaModel
             {
-                Id = entity.IdiId,
-                Nombre = entity.IdiNombre,
-                Codigo = entity.IdiCodigo
+                Id = entity.IdId,
+                Nombre = entity.IdNombre,
+                Codigo = entity.IdCodigo.ToString()
             };
         }
 

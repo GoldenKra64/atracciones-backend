@@ -1,5 +1,5 @@
 ﻿using Atracciones.Backend.Business.DTOs.Factura;
-using Microservicio.Clientes.Business.Exceptions;
+using Atracciones.Backend.Business.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +14,14 @@ namespace Atracciones.Backend.Business.Validators
         {
             var errors = new Dictionary<string, string[]>();
 
-            if (string.IsNullOrWhiteSpace(request.RazonSocial))
-                errors["RazonSocial"] = new[] { "Obligatorio" };
+            if (string.IsNullOrWhiteSpace(request.Apellidos) || string.IsNullOrWhiteSpace(request.Nombres))
+                errors["Nombres"] = new[] { "Obligatorio" };
 
-            if (string.IsNullOrWhiteSpace(request.Ruc))
-                errors["Ruc"] = new[] { "Obligatorio" };
+            if (string.IsNullOrWhiteSpace(request.Telefono))
+                errors["Telefono"] = new[] { "Obligatorio" };
 
-            if (request.Ruc?.Length < 10)
-                errors["Ruc"] = new[] { "RUC inválido" };
+            if (string.IsNullOrWhiteSpace(request.Correo))
+                errors["Correo"] = new[] { "Obligatorio" };
 
             if (errors.Any())
                 throw new ValidationException(errors);

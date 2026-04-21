@@ -14,7 +14,9 @@ namespace Atracciones.Backend.DataManagement.Models.Cliente
         public string NumeroIdentificacion { get; set; } = null!;
         public string Correo { get; set; } = null!;
 
-        public string? Nombres { get; set; }
-        public string? Apellidos { get; set; }
+        public string Nombres { get; set; }
+        public string Apellidos { get; set; }
+        public string Telefono { get; set; } = null!;
+        public string Direccion { get; set; } = null!;
     }
 }

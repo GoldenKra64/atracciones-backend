@@ -15,18 +15,80 @@ namespace Atracciones.Backend.DataAccess.Configurations
         {
             builder.ToTable("TICKET");
 
-            builder.HasKey(x => x.TicId);
+            // 🔑 PK
+            builder.HasKey(e => e.TicId);
 
-            builder.Property(x => x.TicNombre)
-                .IsRequired()
-                .HasMaxLength(100);
+            // 🔗 Columnas
+            builder.Property(e => e.TicId).HasColumnName("tck_id");
+            builder.Property(e => e.TicGuid).HasColumnName("tck_guid");
 
-            builder.Property(x => x.TicPrecio)
-                .HasColumnType("decimal(10,2)");
+            builder.Property(e => e.AtId).HasColumnName("at_id");
 
-            builder.HasOne(x => x.Atraccion)
-                .WithMany()
-                .HasForeignKey(x => x.AtId);
+            builder.Property(e => e.TicTitulo)
+                   .HasColumnName("tck_titulo")
+                   .HasMaxLength(150);
+
+            builder.Property(e => e.TicPrecio)
+                   .HasColumnName("tck_precio");
+
+            builder.Property(e => e.TicTipoParticipante)
+                   .HasColumnName("tck_tipo_participante")
+                   .HasMaxLength(30);
+
+            builder.Property(e => e.TicCapacidadMaxima)
+                   .HasColumnName("tck_capacidad_maxima");
+
+            builder.Property(e => e.TicCuposDisponibles)
+                   .HasColumnName("tck_cupos_disponibles");
+
+            builder.Property(e => e.TicFechaIngreso)
+                   .HasColumnName("tck_fecha_ingreso");
+
+            builder.Property(e => e.TicUsuarioIngreso)
+                   .HasColumnName("tck_usuario_ingreso")
+                   .HasMaxLength(100);
+
+            builder.Property(e => e.TicIpIngreso)
+                   .HasColumnName("tck_ip_ingreso")
+                   .HasMaxLength(45);
+
+            builder.Property(e => e.TicFechaMod)
+                   .HasColumnName("tck_fecha_mod");
+
+            builder.Property(e => e.TicUsuarioMod)
+                   .HasColumnName("tck_usuario_mod")
+                   .HasMaxLength(100);
+
+            builder.Property(e => e.TicIpMod)
+                   .HasColumnName("tck_ip_mod")
+                   .HasMaxLength(45);
+
+            builder.Property(e => e.TicFechaEliminacion)
+                   .HasColumnName("tck_fecha_eliminacion");
+
+            builder.Property(e => e.TicUsuarioEliminacion)
+                   .HasColumnName("tck_usuario_eliminacion")
+                   .HasMaxLength(100);
+
+            builder.Property(e => e.TicIpEliminacion)
+                   .HasColumnName("tck_ip_eliminacion")
+                   .HasMaxLength(45);
+
+            builder.Property(e => e.TicEstado)
+                   .HasColumnName("tck_estado")
+                   .HasMaxLength(3);
+
+            // 🔗 Relación con Atraccion
+            builder.HasOne(e => e.Atraccion)
+                   .WithMany(a => a.Tickets)
+                   .HasForeignKey(e => e.AtId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            // 🔗 Relación con DetalleReserva
+            builder.HasMany(e => e.DetallesReserva)
+                   .WithOne(d => d.Ticket)
+                   .HasForeignKey(d => d.TicId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

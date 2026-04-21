@@ -32,7 +32,7 @@ namespace Atracciones.Backend.DataAccess.Queries
             var total = await query.CountAsync();
 
             var items = await query
-                .OrderByDescending(x => x.ResFechaReserva)
+                .OrderByDescending(x => x.ResFechaReservaUtc)
                 .Skip((page - 1) * size)
                 .Take(size)
                 .ToListAsync();

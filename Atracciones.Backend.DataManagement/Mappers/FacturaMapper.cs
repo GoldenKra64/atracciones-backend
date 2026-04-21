@@ -27,9 +27,10 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 DatosFacturacion = entity.DatosFacturacion != null
                     ? new DatosFacturacionModel
                     {
-                        RazonSocial = entity.DatosFacturacion.DfRazonSocial,
-                        Ruc = entity.DatosFacturacion.DfRuc,
-                        Direccion = entity.DatosFacturacion.DfDireccion
+                        Nombres = entity.DatosFacturacion.DfNombre,
+                        Apellidos = entity.DatosFacturacion.DfApellido,
+                        Correo = entity.DatosFacturacion.DfCorreo,
+                        Telefono = entity.DatosFacturacion.DfTelefono
                     }
                     : null!
             };

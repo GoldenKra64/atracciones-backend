@@ -8,17 +8,22 @@ namespace Atracciones.Backend.DataAccess.Entities
 {
     public class LogAuditoria
     {
-        public int LogId { get; set; }
+        public long LogId { get; set; }
+        public Guid LogGuid { get; set; }
 
         public string LogTabla { get; set; } = null!;
-        public string LogAccion { get; set; } = null!;
+        public string LogOperacion { get; set; } = null!;
 
-        public string? LogValoresAntes { get; set; }
-        public string? LogValoresDespues { get; set; }
+        public int? LogRegistroId { get; set; }
+        public Guid? LogRegistroGuid { get; set; }
 
+        public string? LogDatosAnteriores { get; set; }
+        public string? LogDatosNuevos { get; set; }
+
+        public DateTime LogFechaUtc { get; set; }
         public string LogUsuario { get; set; } = null!;
-        public DateTime LogFecha { get; set; }
-
         public string LogIp { get; set; } = null!;
+
+        public string? LogOrigenCanal { get; set; }
     }
 }

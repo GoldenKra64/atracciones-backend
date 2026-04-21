@@ -15,15 +15,17 @@ namespace Atracciones.Backend.DataAccess.Configurations
         {
             builder.ToTable("DATOS_FACTURACION");
 
-            builder.HasKey(x => x.DfId);
+            builder.HasKey(e => e.DfId);
 
-            builder.Property(x => x.DfRazonSocial)
-                .IsRequired()
-                .HasMaxLength(200);
+            builder.Property(e => e.DfId).HasColumnName("dfac_id");
+            builder.Property(e => e.DfGuid).HasColumnName("dfac_guid");
 
-            builder.Property(x => x.DfRuc)
-                .IsRequired()
-                .HasMaxLength(20);
+            builder.Property(e => e.FacId).HasColumnName("fac_id");
+
+            builder.Property(e => e.DfNombre).HasColumnName("dfac_nombre");
+            builder.Property(e => e.DfApellido).HasColumnName("dfac_apellido");
+            builder.Property(e => e.DfCorreo).HasColumnName("dfac_correo");
+            builder.Property(e => e.DfTelefono).HasColumnName("dfac_telefono");
 
             // 🔥 1:1 con Factura
             builder.HasOne(x => x.Factura)

@@ -15,11 +15,11 @@ namespace Atracciones.Backend.DataAccess.Configurations
         {
             builder.ToTable("IDIOMA_ATRACCION");
 
-            builder.HasKey(x => new { x.IdiId, x.AtId });
+            builder.HasKey(x => new { x.IdId, x.AtId });
 
             builder.HasOne(x => x.Idioma)
                 .WithMany(i => i.IdiomaAtracciones)
-                .HasForeignKey(x => x.IdiId);
+                .HasForeignKey(x => x.IdId);
 
             builder.HasOne(x => x.Atraccion)
                 .WithMany()

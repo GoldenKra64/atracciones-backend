@@ -28,7 +28,10 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 UsuLogin = entity.Login,
                 UsuPasswordHash = entity.Password,
                 UsuarioRoles = entity.RolIds.Select(rolId => new UsuarioRol { RolId = rolId }).ToList(),
-                UsuEstado = "ACT",
+                UsuFechaRegistro = DateTime.UtcNow,
+                UsuUsuarioRegistro = "SYSTEM",
+                UsuIpRegistro = "127.0.0.1",
+                UsuEstado = "ACT"
             };
         }
         public static void UpdateEntity(Usuario entity, UsuarioUpdateModel model)

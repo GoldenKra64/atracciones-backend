@@ -13,17 +13,48 @@ namespace Atracciones.Backend.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Rol> builder)
         {
-            builder.ToTable("ROL");
+            builder.ToTable("ROLES");
 
             builder.HasKey(x => x.RolId);
 
-            builder.Property(x => x.RolDescripcion)
-                .IsRequired()
-                .HasMaxLength(100);
+            // 🔗 Columnas
+            builder.Property(e => e.RolId).HasColumnName("rol_id");
+            builder.Property(e => e.RolGuid).HasColumnName("rol_guid");
 
-            builder.Property(x => x.RolEstado)
-                .IsRequired()
-                .HasMaxLength(20);
+            builder.Property(e => e.RolDescripcion)
+                   .HasColumnName("rol_descripcion")
+                   .HasMaxLength(80);
+
+            builder.Property(e => e.RolFechaIngreso)
+                   .HasColumnName("rol_fecha_ingreso");
+
+            builder.Property(e => e.RolUsuarioIngreso)
+                   .HasColumnName("rol_usuario_ingreso")
+                   .HasMaxLength(100);
+
+            builder.Property(e => e.RolIpIngreso)
+                   .HasColumnName("rol_ip_ingreso")
+                   .HasMaxLength(45);
+
+            builder.Property(e => e.RolFechaEliminacion)
+                   .HasColumnName("rol_fecha_eliminacion");
+
+            builder.Property(e => e.RolUsuarioEliminacion)
+                   .HasColumnName("rol_usuario_eliminacion")
+                   .HasMaxLength(100);
+
+            builder.Property(e => e.RolIpEliminacion)
+                   .HasColumnName("rol_ip_eliminacion")
+                   .HasMaxLength(45);
+
+            builder.Property(e => e.RolEstado)
+                   .HasColumnName("rol_estado")
+                   .HasMaxLength(3);
+
+            builder.HasMany(e => e.UsuarioRoles)
+                   .WithOne(ur => ur.Rol)
+                   .HasForeignKey(ur => ur.RolId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

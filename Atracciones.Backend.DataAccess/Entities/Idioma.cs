@@ -8,12 +8,11 @@ namespace Atracciones.Backend.DataAccess.Entities
 {
     public class Idioma
     {
-        public int IdiId { get; set; }
+        public int IdId { get; set; }
+        public string IdNombre { get; set; } = null!;
+        public Guid IdCodigo { get; set; }
 
-        public string IdiNombre { get; set; } = null!;
-        public string IdiCodigo { get; set; } = null!;
-
-        public string IdiEstado { get; set; } = null!;
+        public string IdEstado { get; set; } = null!;
 
         public ICollection<IdiomaAtraccion> IdiomaAtracciones { get; set; } = new List<IdiomaAtraccion>();
     }

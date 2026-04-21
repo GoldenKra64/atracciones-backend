@@ -12,17 +12,19 @@ namespace Atracciones.Backend.DataAccess.Entities
         public Guid FacGuid { get; set; }
 
         public int RevId { get; set; }
-        public int CliId{ get; set; }
 
-        public string FacNumero { get; set; }
+        public string FacNumero { get; set; } = null!;
         public DateTime FacFechaEmision { get; set; }
-        public string FacObservacion{ get; set; }
-        public string FacOrigenCanal{ get; set; }
-        public string? FacMotivoInhabilitacion { get; set; }
-        public string FacEstado { get; set; }
+        public decimal FacTotal { get; set; }
+
+        public string? FacObservacion { get; set; }
+        public string? FacOrigenCanal { get; set; }
+
+        public string FacEstado { get; set; } = null!;
 
         public string? FacUsuarioIngreso { get; set; }
         public string? FacIpIngreso { get; set; }
+
         public DateTime? FacFechaMod { get; set; }
         public string? FacUsuarioMod { get; set; }
         public string? FacIpMod { get; set; }
@@ -32,9 +34,7 @@ namespace Atracciones.Backend.DataAccess.Entities
         public string? FacIpEliminacion { get; set; }
 
         // Relaciones
-        public Cliente Cliente { get; set; } = new Cliente();
-        public Reserva Reserva { get; set; } = new Reserva();
-
-        public DatosFacturacion DatosFacturacion { get; set; } = new DatosFacturacion();
+        public Reserva Reserva { get; set; } = null!;
+        public DatosFacturacion DatosFacturacion { get; set; } = null!;
     }
 }

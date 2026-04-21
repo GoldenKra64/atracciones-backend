@@ -11,24 +11,36 @@ namespace Atracciones.Backend.DataAccess.Entities
         public int ResId { get; set; }
         public Guid ResGuid { get; set; }
 
+        public string ResCodigo { get; set; } = null!;
+
         public int CliId { get; set; }
 
-        public DateTime ResFechaReserva { get; set; }
+        public DateTime ResFechaReservaUtc { get; set; }
+
+        public decimal ResSubtotal { get; set; }
+        public decimal ResValorIva { get; set; }
         public decimal ResTotal { get; set; }
 
-        public string ResEstado { get; set; } = null!;
+        public string? ResOrigenCanal { get; set; }
 
-        public DateTime ResFechaIngreso { get; set; }
         public string ResUsuarioIngreso { get; set; } = null!;
         public string ResIpIngreso { get; set; } = null!;
 
-        public DateTime? ResFechaEliminacion { get; set; }
-        public string? ResUsuarioEliminacion { get; set; }
-        public string? ResIpEliminacion { get; set; }
+        public DateTime? ResFechaMod { get; set; }
+        public string? ResUsuarioMod { get; set; }
+        public string? ResIpMod { get; set; }
+
+        public DateTime? ResFechaCancelacion { get; set; }
+        public string? ResUsuarioCancelacion { get; set; }
+        public string? ResIpCancelacion { get; set; }
+        public string? ResMotivoCancelacion { get; set; }
+
+        public string ResEstado { get; set; } = null!;
 
         // Relaciones
         public Cliente Cliente { get; set; } = null!;
         public ICollection<DetalleReserva> Detalles { get; set; } = new List<DetalleReserva>();
-        public Factura? Factura { get; set; } = new Factura();
+        public ICollection<Resena> Resenas { get; set; } = new List<Resena>();
+        public Factura? Factura { get; set; }
     }
 }

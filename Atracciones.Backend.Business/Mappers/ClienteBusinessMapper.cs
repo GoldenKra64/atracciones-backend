@@ -17,7 +17,11 @@ namespace Atracciones.Backend.Business.Mappers
                 UsuarioId = request.UsuarioId,
                 TipoIdentificacion = request.TipoIdentificacion,
                 NumeroIdentificacion = request.NumeroIdentificacion,
-                Correo = request.Correo
+                Correo = request.Correo,
+                Nombres = request.Nombres,
+                Apellidos = request.Apellidos ?? string.Empty,
+                Telefono = request.Telefono ?? string.Empty,
+                Direccion = request.Direccion ?? string.Empty
             };
         }
 
@@ -26,7 +30,11 @@ namespace Atracciones.Backend.Business.Mappers
             return new ClienteUpdateModel
             {
                 Id = request.Id,
-                Correo = request.Correo
+                Correo = request.Correo,
+                Nombres = request.Nombres,
+                Apellidos = request.Apellidos ?? string.Empty,
+                Telefono = request.Telefono ?? string.Empty,
+                Direccion = request.Direccion ?? string.Empty
             };
         }
 
@@ -38,7 +46,10 @@ namespace Atracciones.Backend.Business.Mappers
                 Guid = model.Guid,
                 NumeroIdentificacion = model.NumeroIdentificacion,
                 Correo = model.Correo,
-                Nombres = model.Nombres
+                Nombres = model.Nombres,
+                Apellidos = model.Apellidos,
+                Telefono = model.Telefono,
+                Direccion = model.Direccion
             };
         }
     }

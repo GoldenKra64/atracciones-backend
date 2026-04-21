@@ -13,21 +13,51 @@ namespace Atracciones.Backend.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<LogAuditoria> builder)
         {
-            builder.ToTable("LOG_AUDITORIA");
+            builder.ToTable("AUDITORIA_LOG");
 
-            builder.HasKey(x => x.LogId);
+            builder.HasKey(e => e.LogId);
 
-            builder.Property(x => x.LogTabla)
-                .IsRequired()
-                .HasMaxLength(100);
+            builder.Property(e => e.LogId).HasColumnName("log_id");
+            builder.Property(e => e.LogGuid).HasColumnName("log_guid");
 
-            builder.Property(x => x.LogAccion)
-                .IsRequired()
-                .HasMaxLength(20);
+            builder.Property(e => e.LogTabla)
+                   .HasColumnName("log_tabla")
+                   .HasMaxLength(100)
+                   .IsRequired();
 
-            builder.Property(x => x.LogUsuario)
-                .IsRequired()
-                .HasMaxLength(50);
+            builder.Property(e => e.LogOperacion)
+                   .HasColumnName("log_operacion")
+                   .HasMaxLength(20)
+                   .IsRequired();
+
+            builder.Property(e => e.LogRegistroId)
+                   .HasColumnName("log_registro_id");
+
+            builder.Property(e => e.LogRegistroGuid)
+                   .HasColumnName("log_registro_guid");
+
+            builder.Property(e => e.LogDatosAnteriores)
+                   .HasColumnName("log_datos_anteriores");
+
+            builder.Property(e => e.LogDatosNuevos)
+                   .HasColumnName("log_datos_nuevos");
+
+            builder.Property(e => e.LogFechaUtc)
+                   .HasColumnName("log_fecha_utc");
+
+            builder.Property(e => e.LogUsuario)
+                   .HasColumnName("log_usuario")
+                   .HasMaxLength(100)
+                   .IsRequired();
+
+            builder.Property(e => e.LogIp)
+                   .HasColumnName("log_ip")
+                   .HasMaxLength(45)
+                   .IsRequired();
+
+            builder.Property(e => e.LogOrigenCanal)
+                   .HasColumnName("log_origen_canal")
+                   .HasMaxLength(200);
         }
     }
 }

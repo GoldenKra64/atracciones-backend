@@ -2,7 +2,7 @@
 using Atracciones.Backend.Business.Interfaces;
 using Atracciones.Backend.Business.Mappers;
 using Atracciones.Backend.DataManagement.Interfaces;
-using Microservicio.Clientes.Business.Exceptions;
+using Atracciones.Backend.Business.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,5 @@
 ﻿using Atracciones.Backend.Business.DTOs.Reserva;
-using Microservicio.Clientes.Business.Exceptions;
+using Atracciones.Backend.Business.Exceptions;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;

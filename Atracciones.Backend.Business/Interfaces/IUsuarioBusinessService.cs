@@ -15,7 +15,7 @@ namespace Atracciones.Backend.Business.Interfaces
 
         Task UpdateAsync(UpdateUsuarioRequest request);
 
-        Task<UsuarioResponse> LoginAsync(LoginRequest request);
+        Task<LoginResponse> LoginAsync(LoginRequest request);
 
         Task ChangePasswordAsync(ChangePasswordRequest request);
 

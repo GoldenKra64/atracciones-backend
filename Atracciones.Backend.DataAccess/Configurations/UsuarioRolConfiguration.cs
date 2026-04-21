@@ -13,21 +13,27 @@ namespace Atracciones.Backend.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<UsuarioRol> builder)
         {
-            builder.ToTable("USUARIO_ROL");
+            builder.ToTable("USUARIOXROLES");
 
-            builder.HasKey(x => x.UsuRolId);
+            // 🔑 PK
+            builder.HasKey(e => e.UsuRolId);
 
-            builder.Property(x => x.UsuRolEstado)
-                .IsRequired()
-                .HasMaxLength(20);
+            builder.Property(e => e.UsuRolId).HasColumnName("usu_rol_id");
 
-            builder.HasOne(x => x.Usuario)
-                .WithMany(u => u.UsuarioRoles)
-                .HasForeignKey(x => x.UsuId);
+            builder.Property(e => e.UsuId).HasColumnName("usu_id");
+            builder.Property(e => e.RolId).HasColumnName("rol_id");
 
-            builder.HasOne(x => x.Rol)
-                .WithMany(r => r.UsuarioRoles)
-                .HasForeignKey(x => x.RolId);
+            // 🔗 Relación con Usuario
+            builder.HasOne(e => e.Usuario)
+                   .WithMany(u => u.UsuarioRoles)
+                   .HasForeignKey(e => e.UsuId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            // 🔗 Relación con Rol
+            builder.HasOne(e => e.Rol)
+                   .WithMany(r => r.UsuarioRoles)
+                   .HasForeignKey(e => e.RolId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
