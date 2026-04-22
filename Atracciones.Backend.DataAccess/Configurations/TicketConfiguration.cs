@@ -85,7 +85,13 @@ namespace Atracciones.Backend.DataAccess.Configurations
                    .OnDelete(DeleteBehavior.Restrict);
 
             // 🔗 Relación con DetalleReserva
-            builder.HasMany(e => e.DetallesReserva)
+            builder.HasMany(e => e.DetalleReserva)
+                   .WithOne(d => d.Ticket)
+                   .HasForeignKey(d => d.TicId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            // 🔗 Relación con Horario
+            builder.HasMany(e => e.Horarios)
                    .WithOne(d => d.Ticket)
                    .HasForeignKey(d => d.TicId)
                    .OnDelete(DeleteBehavior.Restrict);

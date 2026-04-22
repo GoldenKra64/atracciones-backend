@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class Rol
     {
         public int RolId { get; set; }
-        public Guid RolGuid { get; set; }
+        public string RolGuid { get; set; }
 
         public string RolDescripcion { get; set; } = null!;
 

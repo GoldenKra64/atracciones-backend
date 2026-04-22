@@ -63,7 +63,7 @@ namespace Atracciones.Backend.DataAccess.Configurations
 
             builder.Property(x => x.CliEstado)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(3);
 
             // 🔥 Relación Usuario
             builder.HasOne(x => x.Usuario)

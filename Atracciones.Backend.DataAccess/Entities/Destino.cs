@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class Destino
     {
         public int DesId { get; set; }
-        public Guid DesGuid { get; set; }
+        public string DesGuid { get; set; }
 
         public string DesNombre { get; set; } = null!;
         public string DesPais { get; set; } = null!;

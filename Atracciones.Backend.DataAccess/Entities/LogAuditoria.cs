@@ -9,13 +9,13 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class LogAuditoria
     {
         public long LogId { get; set; }
-        public Guid LogGuid { get; set; }
+        public string LogGuid { get; set; }
 
         public string LogTabla { get; set; } = null!;
         public string LogOperacion { get; set; } = null!;
 
         public int? LogRegistroId { get; set; }
-        public Guid? LogRegistroGuid { get; set; }
+        public string? LogRegistroGuid { get; set; }
 
         public string? LogDatosAnteriores { get; set; }
         public string? LogDatosNuevos { get; set; }

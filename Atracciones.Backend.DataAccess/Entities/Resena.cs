@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class Resena
     {
         public int ResenaId { get; set; }
-        public Guid ResenaGuid { get; set; }
+        public string ResenaGuid { get; set; }
 
         public int AtId { get; set; }
         public int CliId { get; set; }

@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class DatosFacturacion
     {
         public int DfId { get; set; }
-        public Guid DfGuid { get; set; }
+        public string DfGuid { get; set; }
 
         public int FacId { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using Atracciones.Backend.Api.Models.Common;
 using Atracciones.Backend.Business.DTOs.Destino;
+using Atracciones.Backend.Business.DTOs.Horario;
 using Atracciones.Backend.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

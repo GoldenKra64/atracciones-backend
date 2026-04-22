@@ -30,6 +30,8 @@ namespace Atracciones.Backend.Business.Mappers
             return new ClienteUpdateModel
             {
                 Id = request.Id,
+                TipoIdentificacion = request.TipoIdentificacion,
+                NumeroIdentificacion = request.NumeroIdentificacion,
                 Correo = request.Correo,
                 Nombres = request.Nombres,
                 Apellidos = request.Apellidos ?? string.Empty,

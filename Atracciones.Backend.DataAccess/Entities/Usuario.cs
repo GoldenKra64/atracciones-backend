@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class Usuario
     {
         public int UsuId { get; set; }
-        public Guid UsuGuid { get; set; }
+        public string UsuGuid { get; set; }
 
         public string UsuLogin { get; set; } = null!;
         public string UsuPasswordHash { get; set; } = null!;

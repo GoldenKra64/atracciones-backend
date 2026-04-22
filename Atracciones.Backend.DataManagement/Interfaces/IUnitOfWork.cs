@@ -21,6 +21,7 @@ namespace Atracciones.Backend.DataManagement.Interfaces
         IIncluyeRepository IncluyeRepository { get; }
         IFacturaRepository FacturaRepository { get; }
         IDatosFacturacionRepository DatosFacturacionRepository { get; }
+        IHorarioRepository HorarioRepository { get; }
 
         Task<int> SaveChangesAsync();
 

@@ -1,4 +1,5 @@
 ﻿using Atracciones.Backend.Business.DTOs.Destino;
+using Atracciones.Backend.Business.DTOs.Horario;
 using Atracciones.Backend.Business.Exceptions;
 using System;
 using System.Collections.Generic;

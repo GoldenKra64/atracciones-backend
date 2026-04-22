@@ -24,7 +24,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
         {
             return new Usuario
             {
-                UsuGuid = Guid.NewGuid(),
+                UsuGuid = Guid.NewGuid().ToString(),
                 UsuLogin = entity.Login,
                 UsuPasswordHash = entity.Password,
                 UsuarioRoles = entity.RolIds.Select(rolId => new UsuarioRol { RolId = rolId }).ToList(),

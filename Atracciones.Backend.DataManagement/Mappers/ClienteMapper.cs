@@ -33,6 +33,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
             return new Cliente
             {
                 UsuId = model.UsuarioId,
+                CliGuid = Guid.NewGuid().ToString(),
                 CliTipoIdentificacion = model.TipoIdentificacion,
                 CliNumeroIdentificacion = model.NumeroIdentificacion,
                 CliCorreo = model.Correo,

@@ -1,4 +1,5 @@
 ﻿using Atracciones.Backend.Business.DTOs.Destino;
+using Atracciones.Backend.Business.DTOs.Horario;
 using System;
 using System.Collections.Generic;
 using System.Linq;

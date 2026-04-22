@@ -8,7 +8,7 @@ namespace Atracciones.Backend.DataManagement.Models.Cliente
 {
     public class ClienteCreateModel
     {
-        public int UsuarioId { get; set; }
+        public int? UsuarioId { get; set; }
 
         public string TipoIdentificacion { get; set; } = null!;
         public string NumeroIdentificacion { get; set; } = null!;

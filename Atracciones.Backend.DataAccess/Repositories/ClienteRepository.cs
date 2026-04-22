@@ -16,7 +16,9 @@ namespace Atracciones.Backend.DataAccess.Repositories
 
         public async Task<IEnumerable<Cliente>> GetAllAsync()
         {
-            return await _context.Clientes.ToListAsync();
+            return await _context.Clientes
+                .Where(c => c.CliEstado == "ACT")
+                .ToListAsync();
         }
     }
 }

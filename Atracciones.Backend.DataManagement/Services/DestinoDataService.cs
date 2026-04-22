@@ -32,6 +32,7 @@ namespace Atracciones.Backend.DataManagement.Services
         {
             var entity = new Destino
             {
+                DesGuid = Guid.NewGuid().ToString(),
                 DesNombre = model.Nombre,
                 DesPais = model.Pais,
                 DesImagenUrl = model.ImagenUrl,

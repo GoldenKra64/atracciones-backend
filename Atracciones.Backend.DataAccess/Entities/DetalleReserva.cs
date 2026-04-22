@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class DetalleReserva
     {
         public int DetResId { get; set; }
-        public Guid DetResGuid { get; set; }
+        public string DetResGuid { get; set; }
 
         public int ResId { get; set; }
         public int TicId { get; set; }

@@ -34,6 +34,7 @@ namespace Atracciones.Backend.DataAccess.Context
         public DbSet<CategoriaAtraccion> CategoriaAtracciones => Set<CategoriaAtraccion>();
 
         public DbSet<Ticket> Tickets => Set<Ticket>();
+        public DbSet<Horario> Horarios => Set<Horario>();
         public DbSet<Reserva> Reservas => Set<Reserva>();
         public DbSet<DetalleReserva> DetallesReserva => Set<DetalleReserva>();
 

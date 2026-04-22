@@ -14,9 +14,11 @@ namespace Atracciones.Backend.DataAccess.Repositories
     {
         public IncluyeRepository(AtraccionesDbContext context) : base(context) { }
 
-        public async Task<List<Incluye?>> GetAllAsync()
+        public async Task<List<Incluye>> GetAllAsync()
         {
-            return await _context.Incluyes.ToListAsync();
+            return await _context.Incluyes
+                .Where(i => i.IncEstado == "ACT")
+                .ToListAsync();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class Atraccion
     {
         public int AtId { get; set; }
-        public Guid AtGuid { get; set; }
+        public string AtGuid { get; set; }
 
         public int DesId { get; set; }
 

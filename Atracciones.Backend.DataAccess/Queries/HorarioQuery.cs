@@ -1,0 +1,29 @@
+﻿using Atracciones.Backend.DataAccess.Context;
+using Atracciones.Backend.DataAccess.Entities;
+using Atracciones.Backend.DataAccess.Queries.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Atracciones.Backend.DataAccess.Queries
+{
+    public class HorarioQuery : IHorarioQuery
+    {
+        private readonly AtraccionesDbContext _context;
+
+        public HorarioQuery(AtraccionesDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<Horario>> GetAllAsync()
+        {
+            return await _context.Horarios
+                .OrderBy(x => x.HorId)
+                .ToListAsync();
+        }
+    }
+}

@@ -22,8 +22,8 @@ namespace Atracciones.Backend.Api.Extensions
             // DB CONTEXT
             // ===============================
             services.AddDbContext<AtraccionesDbContext>(options =>
-                options.UseSqlServer(
-                    configuration.GetConnectionString("AtraccionesDb")));
+                options.UseNpgsql(
+                    configuration.GetConnectionString("AtraccionesDbPG")));
 
             // ===============================
             // DATA SERVICES
@@ -40,6 +40,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IResenaDataService, ResenaDataService>();
             services.AddScoped<IReservaDataService, ReservaDataService>();
             services.AddScoped<ITicketDataService, TicketDataService>();
+            services.AddScoped<IHorarioDataService, HorarioDataService>();
 
             // ===============================
             // QUERIES
@@ -52,6 +53,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IResenaQuery, ResenaQuery>();
             services.AddScoped<IReservaQuery, ReservaQuery>();
             services.AddScoped<ITicketQuery, TicketQuery>();
+            services.AddScoped<IHorarioQuery, HorarioQuery>();
 
             // ===============================
             // REPOSITORIES
@@ -69,6 +71,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IRepository<Idioma>, IdiomaRepository>();
             services.AddScoped<IReservaRepository, ReservaRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<IHorarioRepository, HorarioRepository>();
 
             // ===============================
             // UNIT OF WORK
@@ -96,6 +99,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IResenaBusinessService, ResenaBusinessService>();
             services.AddScoped<IReservaBusinessService, ReservaBusinessService>();
             services.AddScoped<ITicketBusinessService, TicketBusinessService>();
+            services.AddScoped<IHorarioBusinessService, HorarioBusinessService>();
 
 
             return services;

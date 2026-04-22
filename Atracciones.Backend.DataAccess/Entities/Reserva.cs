@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class Reserva
     {
         public int ResId { get; set; }
-        public Guid ResGuid { get; set; }
+        public string ResGuid { get; set; }
 
         public string ResCodigo { get; set; } = null!;
 

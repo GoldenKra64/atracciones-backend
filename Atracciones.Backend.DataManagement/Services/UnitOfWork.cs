@@ -27,6 +27,7 @@ namespace Atracciones.Backend.DataManagement.Services
         public IFacturaRepository FacturaRepository { get; }
         public IDatosFacturacionRepository DatosFacturacionRepository { get; }
         public IResenaRepository ResenaRepository { get; }
+        public IHorarioRepository HorarioRepository { get; }
 
         public UnitOfWork(
             AtraccionesDbContext context,
@@ -41,7 +42,8 @@ namespace Atracciones.Backend.DataManagement.Services
             IIncluyeRepository incluyeRepository,
             IFacturaRepository facturaRepository,
             IDatosFacturacionRepository datosFacturacionRepository,
-            IResenaRepository resenaRepository
+            IResenaRepository resenaRepository,
+            IHorarioRepository horarioRepository
         )
         {
             _context = context;
@@ -58,6 +60,7 @@ namespace Atracciones.Backend.DataManagement.Services
             FacturaRepository = facturaRepository;
             DatosFacturacionRepository = datosFacturacionRepository;
             ResenaRepository = resenaRepository;
+            HorarioRepository = horarioRepository;
         }
 
         public async Task<int> SaveChangesAsync()

@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class Categoria
     {
         public int CatId { get; set; }
-        public Guid CatGuid { get; set; }
+        public string CatGuid { get; set; }
 
         public int? CatParentId { get; set; }
         public string CatNombre { get; set; } = null!;

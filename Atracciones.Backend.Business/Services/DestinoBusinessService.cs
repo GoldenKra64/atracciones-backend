@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atracciones.Backend.Business.DTOs.Horario;
 
 namespace Atracciones.Backend.Business.Services
 {

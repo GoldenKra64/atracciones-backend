@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class Imagen
     {
         public int ImgId { get; set; }
-        public Guid ImgGuid { get; set; }
+        public string ImgGuid { get; set; }
 
         public string ImgUrl { get; set; } = null!;
         public string? ImgDescripcion { get; set; }

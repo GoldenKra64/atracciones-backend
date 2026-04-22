@@ -36,7 +36,7 @@ namespace Atracciones.Backend.DataAccess.Configurations
                 .HasForeignKey(x => x.ResId);
 
             builder.HasOne(x => x.Ticket)
-                .WithMany(t => t.DetallesReserva)
+                .WithMany(t => t.DetalleReserva)
                 .HasForeignKey(x => x.TicId);
         }
     }

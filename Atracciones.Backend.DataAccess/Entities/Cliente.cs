@@ -9,9 +9,9 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class Cliente
     {
         public int CliId { get; set; }
-        public Guid CliGuid { get; set; }
+        public string CliGuid { get; set; }
 
-        public int UsuId { get; set; }
+        public int? UsuId { get; set; }
 
         public string CliTipoIdentificacion { get; set; } = null!;
         public string CliNumeroIdentificacion { get; set; } = null!;

@@ -8,7 +8,7 @@ namespace Atracciones.Backend.Business.DTOs.Cliente
 {
     public class CreateClienteRequest
     {
-        public int UsuarioId { get; set; }
+        public int? UsuarioId { get; set; }
 
         public string TipoIdentificacion { get; set; } = null!;
         public string NumeroIdentificacion { get; set; } = null!;

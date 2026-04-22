@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataManagement.Models
     public class BaseModel
     {
         public int Id { get; set; }
-        public Guid Guid { get; set; }
+        public string Guid { get; set; }
         public string Estado { get; set; } = null!;
     }
 }
