@@ -41,6 +41,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IReservaDataService, ReservaDataService>();
             services.AddScoped<ITicketDataService, TicketDataService>();
             services.AddScoped<IHorarioDataService, HorarioDataService>();
+            services.AddScoped<ITagDataService, TagDataService>();
 
             // ===============================
             // QUERIES
@@ -54,6 +55,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IReservaQuery, ReservaQuery>();
             services.AddScoped<ITicketQuery, TicketQuery>();
             services.AddScoped<IHorarioQuery, HorarioQuery>();
+            services.AddScoped<ITagQuery, TagQuery>();
 
             // ===============================
             // REPOSITORIES
@@ -72,6 +74,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IReservaRepository, ReservaRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IHorarioRepository, HorarioRepository>();
+            // services.AddScoped<ITagRepository, TagRepository>();
 
             // ===============================
             // UNIT OF WORK
@@ -100,6 +103,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IReservaBusinessService, ReservaBusinessService>();
             services.AddScoped<ITicketBusinessService, TicketBusinessService>();
             services.AddScoped<IHorarioBusinessService, HorarioBusinessService>();
+            services.AddScoped<ITagBusinessService, TagBusinessService>();
 
 
             return services;

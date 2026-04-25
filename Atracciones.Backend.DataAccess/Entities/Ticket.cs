@@ -12,7 +12,7 @@ namespace Atracciones.Backend.DataAccess.Entities
     {
         public int TicId { get; set; }
         public string TicGuid { get; set; }
-        public int AtId { get; set; }
+        public int HorId { get; set; }
         public string TicTitulo { get; set; }
         public decimal TicPrecio { get; set; }
         public string TicTipoParticipante { get; set; }
@@ -36,8 +36,7 @@ namespace Atracciones.Backend.DataAccess.Entities
         public string TicEstado { get; set; }
 
         // 🔗 Relación con Horario
-        public ICollection<Horario> Horarios { get; set; } = new List<Horario>();
+        public Horario Horario { get; set; }
         public ICollection<DetalleReserva> DetalleReserva { get; set; } = new List<DetalleReserva>();
-        public Atraccion Atraccion { get; set; }
     }
 }

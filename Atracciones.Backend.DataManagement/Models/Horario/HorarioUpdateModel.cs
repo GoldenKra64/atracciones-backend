@@ -10,7 +10,7 @@ namespace Atracciones.Backend.DataManagement.Models.Horario
     public class HorarioUpdateModel
     {
         public int Id { get; set; }
-        public int TicketId { get; set; }
+        public int AtraccionId { get; set; }
         public string Fecha { get; set; }           // "yyyy-MM-dd"
         public string HoraInicio { get; set; }      // "HH:mm"
         public string? HoraFin { get; set; }        // "HH:mm"

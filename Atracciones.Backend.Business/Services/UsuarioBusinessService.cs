@@ -17,12 +17,14 @@ namespace Atracciones.Backend.Business.Services
     public class UsuarioBusinessService : IUsuarioBusinessService
     {
         private readonly IUsuarioDataService _dataService;
+        private readonly IClienteDataService _clienteDataService;
         private readonly JwtSettings _jwtSettings;
 
-        public UsuarioBusinessService(IUsuarioDataService dataService, IOptions<JwtSettings> jwtOptions)
+        public UsuarioBusinessService(IUsuarioDataService dataService, IOptions<JwtSettings> jwtOptions, IClienteDataService clienteDataService)
         {
             _dataService = dataService;
             _jwtSettings = jwtOptions.Value;
+            _clienteDataService = clienteDataService;
         }
 
         public async Task<UsuarioResponse> GetByIdAsync(int id)
@@ -36,7 +38,15 @@ namespace Atracciones.Backend.Business.Services
         public async Task<int> CreateAsync(CreateUsuarioRequest request)
         {
             var model = UsuarioBusinessMapper.ToCreateModel(request);
-            return await _dataService.CreateAsync(model);
+            var cliente = ClienteBusinessMapper.ToCreateModel(request.Cliente);
+
+            var id = await _dataService.CreateAsync(model);
+
+            cliente.UsuarioId = id;
+
+            await _clienteDataService.CreateAsync(cliente);
+
+            return id;
         }
 
         public async Task UpdateAsync(UpdateUsuarioRequest request)

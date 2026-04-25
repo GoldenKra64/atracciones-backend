@@ -8,7 +8,7 @@ namespace Atracciones.Backend.DataManagement.Models.Ticket
 {
     public class TicketCreateModel
     {
-        public int AtraccionId { get; set; }
+        public int HorarioId { get; set; }
 
         public string Nombre { get; set; } = null!;
         public decimal Precio { get; set; }

@@ -17,6 +17,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
         {
             return new HorarioModel
             {
+                AtraccionId = entity.AtId,
                 Fecha = entity.HorFecha.ToString("yyyy-MM-dd"),
                 HoraInicio = entity.HorHoraInicio.ToString("HH:mm"),
                 HoraFin = entity.HorHoraFin?.ToString("HH:mm"),
@@ -38,11 +39,13 @@ namespace Atracciones.Backend.DataManagement.Mappers
                     : TimeSpan.ParseExact(model.HoraFin, @"hh\:mm", CultureInfo.InvariantCulture),
 
                 HorCuposDisponibles = model.Cupos,
+
+                AtId = model.AtraccionId
             };
         }
         public static void UpdateEntity(Horario entity, HorarioUpdateModel model)
         {
-            entity.TicId = model.TicketId;
+            entity.AtId = model.AtraccionId;
             entity.HorFecha = DateTime.ParseExact(model.Fecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             entity.HorHoraInicio = TimeSpan.ParseExact(model.HoraInicio, @"hh\:mm", CultureInfo.InvariantCulture);
             entity.HorHoraFin = string.IsNullOrEmpty(model.HoraFin)

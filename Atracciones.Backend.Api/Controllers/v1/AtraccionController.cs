@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using Atracciones.Backend.Api.Models.Common;
 using Atracciones.Backend.Business.DTOs;
+using Atracciones.Backend.Business.DTOs.Atraccion;
 using Atracciones.Backend.Business.DTOs.Atracciones;
 using Atracciones.Backend.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -26,15 +27,11 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<AtraccionResponse>.Ok(data));
         }
 
-        [HttpGet("paged")]
+        [HttpGet()]
         public async Task<IActionResult> GetPaged(
-            int page = 1,
-            int size = 10,
-            string? search = null,
-            int? destinoId = null,
-            int? categoriaId = null)
+            [FromQuery] FiltroDto? filtro)
         {
-            var data = await _service.GetPagedAsync(page, size, search, destinoId, categoriaId);
+            var data = await _service.GetPagedAsync(filtro);
             return Ok(ApiResponse<PagedResponse<AtraccionResponse>>.Ok(data));
         }
 
@@ -52,7 +49,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<string>.Ok("OK"));
         }
 
-        [HttpDelete("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _service.LogicalDeleteAsync(id);

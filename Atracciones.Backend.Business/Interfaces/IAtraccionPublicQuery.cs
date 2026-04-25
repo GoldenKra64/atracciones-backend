@@ -10,8 +10,10 @@ namespace Atracciones.Backend.Business.Interfaces
 {
     public interface IAtraccionPublicQuery
     {
+        /*
         Task<PagedResult<AtraccionListadoDto>> GetListadoAsync(FiltroDto filtro);
         Task<AtraccionDetalleDto?> GetDetalleAsync(Guid guid);
         // Task<FiltrosDto> GetFiltrosAsync(string ciudad);
+        */
     }
 }

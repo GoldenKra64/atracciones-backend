@@ -58,7 +58,7 @@ namespace Atracciones.Backend.Business.DTOs.Atraccion
         public List<TicketDto> Tickets { get; set; } = new();
 
         // 📦 Disponibilidad (CRÍTICO)
-        public DisponibilidadDto Disponibilidad { get; set; }
+        // public DisponibilidadDto Disponibilidad { get; set; }
 
         // 🔗 HATEOAS
         public LinksDto Links { get; set; }

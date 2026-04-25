@@ -22,7 +22,7 @@ namespace Atracciones.Backend.DataAccess.Configurations
             builder.Property(e => e.TicId).HasColumnName("tck_id");
             builder.Property(e => e.TicGuid).HasColumnName("tck_guid");
 
-            builder.Property(e => e.AtId).HasColumnName("at_id");
+            builder.Property(e => e.HorId).HasColumnName("hor_id");
 
             builder.Property(e => e.TicTitulo)
                    .HasColumnName("tck_titulo")
@@ -78,20 +78,14 @@ namespace Atracciones.Backend.DataAccess.Configurations
                    .HasColumnName("tck_estado")
                    .HasMaxLength(3);
 
-            // 🔗 Relación con Atraccion
-            builder.HasOne(e => e.Atraccion)
-                   .WithMany(a => a.Tickets)
-                   .HasForeignKey(e => e.AtId)
+            // 🔗 Relación con Horario
+            builder.HasOne(e => e.Horario)
+                   .WithMany(a => a.Ticket)
+                   .HasForeignKey(e => e.TicId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             // 🔗 Relación con DetalleReserva
             builder.HasMany(e => e.DetalleReserva)
-                   .WithOne(d => d.Ticket)
-                   .HasForeignKey(d => d.TicId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
-            // 🔗 Relación con Horario
-            builder.HasMany(e => e.Horarios)
                    .WithOne(d => d.Ticket)
                    .HasForeignKey(d => d.TicId)
                    .OnDelete(DeleteBehavior.Restrict);

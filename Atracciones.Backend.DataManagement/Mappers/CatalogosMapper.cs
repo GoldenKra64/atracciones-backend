@@ -44,8 +44,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
             return new IdiomaModel
             {
                 Id = entity.IdId,
-                Nombre = entity.IdNombre,
-                Codigo = entity.IdCodigo.ToString()
+                Nombre = entity.IdNombre
             };
         }
 
@@ -55,6 +54,15 @@ namespace Atracciones.Backend.DataManagement.Mappers
             {
                 Id = entity.IncId,
                 Descripcion = entity.IncDescripcion
+            };
+        }
+
+        public static TagModel ToModel(Tag entity)
+        {
+            return new TagModel
+            {
+                Id = entity.TagId,
+                Nombre = entity.TagDescription
             };
         }
         public static void UpdateEntity(Categoria entity, CategoriaUpdateModel model)

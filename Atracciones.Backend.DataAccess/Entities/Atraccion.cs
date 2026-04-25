@@ -19,15 +19,23 @@ namespace Atracciones.Backend.DataAccess.Entities
         public string? AtDescripcion { get; set; }
 
         public int AtTotalResenias { get; set; }
+        public int AtCalificacion { get; set; }
+        public int TotalIdiomas { get; set; }
         public string? AtDireccion { get; set; }
         public int? AtDuracionMinutos { get; set; }
         public string? AtPuntoEncuentro { get; set; }
+        public string? AtMoneda { get; set; }
 
         public decimal? AtPrecioReferencia { get; set; }
 
         public bool AtIncluyeAcompaniante { get; set; }
         public bool AtIncluyeTransporte { get; set; }
+
+        // Disponibilidad
         public bool AtDisponible { get; set; }
+        public bool AtDisponibleManana { get; set; }
+        public DateTime AtProximaFechaDisponible { get; set; }
+        public int AtCuposDisponibles { get; set; }
 
         public DateTime AtFechaIngreso { get; set; }
         public string AtUsuarioIngreso { get; set; } = null!;
@@ -48,8 +56,10 @@ namespace Atracciones.Backend.DataAccess.Entities
 
         public ICollection<Imagen> Imagenes { get; set; } = new List<Imagen>();
         public ICollection<CategoriaAtraccion> CategoriaAtracciones { get; set; } = new List<CategoriaAtraccion>();
-        public ICollection<IncluyeAtraccion> IncluyeAtracciones { get; set; } = new List<IncluyeAtraccion>();
-        public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+        public ICollection<IncluyeAtraccion>? IncluyeAtracciones { get; set; } = new List<IncluyeAtraccion>();
+        public ICollection<NoIncluyeAtraccion>? NoIncluyeAtracciones { get; set; } = new List<NoIncluyeAtraccion>();
+        public ICollection<Horario> Horario { get; set; } = new List<Horario>();
         public ICollection<IdiomaAtraccion> IdiomaAtracciones { get; set; } = new List<IdiomaAtraccion>();
+        public ICollection<TagAtraccion> TagAtracciones { get; set; } = new List<TagAtraccion>();
     }
 }

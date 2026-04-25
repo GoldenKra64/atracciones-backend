@@ -34,7 +34,7 @@ namespace Atracciones.Backend.DataManagement.Services
             var entity = new Horario
             {
                 HorGuid = Guid.NewGuid().ToString(),
-                TicId = model.TicketId,
+                AtId = model.AtraccionId,
                 HorFecha = model.Fecha,
                 HorHoraInicio = model.HoraInicio,
                 HorHoraFin = model.HoraFin,

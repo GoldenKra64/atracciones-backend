@@ -9,11 +9,11 @@ namespace Atracciones.Backend.Api.Controllers.v1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class UsuarioController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IUsuarioBusinessService _service;
 
-        public UsuarioController(IUsuarioBusinessService service)
+        public AuthController(IUsuarioBusinessService service)
         {
             _service = service;
         }

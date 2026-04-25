@@ -1,5 +1,6 @@
 ﻿using Atracciones.Backend.DataAccess.Entities;
 using Atracciones.Backend.DataManagement.Models.Atraccion;
+using Atracciones.Backend.DataManagement.Models.Horario;
 using Atracciones.Backend.DataManagement.Models.Imagen;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace Atracciones.Backend.DataManagement.Mappers
 
                 IncluyeAcompaniante = entity.AtIncluyeAcompaniante,
                 IncluyeTransporte = entity.AtIncluyeTransporte,
+                PuntoEncuentro = entity.AtPuntoEncuentro,
+                Moneda = entity.AtMoneda,
 
                 Destino = entity.Destino != null
                     ? CatalogosMapper.ToModel(entity.Destino)
@@ -49,23 +52,43 @@ namespace Atracciones.Backend.DataManagement.Mappers
                     .ToList() ?? new(),
 
                 Incluyes = entity.IncluyeAtracciones?
+                    .Where(ia => ia.Incluye != null)
                     .Select(ia => CatalogosMapper.ToModel(ia.Incluye))
-                    .ToList() ?? new()
+                    .ToList() ?? new(),
+
+                Horarios = entity.Horario?
+                    .Select(ia => new HorarioModel
+                    {
+                        AtraccionId = ia.AtId,
+                        Fecha = ia.HorFecha.ToString("yyyy-MM-dd"),
+                        HoraInicio = ia.HorHoraInicio.ToString(@"hh\:mm"),
+                        HoraFin = ia.HorHoraFin?.ToString(@"hh\:mm"),
+                        Cupos = ia.HorCuposDisponibles
+                    }).ToList() ?? new(),
             };
         }
 
         public static Atraccion ToEntity(AtraccionCreateModel model)
         {
-            return new Atraccion
+            var entity = new Atraccion
             {
                 DesId = model.DestinoId,
                 AtNombre = model.Nombre,
+                AtGuid = Guid.NewGuid().ToString(),
                 AtDescripcion = model.Descripcion,
                 AtPrecioReferencia = model.PrecioReferencia,
                 AtIncluyeAcompaniante = model.IncluyeAcompaniante,
                 AtIncluyeTransporte = model.IncluyeTransporte,
-                AtEstado = "ACT"
+                AtFechaIngreso = DateTime.UtcNow,
+                AtUsuarioIngreso = "system", // En un escenario real, esto debería ser el usuario autenticado
+                AtIpIngreso = "127.0.0.1", // En un escenario real, esto debería ser la IP del cliente
+                AtEstado = "ACT",
             };
+
+            entity.CategoriaAtracciones = (model.CategoriaIds ?? Enumerable.Empty<int>()).Select(cateId => new CategoriaAtraccion { CatId = cateId, Atraccion = entity }).ToList();
+            entity.IncluyeAtracciones = (model.IncluyeIds ?? Enumerable.Empty<int>()).Select(incId => new IncluyeAtraccion { IncId = incId, Atraccion = entity }).ToList();
+            entity.IdiomaAtracciones = (model.IdiomaIds ?? Enumerable.Empty<int>()).Select(idiId => new IdiomaAtraccion { IdId = idiId, Atraccion = entity }).ToList();
+            return entity;
         }
         public static void UpdateEntity(Atraccion entity, AtraccionUpdateModel model)
         {
@@ -76,6 +99,18 @@ namespace Atracciones.Backend.DataManagement.Mappers
 
             entity.AtIncluyeAcompaniante = model.IncluyeAcompaniante;
             entity.AtIncluyeTransporte = model.IncluyeTransporte;
+
+            entity.CategoriaAtracciones = (model.CategoriaIds ?? Enumerable.Empty<int>())
+                .Select(cateId => new CategoriaAtraccion { CatId = cateId, AtId = entity.AtId })
+                .ToList();
+
+            entity.IncluyeAtracciones = (model.IncluyeIds ?? Enumerable.Empty<int>())
+                .Select(incId => new IncluyeAtraccion { IncId = incId, AtId = entity.AtId })
+                .ToList();
+
+            entity.IdiomaAtracciones = (model.IdiomaIds ?? Enumerable.Empty<int>())
+                .Select(idiId => new IdiomaAtraccion { IdId = idiId, AtId = entity.AtId })
+                .ToList();
         }
     }
 }

@@ -17,6 +17,9 @@ namespace Atracciones.Backend.DataAccess.Configurations
 
             builder.HasKey(x => new { x.IdId, x.AtId });
 
+            builder.Property(e => e.IdId).HasColumnName("id_id");
+            builder.Property(e => e.AtId).HasColumnName("at_id");
+
             builder.HasOne(x => x.Idioma)
                 .WithMany(i => i.IdiomaAtracciones)
                 .HasForeignKey(x => x.IdId);

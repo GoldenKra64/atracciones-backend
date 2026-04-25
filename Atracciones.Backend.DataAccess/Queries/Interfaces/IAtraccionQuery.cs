@@ -14,12 +14,14 @@ namespace Atracciones.Backend.DataAccess.Queries.Interfaces
         Task<PagedResult<Atraccion>> GetPagedAsync(
             int pageNumber,
             int pageSize,
-            string? search,
-            int? destinoId,
-            int? categoriaId);
+            string? ciudad,
+            string? idioma,
+            string? ordenarPor,
+            decimal? calificacionMin,
+            string? horario,
+            string? tipo,
+            string? subTipo);
 
-        Task<Atraccion?> GetByIdAsync(int id);
-
-        Task<PagedResult<Atraccion>> SearchAsync(AtraccionFilterModel filter);
+        Task<Atraccion?> GetByIdAsync(string id); // Guid
     }
 }

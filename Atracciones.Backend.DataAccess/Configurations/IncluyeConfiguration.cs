@@ -20,9 +20,6 @@ namespace Atracciones.Backend.DataAccess.Configurations
             builder.Property(e => e.IncId)
            .HasColumnName("inc_id");
 
-            builder.Property(e => e.IncGuid)
-                   .HasColumnName("inc_guid");
-
             builder.Property(e => e.IncDescripcion)
                    .HasColumnName("inc_descripcion")
                    .HasMaxLength(200)

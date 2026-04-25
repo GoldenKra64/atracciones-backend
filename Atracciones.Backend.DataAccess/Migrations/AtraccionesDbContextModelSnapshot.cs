@@ -31,6 +31,14 @@ namespace Atracciones.Backend.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AtId"));
 
+                    b.Property<int>("AtCalificacion")
+                        .HasColumnType("integer")
+                        .HasColumnName("at_calificacion");
+
+                    b.Property<int>("AtCuposDisponibles")
+                        .HasColumnType("integer")
+                        .HasColumnName("at_cupos_disponibles");
+
                     b.Property<string>("AtDescripcion")
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)")
@@ -44,6 +52,10 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Property<bool>("AtDisponible")
                         .HasColumnType("boolean")
                         .HasColumnName("at_disponible");
+
+                    b.Property<bool>("AtDisponibleManana")
+                        .HasColumnType("boolean")
+                        .HasColumnName("at_disponible_manana");
 
                     b.Property<int?>("AtDuracionMinutos")
                         .HasColumnType("integer")
@@ -93,6 +105,9 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .HasColumnType("text")
                         .HasColumnName("at_ip_mod");
 
+                    b.Property<string>("AtMoneda")
+                        .HasColumnType("text");
+
                     b.Property<string>("AtNombre")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -106,6 +121,10 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Property<decimal?>("AtPrecioReferencia")
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("at_precio_referencia");
+
+                    b.Property<DateTime>("AtProximaFechaDisponible")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("at_proxima_fecha_disponible");
 
                     b.Property<string>("AtPuntoEncuentro")
                         .HasMaxLength(300)
@@ -132,6 +151,10 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Property<int>("DesId")
                         .HasColumnType("integer")
                         .HasColumnName("des_id");
+
+                    b.Property<int>("TotalIdiomas")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_idiomas");
 
                     b.HasKey("AtId");
 
@@ -224,29 +247,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Property<int>("AtId")
                         .HasColumnType("integer")
                         .HasColumnName("at_id");
-
-                    b.Property<string>("CaEstado")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("ca_estado");
-
-                    b.Property<DateTime?>("CaFechaEliminacion")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("ca_fecha_eliminacion");
-
-                    b.Property<DateTime>("CaFechaIngreso")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("ca_fecha_ingreso");
-
-                    b.Property<string>("CaUsuarioEliminacion")
-                        .HasColumnType("text")
-                        .HasColumnName("ca_usuario_eliminacion");
-
-                    b.Property<string>("CaUsuarioIngreso")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("ca_usuario_ingreso");
 
                     b.HasKey("CatId", "AtId");
 
@@ -612,6 +612,109 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.ToTable("FACTURAS", (string)null);
                 });
 
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Horario", b =>
+                {
+                    b.Property<int>("HorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("hor_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("HorId"));
+
+                    b.Property<int>("AtId")
+                        .HasColumnType("integer")
+                        .HasColumnName("at_id");
+
+                    b.Property<int>("HorCuposDisponibles")
+                        .HasColumnType("integer")
+                        .HasColumnName("hor_cupos_disponibles");
+
+                    b.Property<string>("HorEstado")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)")
+                        .HasColumnName("hor_estado");
+
+                    b.Property<DateTime>("HorFecha")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("hor_fecha");
+
+                    b.Property<DateTime?>("HorFechaEliminacion")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("hor_fecha_eliminacion");
+
+                    b.Property<DateTime>("HorFechaIngreso")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("hor_fecha_ingreso");
+
+                    b.Property<DateTime?>("HorFechaMod")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("hor_fecha_mod");
+
+                    b.Property<string>("HorGuid")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("hor_guid");
+
+                    b.Property<TimeSpan?>("HorHoraFin")
+                        .HasColumnType("interval")
+                        .HasColumnName("hor_hora_fin");
+
+                    b.Property<TimeSpan>("HorHoraInicio")
+                        .HasColumnType("interval")
+                        .HasColumnName("hor_hora_inicio");
+
+                    b.Property<string>("HorIpEliminacion")
+                        .HasMaxLength(45)
+                        .HasColumnType("character varying(45)")
+                        .HasColumnName("hor_ip_eliminacion");
+
+                    b.Property<string>("HorIpIngreso")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("character varying(45)")
+                        .HasColumnName("hor_ip_ingreso");
+
+                    b.Property<string>("HorIpMod")
+                        .HasMaxLength(45)
+                        .HasColumnType("character varying(45)")
+                        .HasColumnName("hor_ip_mod");
+
+                    b.Property<string>("HorUsuarioEliminacion")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("hor_usuario_eliminacion");
+
+                    b.Property<string>("HorUsuarioIngreso")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("hor_usuario_ingreso");
+
+                    b.Property<string>("HorUsuarioMod")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("hor_usuario_mod");
+
+                    b.Property<int>("TicId")
+                        .HasColumnType("integer")
+                        .HasColumnName("tck_id");
+
+                    b.HasKey("HorId");
+
+                    b.HasIndex("AtId");
+
+                    b.HasIndex("HorGuid")
+                        .IsUnique()
+                        .HasDatabaseName("UK_HORARIO_guid");
+
+                    b.HasIndex("TicId", "HorFecha", "HorHoraInicio")
+                        .IsUnique()
+                        .HasDatabaseName("UK_HORARIO_slot");
+
+                    b.ToTable("HORARIO", (string)null);
+                });
+
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Idioma", b =>
                 {
                     b.Property<int>("IdId")
@@ -621,12 +724,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdId"));
 
-                    b.Property<string>("IdCodigo")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
-                        .HasColumnName("id_guid");
-
                     b.Property<string>("IdEstado")
                         .IsRequired()
                         .HasColumnType("text")
@@ -634,8 +731,8 @@ namespace Atracciones.Backend.DataAccess.Migrations
 
                     b.Property<string>("IdNombre")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(2)
+                        .HasColumnType("character varying(2)")
                         .HasColumnName("id_descripcion");
 
                     b.HasKey("IdId");
@@ -646,10 +743,12 @@ namespace Atracciones.Backend.DataAccess.Migrations
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.IdiomaAtraccion", b =>
                 {
                     b.Property<int>("IdId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id_id");
 
                     b.Property<int>("AtId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("at_id");
 
                     b.Property<int?>("AtraccionAtId")
                         .HasColumnType("integer");
@@ -764,11 +863,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .HasColumnType("character varying(3)")
                         .HasColumnName("inc_estado");
 
-                    b.Property<string>("IncGuid")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("inc_guid");
-
                     b.HasKey("IncId");
 
                     b.ToTable("INCLUYE", (string)null);
@@ -783,28 +877,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Property<int>("AtId")
                         .HasColumnType("integer")
                         .HasColumnName("at_id");
-
-                    b.Property<string>("AiEstado")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("ai_estado");
-
-                    b.Property<DateTime?>("AiFechaEliminacion")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("ai_fecha_eliminacion");
-
-                    b.Property<DateTime>("AiFechaIngreso")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("ai_fecha_ingreso");
-
-                    b.Property<string>("AiUsuarioEliminacion")
-                        .HasColumnType("text")
-                        .HasColumnName("ai_usuario_eliminacion");
-
-                    b.Property<string>("AiUsuarioIngreso")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("ai_usuario_ingreso");
 
                     b.Property<int?>("AtraccionAtId")
                         .HasColumnType("integer");
@@ -1154,18 +1226,51 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.ToTable("ROLES", (string)null);
                 });
 
-            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Ticket", b =>
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Tag", b =>
                 {
-                    b.Property<int>("TicId")
+                    b.Property<int>("TagId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("tck_id");
+                        .HasColumnName("tag_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TicId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TagId"));
+
+                    b.Property<string>("TagDescription")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("tag_description");
+
+                    b.HasKey("TagId");
+
+                    b.ToTable("TAG", (string)null);
+                });
+
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.TagAtraccion", b =>
+                {
+                    b.Property<int>("TagId")
+                        .HasColumnType("integer")
+                        .HasColumnName("tag_id");
 
                     b.Property<int>("AtId")
                         .HasColumnType("integer")
                         .HasColumnName("at_id");
+
+                    b.HasKey("TagId", "AtId");
+
+                    b.HasIndex("AtId");
+
+                    b.ToTable("TAG_ATRACCION", (string)null);
+                });
+
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Ticket", b =>
+                {
+                    b.Property<int>("TicId")
+                        .HasColumnType("integer")
+                        .HasColumnName("tck_id");
+
+                    b.Property<int>("HorId")
+                        .HasColumnType("integer")
+                        .HasColumnName("hor_id");
 
                     b.Property<int>("TicCapacidadMaxima")
                         .HasColumnType("integer")
@@ -1247,8 +1352,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .HasColumnName("tck_usuario_mod");
 
                     b.HasKey("TicId");
-
-                    b.HasIndex("AtId");
 
                     b.ToTable("TICKET", (string)null);
                 });
@@ -1360,103 +1463,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.ToTable("USUARIOXROLES", (string)null);
                 });
 
-            modelBuilder.Entity("Horario", b =>
-                {
-                    b.Property<int>("HorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("hor_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("HorId"));
-
-                    b.Property<int>("HorCuposDisponibles")
-                        .HasColumnType("integer")
-                        .HasColumnName("hor_cupos_disponibles");
-
-                    b.Property<string>("HorEstado")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("character varying(3)")
-                        .HasColumnName("hor_estado");
-
-                    b.Property<DateTime>("HorFecha")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("hor_fecha");
-
-                    b.Property<DateTime?>("HorFechaEliminacion")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("hor_fecha_eliminacion");
-
-                    b.Property<DateTime>("HorFechaIngreso")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("hor_fecha_ingreso");
-
-                    b.Property<DateTime?>("HorFechaMod")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("hor_fecha_mod");
-
-                    b.Property<string>("HorGuid")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("hor_guid");
-
-                    b.Property<TimeSpan?>("HorHoraFin")
-                        .HasColumnType("interval")
-                        .HasColumnName("hor_hora_fin");
-
-                    b.Property<TimeSpan>("HorHoraInicio")
-                        .HasColumnType("interval")
-                        .HasColumnName("hor_hora_inicio");
-
-                    b.Property<string>("HorIpEliminacion")
-                        .HasMaxLength(45)
-                        .HasColumnType("character varying(45)")
-                        .HasColumnName("hor_ip_eliminacion");
-
-                    b.Property<string>("HorIpIngreso")
-                        .IsRequired()
-                        .HasMaxLength(45)
-                        .HasColumnType("character varying(45)")
-                        .HasColumnName("hor_ip_ingreso");
-
-                    b.Property<string>("HorIpMod")
-                        .HasMaxLength(45)
-                        .HasColumnType("character varying(45)")
-                        .HasColumnName("hor_ip_mod");
-
-                    b.Property<string>("HorUsuarioEliminacion")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("hor_usuario_eliminacion");
-
-                    b.Property<string>("HorUsuarioIngreso")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("hor_usuario_ingreso");
-
-                    b.Property<string>("HorUsuarioMod")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("hor_usuario_mod");
-
-                    b.Property<int>("TicId")
-                        .HasColumnType("integer")
-                        .HasColumnName("tck_id");
-
-                    b.HasKey("HorId");
-
-                    b.HasIndex("HorGuid")
-                        .IsUnique()
-                        .HasDatabaseName("UK_HORARIO_guid");
-
-                    b.HasIndex("TicId", "HorFecha", "HorHoraInicio")
-                        .IsUnique()
-                        .HasDatabaseName("UK_HORARIO_slot");
-
-                    b.ToTable("HORARIO", (string)null);
-                });
-
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Atraccion", b =>
                 {
                     b.HasOne("Atracciones.Backend.DataAccess.Entities.Destino", "Destino")
@@ -1546,6 +1552,17 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Reserva");
+                });
+
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Horario", b =>
+                {
+                    b.HasOne("Atracciones.Backend.DataAccess.Entities.Atraccion", "Atraccion")
+                        .WithMany("Horario")
+                        .HasForeignKey("AtId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Atraccion");
                 });
 
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.IdiomaAtraccion", b =>
@@ -1646,15 +1663,34 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Navigation("Cliente");
                 });
 
-            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Ticket", b =>
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.TagAtraccion", b =>
                 {
                     b.HasOne("Atracciones.Backend.DataAccess.Entities.Atraccion", "Atraccion")
-                        .WithMany("Tickets")
+                        .WithMany("TagAtracciones")
                         .HasForeignKey("AtId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Atracciones.Backend.DataAccess.Entities.Tag", "Tag")
+                        .WithMany("TagAtracciones")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Atraccion");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Ticket", b =>
+                {
+                    b.HasOne("Atracciones.Backend.DataAccess.Entities.Horario", "Horario")
+                        .WithMany("Ticket")
+                        .HasForeignKey("TicId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Horario");
                 });
 
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.UsuarioRol", b =>
@@ -1676,20 +1712,11 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("Horario", b =>
-                {
-                    b.HasOne("Atracciones.Backend.DataAccess.Entities.Ticket", "Ticket")
-                        .WithMany("Horarios")
-                        .HasForeignKey("TicId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Ticket");
-                });
-
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Atraccion", b =>
                 {
                     b.Navigation("CategoriaAtracciones");
+
+                    b.Navigation("Horario");
 
                     b.Navigation("IdiomaAtracciones");
 
@@ -1697,7 +1724,7 @@ namespace Atracciones.Backend.DataAccess.Migrations
 
                     b.Navigation("IncluyeAtracciones");
 
-                    b.Navigation("Tickets");
+                    b.Navigation("TagAtracciones");
                 });
 
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Categoria", b =>
@@ -1721,6 +1748,11 @@ namespace Atracciones.Backend.DataAccess.Migrations
                 {
                     b.Navigation("DatosFacturacion")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Horario", b =>
+                {
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Idioma", b =>
@@ -1747,11 +1779,14 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Navigation("UsuarioRoles");
                 });
 
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Tag", b =>
+                {
+                    b.Navigation("TagAtracciones");
+                });
+
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Ticket", b =>
                 {
                     b.Navigation("DetalleReserva");
-
-                    b.Navigation("Horarios");
                 });
 
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Usuario", b =>

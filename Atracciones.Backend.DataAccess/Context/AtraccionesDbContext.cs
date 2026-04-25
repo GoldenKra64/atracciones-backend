@@ -50,6 +50,8 @@ namespace Atracciones.Backend.DataAccess.Context
         public DbSet<IdiomaAtraccion> IdiomaAtracciones => Set<IdiomaAtraccion>();
 
         public DbSet<LogAuditoria> LogsAuditoria => Set<LogAuditoria>();
+        public DbSet<Tag> Tags => Set<Tag>();
+        public DbSet<TagAtraccion> TagAtracciones => Set<TagAtraccion>();
 
         #endregion
 

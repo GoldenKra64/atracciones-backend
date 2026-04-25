@@ -12,11 +12,11 @@ namespace Atracciones.Backend.DataManagement.Services
 {
     public class UsuarioDataService : IUsuarioDataService
     {
-        private readonly IUsuarioRepository _repo;
+        private readonly IUnitOfWork _uow;
 
-        public UsuarioDataService(IUsuarioRepository repo)
+        public UsuarioDataService(IUnitOfWork uow)
         {
-            _repo = repo;
+            _uow = uow;
         }
 
         // ===============================
@@ -26,7 +26,7 @@ namespace Atracciones.Backend.DataManagement.Services
         {
             var entity = UsuarioMapper.ToEntity(model);
 
-            await _repo.CreateAsync(entity);
+            await _uow.UsuarioRepository.CreateAsync(entity);
 
             return entity.UsuId;
         }
@@ -36,12 +36,12 @@ namespace Atracciones.Backend.DataManagement.Services
         // ===============================
         public async Task UpdateAsync(UsuarioUpdateModel model)
         {
-            var entity = await _repo.GetByIdAsync(model.Id)
+            var entity = await _uow.UsuarioRepository.GetByIdAsync(model.Id)
                 ?? throw new Exception("Usuario no encontrado");
 
             UsuarioMapper.UpdateEntity(entity, model);
 
-            await _repo.UpdateAsync(entity);
+            await _uow.UsuarioRepository.UpdateAsync(entity);
         }
 
         // ===============================
@@ -49,7 +49,7 @@ namespace Atracciones.Backend.DataManagement.Services
         // ===============================
         public async Task<UsuarioModel?> GetByIdAsync(int id)
         {
-            var entity = await _repo.GetByIdAsync(id);
+            var entity = await _uow.UsuarioRepository.GetByIdAsync(id);
 
             return entity == null
                 ? null
@@ -61,7 +61,7 @@ namespace Atracciones.Backend.DataManagement.Services
         // ===============================
         public async Task<UsuarioModel?> LoginAsync(string login, string password)
         {
-            var entity = await _repo.LoginAsync(login, password);
+            var entity = await _uow.UsuarioRepository.LoginAsync(login, password);
 
             return entity == null
                 ? null
@@ -73,7 +73,7 @@ namespace Atracciones.Backend.DataManagement.Services
         // ===============================
         public async Task ChangePasswordAsync(int usuarioId, string actual, string nuevo)
         {
-            var entity = await _repo.GetByIdAsync(usuarioId)
+            var entity = await _uow.UsuarioRepository.GetByIdAsync(usuarioId)
                 ?? throw new Exception("Usuario no encontrado");
 
             if (entity.UsuPasswordHash != actual)
@@ -81,7 +81,7 @@ namespace Atracciones.Backend.DataManagement.Services
 
             entity.UsuPasswordHash = nuevo;
 
-            await _repo.UpdateAsync(entity);
+            await _uow.UsuarioRepository.UpdateAsync(entity);
         }
 
         // ===============================
@@ -89,12 +89,12 @@ namespace Atracciones.Backend.DataManagement.Services
         // ===============================
         public async Task SoftDeleteAsync(int id)
         {
-            var entity = await _repo.GetByIdAsync(id)
+            var entity = await _uow.UsuarioRepository.GetByIdAsync(id)
                 ?? throw new Exception("Usuario no encontrado");
 
             entity.UsuEstado = "INA";
 
-            await _repo.UpdateAsync(entity);
+            await _uow.UsuarioRepository.UpdateAsync(entity);
         }
     }
 }

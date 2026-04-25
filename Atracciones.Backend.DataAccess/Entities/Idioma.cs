@@ -10,7 +10,6 @@ namespace Atracciones.Backend.DataAccess.Entities
     {
         public int IdId { get; set; }
         public string IdNombre { get; set; } = null!;
-        public string IdCodigo { get; set; }
 
         public string IdEstado { get; set; } = null!;
 

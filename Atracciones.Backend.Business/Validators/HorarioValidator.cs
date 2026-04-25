@@ -14,8 +14,8 @@ namespace Atracciones.Backend.Business.Validators
     {
         public static void ValidateCreate(CreateHorarioRequest request)
         {
-            if (request.TicketId <= 0)
-                throw new ValidationException("TicketId obligatorio");
+            if (request.AtraccionId <= 0)
+                throw new ValidationException("AtraccionId obligatorio");
 
             if (request.Cupos < 0)
                 throw new ValidationException("Los cupos no pueden ser negativos");

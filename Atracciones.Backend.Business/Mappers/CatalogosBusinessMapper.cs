@@ -3,6 +3,7 @@ using Atracciones.Backend.Business.DTOs.Destino;
 using Atracciones.Backend.Business.DTOs.Idioma;
 using Atracciones.Backend.Business.DTOs.Imagen;
 using Atracciones.Backend.Business.DTOs.Incluye;
+using Atracciones.Backend.Business.DTOs.Tag;
 using Atracciones.Backend.DataManagement.Models;
 using Atracciones.Backend.DataManagement.Models.Categoria;
 using Atracciones.Backend.DataManagement.Models.Destino;
@@ -45,6 +46,13 @@ namespace Atracciones.Backend.Business.Mappers
             {
                 Id = model.Id,
                 Url = model.Url
+            };
+        }
+        public static TagResponse ToResponse(TagModel model)
+        {
+            return new TagResponse
+            {
+                Nombre = model.Nombre
             };
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Atracciones.Backend.Api.Models.Common;
+using Atracciones.Backend.Business.Exceptions;
 using System.Net;
 using System.Text.Json;
 
@@ -28,15 +29,47 @@ namespace Atracciones.Backend.Api.Middleware
         private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             var traceId = context.TraceIdentifier;
+            var statusCode = (int)HttpStatusCode.InternalServerError;
+            var message = "Error interno del servidor";
+            var errors = new List<string> { };
+
+            if (exception is UnauthorizedBusinessException unauthEx)
+            {
+                statusCode = StatusCodes.Status401Unauthorized;
+                message = unauthEx.Message;
+                errors.Add(unauthEx.Message);
+            }
+            else if (exception is BusinessException businessEx)
+            {
+                statusCode = StatusCodes.Status400BadRequest;
+                message = businessEx.Message;
+                errors.Add(businessEx.Message);
+                if (!string.IsNullOrEmpty(businessEx.ErrorCode))
+                {
+                    errors.Add($"ErrorCode: {businessEx.ErrorCode}");
+                }
+            } else if (exception is NotFoundException notFoundEx) {
+                statusCode = StatusCodes.Status404NotFound;
+                message = notFoundEx.Message;
+                errors.Add(notFoundEx.Message);
+            } else if (exception is ValidationException valExcept) {
+                statusCode = StatusCodes.Status400BadRequest;
+                message = valExcept.Message;
+                var validationMessages = valExcept.Errors
+                    .SelectMany(kvp => kvp.Value.Select(v => string.IsNullOrWhiteSpace(kvp.Key) ? v : $"{kvp.Key}: {v}"));
+                errors.AddRange(validationMessages);
+            } else {
+                errors.Add(exception.InnerException?.ToString() ?? exception.ToString());
+            }
 
             var response = ApiErrorResponse.Fail(
-                "Error interno del servidor",
-                new List<string> { exception.InnerException?.ToString() ?? exception.ToString() },
+                message,
+                errors,
                 traceId
             );
 
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            context.Response.StatusCode = statusCode;
 
             var json = JsonSerializer.Serialize(response);
 

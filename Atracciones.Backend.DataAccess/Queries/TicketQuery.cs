@@ -22,7 +22,7 @@ namespace Atracciones.Backend.DataAccess.Queries
         public async Task<List<Ticket>> GetByAtraccionAsync(int atraccionId)
         {
             return await _context.Tickets
-                .Where(t => t.AtId == atraccionId)
+                .Where(t => t.Horario.Atraccion.AtId == atraccionId)
                 .ToListAsync();
         }
     }

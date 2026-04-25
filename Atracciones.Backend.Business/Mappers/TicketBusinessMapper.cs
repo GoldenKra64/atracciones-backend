@@ -14,7 +14,7 @@ namespace Atracciones.Backend.Business.Mappers
         {
             return new TicketCreateModel
             {
-                AtraccionId = request.AtraccionId,
+                HorarioId = request.HorarioId,
                 Nombre = request.Nombre,
                 Precio = request.Precio,
                 Stock = request.Stock
@@ -28,7 +28,8 @@ namespace Atracciones.Backend.Business.Mappers
                 Id = request.Id,
                 Nombre = request.Nombre,
                 Precio = request.Precio,
-                Stock = request.Stock
+                Stock = request.Stock,
+                HorarioId = request.HorarioId
             };
         }
 
@@ -40,7 +41,8 @@ namespace Atracciones.Backend.Business.Mappers
                 Guid = model.Guid,
                 Nombre = model.Nombre,
                 Precio = model.Precio,
-                Stock = model.Stock
+                Stock = model.Stock,
+                Horario = HorarioBusinessMapper.ToResponse(model.Horario)
             };
         }
     }

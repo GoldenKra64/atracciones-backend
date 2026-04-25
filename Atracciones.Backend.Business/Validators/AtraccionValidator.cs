@@ -20,7 +20,7 @@ namespace Atracciones.Backend.Business.Validators
             if (request.DestinoId <= 0)
                 errors["DestinoId"] = new[] { "Inválido" };
 
-            if (request.PrecioReferencia.HasValue && request.PrecioReferencia < 0)
+            if (request.PrecioReferencia != null && request.PrecioReferencia < 0)
                 errors["Precio"] = new[] { "No puede ser negativo" };
 
             if (!request.CategoriaIds.Any())

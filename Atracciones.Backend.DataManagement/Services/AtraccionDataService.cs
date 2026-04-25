@@ -1,4 +1,5 @@
-﻿using Atracciones.Backend.DataAccess.Filters;
+﻿using Atracciones.Backend.Business.DTOs.Atraccion;
+using Atracciones.Backend.DataAccess.Filters;
 using Atracciones.Backend.DataAccess.Queries.Interfaces;
 using Atracciones.Backend.DataManagement.Interfaces;
 using Atracciones.Backend.DataManagement.Mappers;
@@ -24,9 +25,10 @@ namespace Atracciones.Backend.DataManagement.Services
         }
 
         public async Task<DataPagedResult<AtraccionModel>> GetPagedAsync(
-            int page, int size, string? search, int? destinoId, int? categoriaId)
+            FiltroModel filtro)
         {
-            var result = await _query.GetPagedAsync(page, size, search, destinoId, categoriaId);
+            var result = await _query.GetPagedAsync(filtro.Page, filtro.Limit, 
+                filtro.Idioma, filtro.OrdenarPor, filtro.CalificacionMin, filtro.Horario, filtro.Tipo, filtro.Subtipo);
 
             return new DataPagedResult<AtraccionModel>
             {

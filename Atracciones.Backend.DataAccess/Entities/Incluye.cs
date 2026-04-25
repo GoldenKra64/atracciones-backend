@@ -9,7 +9,6 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class Incluye
     {
         public int IncId { get; set; }
-        public string IncGuid { get; set; }
 
         public string IncDescripcion { get; set; } = null!;
 

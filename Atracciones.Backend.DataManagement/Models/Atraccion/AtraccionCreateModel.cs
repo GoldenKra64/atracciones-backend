@@ -12,14 +12,18 @@ namespace Atracciones.Backend.DataManagement.Models.Atraccion
 
         public string Nombre { get; set; } = null!;
         public string? Descripcion { get; set; }
-
-        public decimal? PrecioReferencia { get; set; }
-
+        public string? Direccion { get; set; }
+        public string? PuntoEncuentro { get; set; }
+        public string? Moneda { get; set; } = "USD";
+        public decimal PrecioReferencia { get; set; }
         public bool IncluyeTransporte { get; set; }
         public bool IncluyeAcompaniante { get; set; }
 
         public List<int> CategoriaIds { get; set; } = new();
         public List<int> IdiomaIds { get; set; } = new();
         public List<int> IncluyeIds { get; set; } = new();
+        public List<int> TagIds { get; set; } = new();
+        // public List<int> ImageIds { get; set; } = new();
+        // public List<int> HorarioIds { get; set; } = new();
     }
 }

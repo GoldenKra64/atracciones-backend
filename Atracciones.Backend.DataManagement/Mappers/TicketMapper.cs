@@ -20,7 +20,9 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Nombre = entity.TicTitulo,
                 Precio = entity.TicPrecio,
                 Stock = entity.TicCuposDisponibles,
-                AtraccionId = entity.AtId
+                HorarioId = entity.HorId,
+
+                Horario = entity.Horario != null ? HorarioMapper.ToModel(entity.Horario) : null
             };
         }
 
@@ -28,7 +30,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
         {
             return new Ticket
             {
-                AtId = model.AtraccionId,
+                HorId = model.HorarioId,
                 TicTitulo = model.Nombre,
                 TicPrecio = model.Precio,
                 TicCuposDisponibles = model.Stock,
@@ -37,6 +39,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
         }
         public static void UpdateEntity(Ticket entity, TicketUpdateModel model)
         {
+            entity.HorId = model.HorarioId;
             entity.TicTitulo = model.Nombre;
             entity.TicPrecio = model.Precio;
             entity.TicCuposDisponibles = model.Stock;

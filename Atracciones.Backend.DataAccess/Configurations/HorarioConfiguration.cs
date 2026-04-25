@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atracciones.Backend.DataAccess.Configurations
 {
+    using Atracciones.Backend.DataAccess.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -28,6 +29,10 @@ namespace Atracciones.Backend.DataAccess.Configurations
 
             builder.Property(e => e.TicId)
                    .HasColumnName("tck_id")
+                   .IsRequired();
+
+            builder.Property(e => e.AtId)
+                   .HasColumnName("at_id")
                    .IsRequired();
 
             builder.Property(e => e.HorFecha)
@@ -99,9 +104,15 @@ namespace Atracciones.Backend.DataAccess.Configurations
                    .HasDatabaseName("UK_HORARIO_slot");
 
             // 🔗 Relación con Ticket
-            builder.HasOne(e => e.Ticket)
-                   .WithMany(t => t.Horarios)
-                   .HasForeignKey(e => e.TicId)
+            builder.HasMany(e => e.Ticket)
+                   .WithOne(t => t.Horario)
+                   .HasForeignKey(t => t.HorId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            // Relacion con Atraccion
+            builder.HasOne(e => e.Atraccion)
+                   .WithMany(a => a.Horario)
+                   .HasForeignKey(e => e.AtId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

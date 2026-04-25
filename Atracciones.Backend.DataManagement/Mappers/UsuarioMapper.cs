@@ -37,6 +37,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
         public static void UpdateEntity(Usuario entity, UsuarioUpdateModel model)
         {
             entity.UsuLogin = model.Login;
+            entity.UsuarioRoles = model.RolIds.Select(rolId => new UsuarioRol { RolId = rolId }).ToList();
         }
     }
 }

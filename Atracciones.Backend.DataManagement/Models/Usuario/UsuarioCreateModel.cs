@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Atracciones.Backend.DataManagement.Models.Cliente;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,7 @@ namespace Atracciones.Backend.DataManagement.Models.Usuario
         public string Login { get; set; } = null!;
         public string Password { get; set; } = null!;
         public List<int> RolIds { get; set; } = new List<int>();
+
+        public ClienteCreateModel Cliente { get; set; } = null!;
     }
 }

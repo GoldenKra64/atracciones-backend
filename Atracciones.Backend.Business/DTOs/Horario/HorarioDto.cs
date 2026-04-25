@@ -8,7 +8,7 @@ namespace Atracciones.Backend.Business.DTOs.Horario
 {
     public class HorarioDto
     {
-        public int TicketId { get; set; }
+        public int AtraccionId { get; set; }
         public string Fecha { get; set; }
         public string HoraInicio { get; set; }
         public string? HoraFin { get; set; }

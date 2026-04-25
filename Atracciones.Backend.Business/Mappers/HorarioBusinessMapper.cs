@@ -16,7 +16,7 @@ namespace Atracciones.Backend.Business.Mappers
         {
             return new HorarioCreateModel
             {
-                TicketId = request.TicketId,
+                AtraccionId = request.AtraccionId,
                 Fecha = request.Fecha,
                 HoraInicio = request.HoraInicio,
                 HoraFin = request.HoraFin,
@@ -29,7 +29,7 @@ namespace Atracciones.Backend.Business.Mappers
             return new HorarioUpdateModel
             {
                 Id = request.Id,
-                TicketId = request.TicketId,
+                AtraccionId = request.AtraccionId,
                 Fecha = request.Fecha,
                 HoraInicio = request.HoraInicio,
                 HoraFin = request.HoraFin,
@@ -41,7 +41,7 @@ namespace Atracciones.Backend.Business.Mappers
         {
             return new HorarioDto
             {
-                TicketId = model.TicketId,
+                AtraccionId = model.AtraccionId,
                 Fecha = model.Fecha,
                 HoraInicio = model.HoraInicio,
                 HoraFin = model.HoraFin,

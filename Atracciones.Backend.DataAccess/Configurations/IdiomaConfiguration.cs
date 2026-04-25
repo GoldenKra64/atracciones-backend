@@ -18,17 +18,12 @@ namespace Atracciones.Backend.DataAccess.Configurations
             builder.HasKey(x => x.IdId);
 
             builder.Property(e => e.IdId).HasColumnName("id_id");
-            builder.Property(e => e.IdCodigo).HasColumnName("id_guid");
             builder.Property(e => e.IdNombre).HasColumnName("id_descripcion");
             builder.Property(e => e.IdEstado).HasColumnName("id_estado");
 
             builder.Property(x => x.IdNombre)
                 .IsRequired()
-                .HasMaxLength(50);
-
-            builder.Property(x => x.IdCodigo)
-                .IsRequired()
-                .HasMaxLength(10);
+                .HasMaxLength(2);
         }
     }
 }

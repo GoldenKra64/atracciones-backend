@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atracciones.Backend.Business.DTOs.Atraccion;
 
 namespace Atracciones.Backend.Business.Services
 {
@@ -51,13 +52,10 @@ namespace Atracciones.Backend.Business.Services
         }
 
         public async Task<PagedResponse<AtraccionResponse>> GetPagedAsync(
-            int page,
-            int size,
-            string? search,
-            int? destinoId,
-            int? categoriaId)
+            FiltroDto filtro)
         {
-            var data = await _dataService.GetPagedAsync(page, size, search, destinoId, categoriaId);
+            var filtroModel = AtraccionBusinessMapper.ToFilterModel(filtro);
+            var data = await _dataService.GetPagedAsync(filtroModel);
 
             return CommonBusinessMapper.ToPagedResponse(
                 data,

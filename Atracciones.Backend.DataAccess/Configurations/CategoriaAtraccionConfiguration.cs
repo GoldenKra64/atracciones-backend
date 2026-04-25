@@ -20,18 +20,6 @@ namespace Atracciones.Backend.DataAccess.Configurations
             builder.Property(e => e.CatId).HasColumnName("cat_id");
             builder.Property(e => e.AtId).HasColumnName("at_id");
 
-            builder.Property(e => e.CaFechaIngreso).HasColumnName("ca_fecha_ingreso");
-            builder.Property(e => e.CaUsuarioIngreso).HasColumnName("ca_usuario_ingreso");
-
-            builder.Property(e => e.CaFechaEliminacion).HasColumnName("ca_fecha_eliminacion");
-            builder.Property(e => e.CaUsuarioEliminacion).HasColumnName("ca_usuario_eliminacion");
-
-            builder.Property(e => e.CaEstado).HasColumnName("ca_estado");
-
-            builder.Property(x => x.CaEstado)
-                .IsRequired()
-                .HasMaxLength(20);
-
             builder.HasOne(x => x.Categoria)
                 .WithMany(c => c.CategoriaAtracciones)
                 .HasForeignKey(x => x.CatId);

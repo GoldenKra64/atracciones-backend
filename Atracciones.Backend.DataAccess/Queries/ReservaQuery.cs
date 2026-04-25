@@ -51,7 +51,8 @@ namespace Atracciones.Backend.DataAccess.Queries
             return await _context.Reservas
                 .Include(r => r.Detalles)
                     .ThenInclude(d => d.Ticket)
-                        .ThenInclude(t => t.Atraccion)
+                        .ThenInclude(t => t.Horario)
+                            .ThenInclude(h => h.Atraccion)
                 .Include(r => r.Factura)
                 .FirstOrDefaultAsync(r => r.ResId == reservaId);
         }

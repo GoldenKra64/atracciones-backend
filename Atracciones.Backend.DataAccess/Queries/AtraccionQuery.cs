@@ -4,11 +4,6 @@ using Atracciones.Backend.DataAccess.Entities;
 using Atracciones.Backend.DataAccess.Queries.Interfaces;
 using Atracciones.Backend.DataAccess.Filters;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Atracciones.Backend.DataAccess.Queries
 {
@@ -21,57 +16,7 @@ namespace Atracciones.Backend.DataAccess.Queries
             _context = context;
         }
 
-        public async Task<PagedResult<Atraccion>> GetPagedAsync(
-            int pageNumber,
-            int pageSize,
-            string? search,
-            int? destinoId,
-            int? categoriaId)
-        {
-            var query = _context.Atracciones
-                .Include(a => a.Destino)
-                .Include(a => a.Imagenes)
-                .Include(a => a.CategoriaAtracciones)
-                    .ThenInclude(ca => ca.Categoria)
-                .Include(a => a.IncluyeAtracciones)
-                    .ThenInclude(ia => ia.Atraccion)
-                .AsQueryable();
-
-            // 🔎 Filtros
-            if (!string.IsNullOrWhiteSpace(search))
-            {
-                query = query.Where(x => x.AtNombre.Contains(search));
-            }
-
-            if (destinoId.HasValue)
-            {
-                query = query.Where(x => x.DesId == destinoId);
-            }
-
-            if (categoriaId.HasValue)
-            {
-                query = query.Where(x => x.CategoriaAtracciones
-                    .Any(ca => ca.CatId == categoriaId));
-            }
-
-            var totalRecords = await query.CountAsync();
-
-            var items = await query
-                .OrderBy(x => x.AtNombre)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
-            return new PagedResult<Atraccion>
-            {
-                Items = items,
-                TotalRecords = totalRecords,
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            };
-        }
-
-        public async Task<Atraccion?> GetByIdAsync(int id)
+        public async Task<Atraccion?> GetByIdAsync(string id)
         {
             return await _context.Atracciones
                 .Include(a => a.Destino)
@@ -82,7 +27,7 @@ namespace Atracciones.Backend.DataAccess.Queries
                     .ThenInclude(ia => ia.Idioma)
                 .Include(a => a.IncluyeAtracciones)
                     .ThenInclude(ia => ia.Incluye)
-                .FirstOrDefaultAsync(x => x.AtId == id);
+                .FirstOrDefaultAsync(x => x.AtGuid == id);
         }
         public async Task<PagedResult<Atraccion>> SearchAsync(AtraccionFilterModel filter)
         {
@@ -155,6 +100,92 @@ namespace Atracciones.Backend.DataAccess.Queries
                 TotalRecords = totalRecords,
                 PageNumber = filter.PageNumber,
                 PageSize = filter.PageSize
+            };
+        }
+
+        public async Task<PagedResult<Atraccion>> GetPagedAsync(int pageNumber, int pageSize, string? ciudad,string? idioma, string? ordenarPor, decimal? calificacionMin, string? horario, string? tipo, string? subTipo)
+        {
+            var query = _context.Atracciones
+                .Include(a => a.Destino)
+                .Include(a => a.Imagenes)
+                .Include(a => a.CategoriaAtracciones)
+                    .ThenInclude(ca => ca.Categoria)
+                .Include(a => a.IncluyeAtracciones)
+                    .ThenInclude(ia => ia.Atraccion)
+                .Include(a => a.TagAtracciones)
+                    .ThenInclude(ta => ta.Tag)
+                .Include(a => a.IdiomaAtracciones)
+                    .ThenInclude(ia => ia.Idioma)
+                .Include(a => a.Horario)
+                .Where(a => a.AtEstado == "ACT")
+                .AsQueryable();
+
+
+            // Filtros
+            if (ciudad != null)
+            {
+                query = query.Where(x => x.Destino.DesNombre.ToLower() == ciudad);
+            }
+            if (idioma != null)
+            {
+                query = query.Where(x => x.IdiomaAtracciones.Any(ia => ia.Idioma.IdNombre == idioma));
+            }
+            if (ordenarPor != null) /* Trending, Lowest Price, highest_weighted_rating */
+            {
+                switch (ordenarPor.ToLower())
+                {
+                    case "highest_weighted_rating":
+                        query = query.OrderByDescending(x => x.AtCalificacion);
+                        break;
+                    case "lowest_price":
+                        query = query.OrderBy(x => x.AtPrecioReferencia);
+                        break;
+                    default: // trending
+                        query = query.OrderBy(x => x.AtNombre);
+                        break;
+                }
+            }
+
+            if (calificacionMin.HasValue)
+            {
+                query = query.Where(x => x.AtCalificacion >= calificacionMin.Value);
+            }
+
+            if (horario != null)    /* 20:00:00-21:00:00*/
+            {
+                var horIni = TimeSpan.Parse(horario.Split('-')[0]);
+                var horFin = TimeSpan.Parse(horario.Split('-')[1]);
+
+                query = query.Where(x => x.Horario.Any(h => h.HorHoraInicio >= horIni &&
+                                                             h.HorHoraFin <= horFin));
+            }
+
+            if (tipo != null) // Categoria
+            {
+                query = query.Where(x => x.CategoriaAtracciones.Any(ca => ca.Categoria.CatNombre == tipo.ToLower()));
+            }
+
+            if (subTipo != null) // Tag
+            {
+                query = query.Where(x => x.TagAtracciones.Any(ta => ta.Tag.TagDescription == subTipo.ToLower()));
+            }
+
+            // 📊 Total
+            var totalRecords = await query.CountAsync();
+
+            // 📄 Paginación
+            var items = await query
+                .OrderBy(x => x.AtNombre)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PagedResult<Atraccion>
+            {
+                Items = items,
+                TotalRecords = totalRecords,
+                PageNumber = pageNumber,
+                PageSize = pageSize
             };
         }
     }

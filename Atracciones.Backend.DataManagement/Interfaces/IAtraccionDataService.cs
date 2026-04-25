@@ -1,4 +1,5 @@
-﻿using Atracciones.Backend.DataAccess.Filters;
+﻿using Atracciones.Backend.Business.DTOs.Atraccion;
+using Atracciones.Backend.DataAccess.Filters;
 using Atracciones.Backend.DataManagement.Models;
 using Atracciones.Backend.DataManagement.Models.Atraccion;
 using System;
@@ -12,11 +13,7 @@ namespace Atracciones.Backend.DataManagement.Interfaces
     public interface IAtraccionDataService
     {
         Task<DataPagedResult<AtraccionModel>> GetPagedAsync(
-            int page,
-            int size,
-            string? search,
-            int? destinoId,
-            int? categoriaId);
+            FiltroModel filtro);
 
         Task<AtraccionModel?> GetByIdAsync(int id);
 

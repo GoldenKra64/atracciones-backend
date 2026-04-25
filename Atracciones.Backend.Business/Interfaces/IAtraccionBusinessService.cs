@@ -14,11 +14,7 @@ namespace Atracciones.Backend.Business.Interfaces
         Task<AtraccionResponse> GetByIdAsync(int id);
 
         Task<PagedResponse<AtraccionResponse>> GetPagedAsync(
-            int page,
-            int size,
-            string? search,
-            int? destinoId,
-            int? categoriaId);
+            FiltroDto filtro);
 
         Task<int> CreateAsync(CreateAtraccionRequest request);
 

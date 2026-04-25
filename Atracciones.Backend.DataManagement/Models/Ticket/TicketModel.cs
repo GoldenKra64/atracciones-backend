@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Atracciones.Backend.DataManagement.Models.Horario;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Atracciones.Backend.DataManagement.Models.Ticket
         public decimal Precio { get; set; }
         public int Stock { get; set; }
 
-        public int AtraccionId { get; set; }
+        public int HorarioId { get; set; }
+        public HorarioModel Horario { get; set; }
     }
 }

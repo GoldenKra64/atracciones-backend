@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Atracciones.Backend.Business.DTOs.Ticket
 {
-    public class UpdateTicketRequest : CreateTicketRequest
+    public class CreateTicketRequest
     {
-        public int Id { get; set; }
+        public int HorarioId { get; set; }
+
+        public string Nombre { get; set; } = null!;
+        public decimal Precio { get; set; }
+        public int Stock { get; set; }
     }
 }

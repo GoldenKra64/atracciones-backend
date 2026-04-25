@@ -23,10 +23,16 @@ namespace Atracciones.Backend.Business.Mappers
                 PrecioReferencia = request.PrecioReferencia,
                 IncluyeAcompaniante = request.IncluyeAcompaniante,
                 IncluyeTransporte = request.IncluyeTransporte,
+                Moneda = request.Moneda ?? "USD",
+                Direccion = request.Direccion,
+                PuntoEncuentro = request.PuntoEncuentro,
 
                 CategoriaIds = request.CategoriaIds,
                 IdiomaIds = request.IdiomaIds,
-                IncluyeIds = request.IncluyeIds
+                IncluyeIds = request.IncluyeIds,
+                TagIds = request.TagIds,
+                // ImageIds = request.ImageIds,
+                // HorarioIds = request.HorarioIds
             };
         }
 
@@ -41,10 +47,15 @@ namespace Atracciones.Backend.Business.Mappers
                 PrecioReferencia = request.PrecioReferencia,
                 IncluyeAcompaniante = request.IncluyeAcompaniante,
                 IncluyeTransporte = request.IncluyeTransporte,
+                Moneda = request.Moneda ?? "USD",
+                Direccion = request.Direccion,
+                PuntoEncuentro = request.PuntoEncuentro,
 
                 CategoriaIds = request.CategoriaIds,
                 IdiomaIds = request.IdiomaIds,
-                IncluyeIds = request.IncluyeIds
+                IncluyeIds = request.IncluyeIds,
+                // ImageIds = request.ImageIds,
+                // HorarioIds = request.HorarioIds
             };
         }
 
@@ -80,19 +91,21 @@ namespace Atracciones.Backend.Business.Mappers
                     .ToList()
             };
         }
-        public static AtraccionFilterModel ToFilterModel(AtraccionFilterRequest request)
+        public static FiltroModel ToFilterModel(FiltroDto request)
         {
-            return new AtraccionFilterModel
+            return new FiltroModel
             {
-                Nombre = request.Nombre,
-                DestinoId = request.DestinoId,
-                CategoriaIds = request.CategoriaIds,
-                IdiomaIds = request.IdiomaIds,
-                PrecioMin = request.PrecioMin,
-                PrecioMax = request.PrecioMax,
-                IncluyeTransporte = request.IncluyeTransporte,
-                PageNumber = request.PageNumber,
-                PageSize = request.PageSize
+                Page = request.Page,
+                Limit = request.Limit,
+                Ciudad = request.Ciudad,
+                Tipo = request.Tipo,
+                Subtipo = request.Subtipo,
+                Etiqueta = request.Etiqueta,
+                Idioma = request.Idioma,
+                CalificacionMin = request.CalificacionMin,
+                Horario = request.Horario,
+                Disponible = request.Disponible,
+                OrdenarPor = request.OrdenarPor
             };
         }
     }
