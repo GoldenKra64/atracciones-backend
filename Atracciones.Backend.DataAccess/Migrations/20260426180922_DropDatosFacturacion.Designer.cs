@@ -3,6 +3,7 @@ using System;
 using Atracciones.Backend.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Atracciones.Backend.DataAccess.Migrations
 {
     [DbContext(typeof(AtraccionesDbContext))]
-    partial class AtraccionesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260426180922_DropDatosFacturacion")]
+    partial class DropDatosFacturacion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

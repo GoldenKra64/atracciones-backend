@@ -9,11 +9,19 @@ namespace Atracciones.Backend.DataManagement.Models.Reserva
 {
     public class ReservaModel : BaseModel
     {
-        public int? ClienteId { get; set; }
-        public DateTime FechaReserva { get; set; }
-        public double Total { get; set; }
-        public List<DetalleReservaModel> Detalles { get; set; } = new();
-
-        public FacturaModel? Factura { get; set; }
+        public string rev_guid { get; set; } = string.Empty;
+        public int? cli_id { get; set; }
+        public string rev_codigo { get; set; } = string.Empty;
+        public string hor_fecha { get; set; } = string.Empty;
+        public string hor_hora_inicio { get; set; } = string.Empty;
+        public string? hor_hora_fin { get; set; } = string.Empty;
+        public string atraccion_nombre { get; set; } = string.Empty;
+        public double rev_subtotal { get; set; }
+        public double rev_valor_iva { get; set; }
+        public double rev_total { get; set; }
+        public string moneda { get; set; } = "USD";
+        public string rev_estado { get; set; } = string.Empty;
+        public string rev_fecha_reserva_utc { get; set; } = string.Empty;
+        public List<DetalleReservaModel> detalle { get; set; } = new();
     }
 }

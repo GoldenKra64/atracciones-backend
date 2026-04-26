@@ -25,7 +25,7 @@ namespace Atracciones.Backend.Business.DTOs.Atraccion
         public string moneda { get; set; } = "USD";
         public double calificacion { get; set; }
         public int total_resenias { get; set; }
-        public int idiomas_disponibles { get; set; }
+        public List<string> idiomas_disponibles { get; set; }
 
         public int duracion_minutos { get; set; }
         public string? imagen_principal { get; set; }

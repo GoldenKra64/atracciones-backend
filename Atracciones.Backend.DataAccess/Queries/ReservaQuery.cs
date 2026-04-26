@@ -26,7 +26,6 @@ namespace Atracciones.Backend.DataAccess.Queries
                 .Include(r => r.Detalles)
                     .ThenInclude(d => d.Ticket)
                 .Include(r => r.Factura)
-                    .ThenInclude(f => f.DatosFacturacion)
                 .Where(r => r.CliId == clienteId);
 
             var total = await query.CountAsync();
@@ -55,6 +54,16 @@ namespace Atracciones.Backend.DataAccess.Queries
                             .ThenInclude(h => h.Atraccion)
                 .Include(r => r.Factura)
                 .FirstOrDefaultAsync(r => r.RevId == reservaId);
+        }
+
+        public async Task<Reserva?> GetByIdAsync(string id)
+        {
+            return await _context.Reservas
+                .Include(r => r.Detalles)
+                    .ThenInclude(d => d.Ticket)
+                        .ThenInclude(t => t.Horario)
+                            .ThenInclude(h => h.Atraccion)
+                .FirstOrDefaultAsync(r => r.RevGuid == id);
         }
     }
 }

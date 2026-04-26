@@ -26,5 +26,10 @@ namespace Atracciones.Backend.DataAccess.Queries
                 .OrderBy(x => x.HorId)
                 .ToListAsync();
         }
+
+        public async Task<Horario> GetByGuidAsync(string id)
+        {
+            return await _context.Horarios.Where(x => x.HorGuid == id).FirstOrDefaultAsync();
+        }
     }
 }

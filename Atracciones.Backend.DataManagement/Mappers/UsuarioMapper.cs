@@ -17,7 +17,8 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Id = entity.UsuId,
                 Guid = entity.UsuGuid,
                 Estado = entity.UsuEstado,
-                Login = entity.UsuLogin
+                Login = entity.UsuLogin,
+                Roles = entity.UsuarioRoles.Select(ur => ur.Rol.RolDescripcion).ToList(),
             };
         }
         public static Usuario ToEntity(UsuarioCreateModel entity)

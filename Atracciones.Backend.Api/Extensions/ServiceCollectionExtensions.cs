@@ -66,7 +66,6 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IAtraccionRepository, AtraccionRepository>();
             services.AddScoped<IDestinoRepository, DestinoRepository>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
-            services.AddScoped<IDatosFacturacionRepository, DatosFacturacionRepository>();
             services.AddScoped<IFacturaRepository, FacturaRepository>();
             services.AddScoped<IImagenRepository, ImagenRepository>();
             services.AddScoped<IIncluyeRepository, IncluyeRepository>();

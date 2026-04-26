@@ -1,4 +1,5 @@
-﻿using Atracciones.Backend.DataManagement.Models;
+﻿using Atracciones.Backend.DataAccess.Entities;
+using Atracciones.Backend.DataManagement.Models;
 using Atracciones.Backend.DataManagement.Models.Reserva;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace Atracciones.Backend.DataManagement.Interfaces
 {
     public interface IReservaDataService
     {
-        Task<int> CreateAsync(ReservaCreateModel model);
+        Task<ReservaModel> CreateAsync(ReservaCreateModel model);
 
-        Task<ReservaModel?> GetByIdAsync(int id);
+        Task<ReservaModel?> GetByIdAsync(string id);
 
         Task<DataPagedResult<ReservaModel>> GetByClienteAsync(int clienteId, int page, int size);
 

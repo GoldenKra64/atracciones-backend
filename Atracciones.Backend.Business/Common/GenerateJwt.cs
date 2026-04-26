@@ -12,9 +12,8 @@ namespace Atracciones.Backend.Business.Common
 {
     public static class GenerateJwt
     {
-        public static (string Token, DateTime Expiration) GenerateJwtToken(JwtSettings _jwtSettings, string username, IEnumerable<string> roles)
+        public static (string Token, DateTime Expiration) GenerateJwtToken(JwtSettings _jwtSettings, string username, IEnumerable<string> roles, int clienteId)
         {
-            Console.WriteLine($"Generating JWT for user: {username} with roles: {string.Join(", ", roles)}, {_jwtSettings}, {_jwtSettings.SecretKey}");
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));
 
@@ -24,12 +23,17 @@ namespace Atracciones.Backend.Business.Common
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, username),
-                new Claim(JwtRegisteredClaimNames.Sub, username),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(ClaimTypes.NameIdentifier, clienteId.ToString()),
+
             };
 
-            // Roles
-            claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
+            foreach (var rol in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, rol));
+            }
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, username));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
 
             var expiration = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationMinutes);
 

@@ -8,10 +8,11 @@ namespace Atracciones.Backend.Business.DTOs.Reserva
 {
     public class DetalleReservaResponse
     {
-        public string TicketId { get; set; }
-        public int Cantidad { get; set; }
+        public string tck_guid { get; set; }
+        public string tck_tipo_participante { get; set; }
+        public int cantidad { get; set; }
 
-        public double PrecioUnitario { get; set; }
-        public double Subtotal { get; set; }
+        public double precio_unit { get; set; }
+        public double subtotal { get; set; }
     }
 }

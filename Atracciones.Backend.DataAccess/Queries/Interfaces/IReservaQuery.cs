@@ -12,5 +12,6 @@ namespace Atracciones.Backend.DataAccess.Queries.Interfaces
     {
         Task<PagedResult<Reserva>> GetByClienteAsync(int clienteId, int page, int size);
         Task<Reserva?> GetDetalleAsync(int reservaId);
+        Task<Reserva?> GetByIdAsync(string id);
     }
 }

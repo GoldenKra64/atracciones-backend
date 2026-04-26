@@ -108,12 +108,9 @@ namespace Atracciones.Backend.Business.Mappers
             var destinoPais = model.Destino?.Pais ?? string.Empty;
 
             var resenas = model.Resena ?? new List<ResenaModel>();
-            Console.WriteLine("Reseñas: ", resenas);
 
             var totalResenias = resenas.Count;
             var calificacion = totalResenias > 0 ? resenas.Average(r => r.Calificacion) : 0.0;
-
-            var idiomasDisponibles = model.Idiomas?.Count ?? 0;
 
             var horarios = model.Horarios ?? new List<Atracciones.Backend.DataManagement.Models.Horario.HorarioModel>();
             var cuposDisponibles = horarios.Sum(h => h?.Cupos ?? 0);
@@ -150,11 +147,11 @@ namespace Atracciones.Backend.Business.Mappers
                 nombre = model.Nombre ?? string.Empty,
                 descripcion_corta = model.Descripcion,
                 precio_desde = model.PrecioReferencia,
-                moneda = model.Moneda ?? string.Empty,
+                moneda = model.Moneda ?? "USD",
                 ciudad = destinoNombre,
                 total_resenias = totalResenias,
                 calificacion = calificacion,
-                idiomas_disponibles = idiomasDisponibles,
+                idiomas_disponibles = model.Idiomas?.Select(i => i.Nombre).Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>(),
                 cupos_disponibles = cuposDisponibles,
                 disponible = disponible,
                 disponible_hoy = horarios.Any(h =>

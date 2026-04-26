@@ -34,22 +34,31 @@ namespace Atracciones.Backend.Business.Mappers
         {
             return new ReservaResponse
             {
-                Id = model.Id,
-                Guid = model.Guid,
-                ClienteId = model.ClienteId,
-                FechaReserva = model.FechaReserva,
+                rev_guid = model.rev_guid,
+                rev_codigo = model.rev_codigo,
+                rev_estado = model.rev_estado,
 
-                Detalles = model.Detalles.Select(d => new DetalleReservaResponse
+                rev_subtotal = model.rev_subtotal,
+                rev_valor_iva = model.rev_valor_iva,
+                rev_total = model.rev_total,
+                moneda = model.moneda,
+
+                hor_fecha = model.hor_fecha,
+                hor_hora_inicio = model.hor_hora_inicio,
+                hor_hora_fin = model.hor_hora_fin,
+
+                atraccion_nombre = model.atraccion_nombre,
+
+                rev_fecha_reserva_utc = model.rev_fecha_reserva_utc,
+
+                detalle = model.detalle?.Select(d => new DetalleReservaResponse
                 {
-                    TicketId = d.TicketId,
-                    Cantidad = d.Cantidad,
-                    PrecioUnitario = d.PrecioUnitario,
-                    Subtotal = d.Subtotal
+                    tck_guid = d.tck_guid,
+                    tck_tipo_participante = d.tck_tipo_participante,
+                    cantidad = d.cantidad,
+                    precio_unit = d.precio_unit,
+                    subtotal = d.subtotal
                 }).ToList(),
-
-                Factura = model.Factura != null
-                    ? FacturaBusinessMapper.ToResponse(model.Factura)
-                    : null
             };
         }
     }

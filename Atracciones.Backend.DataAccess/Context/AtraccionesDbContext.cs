@@ -39,7 +39,6 @@ namespace Atracciones.Backend.DataAccess.Context
         public DbSet<DetalleReserva> DetallesReserva => Set<DetalleReserva>();
 
         public DbSet<Factura> Facturas => Set<Factura>();
-        public DbSet<DatosFacturacion> DatosFacturacion => Set<DatosFacturacion>();
 
         public DbSet<Resena> Resenas => Set<Resena>();
 

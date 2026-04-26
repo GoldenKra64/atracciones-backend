@@ -22,17 +22,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Numero = entity.FacNumero,
                 FechaEmision = entity.FacFechaEmision,
                 OrigenCanal = entity.FacOrigenCanal,
-                Observacion = entity.FacObservacion,
-
-                DatosFacturacion = entity.DatosFacturacion != null
-                    ? new DatosFacturacionModel
-                    {
-                        Nombres = entity.DatosFacturacion.DfNombre,
-                        Apellidos = entity.DatosFacturacion.DfApellido,
-                        Correo = entity.DatosFacturacion.DfCorreo,
-                        Telefono = entity.DatosFacturacion.DfTelefono
-                    }
-                    : null!
+                Observacion = entity.FacObservacion
             };
         }
     }

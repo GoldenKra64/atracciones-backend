@@ -59,10 +59,13 @@ namespace Atracciones.Backend.Business.Services
         {
             var data = await _dataService.LoginAsync(request.Login, request.Password);
 
+            Console.WriteLine($"Login attempt for user: {data}");
             if (data == null)
                 throw new UnauthorizedBusinessException("Credenciales inválidas");
+            
+            var clienteId = await _clienteDataService.GetByUsuarioAsync(data.Id);
 
-            var token = GenerateJwt.GenerateJwtToken(_jwtSettings, data.Login, data.Roles);
+            var token = GenerateJwt.GenerateJwtToken(_jwtSettings, data.Login, data.Roles, clienteId!.Id);
 
             return new LoginResponse
             {

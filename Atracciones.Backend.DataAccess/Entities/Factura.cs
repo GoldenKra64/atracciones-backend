@@ -35,6 +35,5 @@ namespace Atracciones.Backend.DataAccess.Entities
 
         // Relaciones
         public Reserva Reserva { get; set; } = null!;
-        public DatosFacturacion DatosFacturacion { get; set; } = null!;
     }
 }

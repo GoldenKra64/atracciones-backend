@@ -10,5 +10,6 @@ namespace Atracciones.Backend.DataAccess.Queries.Interfaces
     public interface IHorarioQuery
     {
         Task<List<Horario>> GetAllAsync();
+        Task<Horario> GetByGuidAsync(string id);
     }
 }

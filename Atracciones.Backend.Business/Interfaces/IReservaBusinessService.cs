@@ -10,14 +10,14 @@ namespace Atracciones.Backend.Business.Interfaces
 {
     public interface IReservaBusinessService
     {
-        Task<ReservaResponse> GetByIdAsync(int id);
+        Task<ReservaResponse> GetByIdAsync(string id);
 
         Task<PagedResponse<ReservaResponse>> GetByClienteAsync(
             int clienteId,
             int page,
             int size);
 
-        Task<int> CreateAsync(CreateReservaRequest request);
+        Task<ReservaResponse> CreateAsync(CreateReservaRequest request);
 
         Task LogicalDeleteAsync(int id);
     }

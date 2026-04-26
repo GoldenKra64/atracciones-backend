@@ -26,16 +26,27 @@ namespace Atracciones.Backend.Business.Services
             _horarioService = horarioService;
         }
 
-        public async Task<int> CreateAsync(CreateReservaRequest request)
+        public async Task<ReservaResponse> CreateAsync(CreateReservaRequest request)
         {
             // ReservaValidator.ValidateCreate(request);
 
+            if (request.Lineas == null || !request.Lineas.Any())
+                throw new ValidationException("Debe incluir al menos un detalle en la reserva.");
+
+            foreach (var linea in request.Lineas)
+            {
+                if (linea.tck_guid == null)
+                    throw new ValidationException($"Ticket {linea.tck_guid} not found");
+            }
+
             var model = ReservaBusinessMapper.ToCreateModel(request);
 
-            return await _dataService.CreateAsync(model);
+            var created = await _dataService.CreateAsync(model);
+
+            return ReservaBusinessMapper.ToResponse(created);
         }
 
-        public async Task<ReservaResponse> GetByIdAsync(int id)
+        public async Task<ReservaResponse> GetByIdAsync(string id)
         {
             var data = await _dataService.GetByIdAsync(id);
 

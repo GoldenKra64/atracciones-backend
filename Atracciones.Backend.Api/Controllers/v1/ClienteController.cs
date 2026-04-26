@@ -3,6 +3,7 @@ using Atracciones.Backend.Api.Models.Common;
 using Atracciones.Backend.Business.DTOs.Cliente;
 using Atracciones.Backend.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Atracciones.Backend.Api.Controllers.v1
 {

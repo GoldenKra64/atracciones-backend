@@ -25,7 +25,6 @@ namespace Atracciones.Backend.DataManagement.Services
         public IDestinoRepository DestinoRepository { get; }
         public IIncluyeRepository IncluyeRepository { get; }
         public IFacturaRepository FacturaRepository { get; }
-        public IDatosFacturacionRepository DatosFacturacionRepository { get; }
         public IResenaRepository ResenaRepository { get; }
         public IHorarioRepository HorarioRepository { get; }
 
@@ -41,7 +40,6 @@ namespace Atracciones.Backend.DataManagement.Services
             IDestinoRepository destinoRepository,
             IIncluyeRepository incluyeRepository,
             IFacturaRepository facturaRepository,
-            IDatosFacturacionRepository datosFacturacionRepository,
             IResenaRepository resenaRepository,
             IHorarioRepository horarioRepository
         )
@@ -58,7 +56,6 @@ namespace Atracciones.Backend.DataManagement.Services
             DestinoRepository = destinoRepository;
             IncluyeRepository = incluyeRepository;
             FacturaRepository = facturaRepository;
-            DatosFacturacionRepository = datosFacturacionRepository;
             ResenaRepository = resenaRepository;
             HorarioRepository = horarioRepository;
         }
@@ -79,6 +76,8 @@ namespace Atracciones.Backend.DataManagement.Services
             {
                 await _context.SaveChangesAsync();
                 await _transaction.CommitAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
             }
         }
 
@@ -87,6 +86,8 @@ namespace Atracciones.Backend.DataManagement.Services
             if (_transaction != null)
             {
                 await _transaction.RollbackAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
             }
         }
 

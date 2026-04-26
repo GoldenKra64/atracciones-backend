@@ -43,5 +43,15 @@ namespace Atracciones.Backend.DataAccess.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Reserva>> GetByClienteAsync(int clienteId, int page, int size)
+        {
+            return await _context.Reservas
+                .Where(r => r.CliId == clienteId && r.RevEstado == "ACT")
+                .Include(r => r.Detalles)
+                .Skip((page - 1) * size)
+                .Take(size)
+                .ToListAsync();
+        }
     }
 }

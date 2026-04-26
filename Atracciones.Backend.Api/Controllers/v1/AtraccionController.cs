@@ -24,7 +24,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
         public async Task<IActionResult> GetById(string id)
         {
             var data = await _service.GetByIdAsync(id);
-            return Ok(ApiResponse<AtraccionDetalleDto>.Ok(data));
+            return Ok(ApiResponse<AtraccionDetalleDto>.Ok(data, "Detalle de atracciones obtenido exitosamente"));
         }
 
         [HttpGet()]
@@ -32,7 +32,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
             [FromQuery] FiltroDto? filtro)
         {
             var data = await _service.GetPagedAsync(filtro);
-            return Ok(ApiResponse<PagedResponse<ListadoAtracciones>>.Ok(data));
+            return Ok(ApiResponse<PagedResponse<ListadoAtracciones>>.Ok(data, "Listado de atracciones obtenido exitosamente"));
         }   
 
         [HttpPost]

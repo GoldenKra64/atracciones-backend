@@ -64,10 +64,6 @@ namespace Atracciones.Backend.DataAccess.Configurations
             builder.HasOne(x => x.Reserva)
                 .WithOne(r => r.Factura)
                 .HasForeignKey<Factura>(x => x.RevId);
-
-            builder.HasOne(x => x.DatosFacturacion)
-                .WithOne(df => df.Factura)
-                .HasForeignKey<DatosFacturacion>(df => df.FacId);
         }
     }
 }
