@@ -48,7 +48,6 @@ namespace Atracciones.Backend.DataAccess.Configurations
             builder.Property(e => e.AtDuracionMinutos).HasColumnName("at_duracion_minutos");
             builder.Property(e => e.AtPrecioReferencia).HasColumnName("at_precio_referencia");
             builder.Property(e => e.AtIncluyeAcompaniante).HasColumnName("at_incluye_acompaniante");
-            builder.Property(e => e.AtTotalResenias).HasColumnName("at_total_resenias");
             builder.Property(e => e.AtIncluyeTransporte).HasColumnName("at_incluye_transporte");
 
             builder.Property(e => e.DesId).HasColumnName("des_id");
@@ -64,14 +63,6 @@ namespace Atracciones.Backend.DataAccess.Configurations
             builder.Property(e => e.AtFechaEliminacion).HasColumnName("at_fecha_eliminacion");
             builder.Property(e => e.AtUsuarioEliminacion).HasColumnName("at_usuario_eliminacion");
             builder.Property(e => e.AtIpEliminacion).HasColumnName("at_ip_eliminacion");
-
-            builder.Property(e => e.AtDisponible).HasColumnName("at_disponible");
-            builder.Property(e => e.AtDisponibleManana).HasColumnName("at_disponible_manana");
-            builder.Property(e => e.AtProximaFechaDisponible).HasColumnName("at_proxima_fecha_disponible");
-            builder.Property(e => e.AtCuposDisponibles).HasColumnName("at_cupos_disponibles");
-            builder.Property(e => e.TotalIdiomas).HasColumnName("total_idiomas");
-
-            builder.Property(e => e.AtCalificacion).HasColumnName("at_calificacion");
 
             builder.Property(e => e.AtEstado).HasColumnName("at_estado");
 
@@ -98,6 +89,11 @@ namespace Atracciones.Backend.DataAccess.Configurations
 
             // 🔥 Relación con Idioma
             builder.HasMany(x => x.TagAtracciones)
+                .WithOne(ta => ta.Atraccion)
+                .HasForeignKey(ta => ta.AtId);
+
+            // 🔥 Relación con Idioma
+            builder.HasMany(x => x.Resena)
                 .WithOne(ta => ta.Atraccion)
                 .HasForeignKey(ta => ta.AtId);
         }

@@ -21,11 +21,13 @@ namespace Atracciones.Backend.DataManagement.Services
             _uow = uow;
         }
 
+        /*
         public async Task<List<TicketModel>> GetByAtraccionAsync(int atraccionId)
         {
             var data = await _query.GetByAtraccionAsync(atraccionId);
             return data.Select(TicketMapper.ToModel).ToList();
         }
+        */
 
         public async Task<int> CreateAsync(TicketCreateModel model)
         {

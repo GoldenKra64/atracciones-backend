@@ -75,9 +75,15 @@ namespace Atracciones.Backend.DataAccess.Configurations
            .HasForeignKey(e => e.RevId)
            .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(x => x.Atraccion)
-                .WithMany()
-                .HasForeignKey(x => x.AtId);
+            builder.HasOne(e => e.Atraccion)
+                .WithMany(a => a.Resena)
+                .HasForeignKey(e => e.AtId)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            builder.HasOne(e => e.Cliente)
+                .WithMany(c => c.Resenas)
+                .HasForeignKey(e => e.CliId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

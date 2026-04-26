@@ -31,14 +31,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AtId"));
 
-                    b.Property<int>("AtCalificacion")
-                        .HasColumnType("integer")
-                        .HasColumnName("at_calificacion");
-
-                    b.Property<int>("AtCuposDisponibles")
-                        .HasColumnType("integer")
-                        .HasColumnName("at_cupos_disponibles");
-
                     b.Property<string>("AtDescripcion")
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)")
@@ -48,14 +40,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)")
                         .HasColumnName("at_direccion");
-
-                    b.Property<bool>("AtDisponible")
-                        .HasColumnType("boolean")
-                        .HasColumnName("at_disponible");
-
-                    b.Property<bool>("AtDisponibleManana")
-                        .HasColumnType("boolean")
-                        .HasColumnName("at_disponible_manana");
 
                     b.Property<int?>("AtDuracionMinutos")
                         .HasColumnType("integer")
@@ -122,18 +106,10 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("at_precio_referencia");
 
-                    b.Property<DateTime>("AtProximaFechaDisponible")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("at_proxima_fecha_disponible");
-
                     b.Property<string>("AtPuntoEncuentro")
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)")
                         .HasColumnName("at_punto_encuentro");
-
-                    b.Property<int>("AtTotalResenias")
-                        .HasColumnType("integer")
-                        .HasColumnName("at_total_resenias");
 
                     b.Property<string>("AtUsuarioEliminacion")
                         .HasColumnType("text")
@@ -151,10 +127,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Property<int>("DesId")
                         .HasColumnType("integer")
                         .HasColumnName("des_id");
-
-                    b.Property<int>("TotalIdiomas")
-                        .HasColumnType("integer")
-                        .HasColumnName("total_idiomas");
 
                     b.HasKey("AtId");
 
@@ -485,38 +457,41 @@ namespace Atracciones.Backend.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DetResId"));
 
-                    b.Property<int>("DetCantidad")
-                        .HasColumnType("integer")
-                        .HasColumnName("rdet_cantidad");
-
-                    b.Property<decimal>("DetPrecioUnitario")
-                        .HasColumnType("numeric")
-                        .HasColumnName("rdet_precio_unit");
-
-                    b.Property<string>("DetResGuid")
+                    b.Property<string>("DetRevGuid")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("rdet_guid");
 
-                    b.Property<decimal>("DetSubtotal")
-                        .HasColumnType("numeric")
-                        .HasColumnName("rdet_subtotal");
-
-                    b.Property<string>("DetTitulo")
-                        .HasColumnType("text")
-                        .HasColumnName("rdet_titulo");
-
-                    b.Property<int>("ResId")
+                    b.Property<int>("RevId")
                         .HasColumnType("integer")
                         .HasColumnName("rev_id");
+
+                    b.Property<int>("TicCantidad")
+                        .HasColumnType("integer");
 
                     b.Property<int>("TicId")
                         .HasColumnType("integer")
                         .HasColumnName("tck_id");
 
+                    b.Property<double>("TicPrecioUnitario")
+                        .HasColumnType("double precision")
+                        .HasColumnName("rdet_precio_unit");
+
+                    b.Property<double>("TicSubtotal")
+                        .HasColumnType("double precision")
+                        .HasColumnName("rdet_subtotal");
+
+                    b.Property<string>("TicTipoParticipante")
+                        .HasColumnType("text")
+                        .HasColumnName("rdet_tipo_participante");
+
+                    b.Property<string>("TicTitulo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("DetResId");
 
-                    b.HasIndex("ResId");
+                    b.HasIndex("RevId");
 
                     b.HasIndex("TicId");
 
@@ -636,7 +611,7 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .HasColumnName("hor_estado");
 
                     b.Property<DateTime>("HorFecha")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("date")
                         .HasColumnName("hor_fecha");
 
                     b.Property<DateTime?>("HorFechaEliminacion")
@@ -657,11 +632,11 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .HasColumnName("hor_guid");
 
                     b.Property<TimeSpan?>("HorHoraFin")
-                        .HasColumnType("interval")
+                        .HasColumnType("time")
                         .HasColumnName("hor_hora_fin");
 
                     b.Property<TimeSpan>("HorHoraInicio")
-                        .HasColumnType("interval")
+                        .HasColumnType("time")
                         .HasColumnName("hor_hora_inicio");
 
                     b.Property<string>("HorIpEliminacion")
@@ -696,10 +671,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("hor_usuario_mod");
 
-                    b.Property<int>("TicId")
-                        .HasColumnType("integer")
-                        .HasColumnName("tck_id");
-
                     b.HasKey("HorId");
 
                     b.HasIndex("AtId");
@@ -707,10 +678,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.HasIndex("HorGuid")
                         .IsUnique()
                         .HasDatabaseName("UK_HORARIO_guid");
-
-                    b.HasIndex("TicId", "HorFecha", "HorHoraInicio")
-                        .IsUnique()
-                        .HasDatabaseName("UK_HORARIO_slot");
 
                     b.ToTable("HORARIO", (string)null);
                 });
@@ -958,6 +925,54 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.ToTable("AUDITORIA_LOG", (string)null);
                 });
 
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.NoIncluye", b =>
+                {
+                    b.Property<int>("NoIncId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("noinc_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("NoIncId"));
+
+                    b.Property<string>("NoIncDescripcion")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("inc_descripcion");
+
+                    b.Property<string>("NoIncEstado")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)")
+                        .HasColumnName("inc_estado");
+
+                    b.HasKey("NoIncId");
+
+                    b.ToTable("NOINCLUYE", (string)null);
+                });
+
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.NoIncluyeAtraccion", b =>
+                {
+                    b.Property<int>("NoIncId")
+                        .HasColumnType("integer")
+                        .HasColumnName("inc_id");
+
+                    b.Property<int>("AtId")
+                        .HasColumnType("integer")
+                        .HasColumnName("at_id");
+
+                    b.Property<int?>("AtraccionAtId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("NoIncId", "AtId");
+
+                    b.HasIndex("AtId");
+
+                    b.HasIndex("AtraccionAtId");
+
+                    b.ToTable("ATRACCION_NOINCLUYE", (string)null);
+                });
+
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Resena", b =>
                 {
                     b.Property<int>("ResenaId")
@@ -974,9 +989,6 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Property<int>("CliId")
                         .HasColumnType("integer")
                         .HasColumnName("cli_id");
-
-                    b.Property<int>("ClienteCliId")
-                        .HasColumnType("integer");
 
                     b.Property<int>("ResenaCalificacion")
                         .HasColumnType("integer")
@@ -1050,7 +1062,7 @@ namespace Atracciones.Backend.DataAccess.Migrations
 
                     b.HasIndex("AtId");
 
-                    b.HasIndex("ClienteCliId");
+                    b.HasIndex("CliId");
 
                     b.HasIndex("RevId");
 
@@ -1059,104 +1071,112 @@ namespace Atracciones.Backend.DataAccess.Migrations
 
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Reserva", b =>
                 {
-                    b.Property<int>("ResId")
+                    b.Property<int>("RevId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("rev_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ResId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RevId"));
 
-                    b.Property<int>("CliId")
+                    b.Property<int?>("CliId")
                         .HasColumnType("integer")
                         .HasColumnName("cli_id");
 
                     b.Property<int?>("ClienteCliId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("ResCodigo")
+                    b.Property<string>("HorFecha")
+                        .HasColumnType("text");
+
+                    b.Property<string>("HorHoraFin")
+                        .HasColumnType("text");
+
+                    b.Property<string>("HorHoraInicio")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RevCanal")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RevCodigo")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)")
                         .HasColumnName("rev_codigo");
 
-                    b.Property<string>("ResEstado")
+                    b.Property<string>("RevEstado")
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("character varying(3)")
                         .HasColumnName("rev_estado");
 
-                    b.Property<DateTime?>("ResFechaCancelacion")
+                    b.Property<DateTime?>("RevFechaCancelacion")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("rev_fecha_cancelacion");
 
-                    b.Property<DateTime?>("ResFechaMod")
+                    b.Property<DateTime?>("RevFechaMod")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("rev_fecha_mod");
 
-                    b.Property<DateTime>("ResFechaReservaUtc")
+                    b.Property<DateTime>("RevFechaReservaUtc")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("rev_fecha_reserva_utc");
 
-                    b.Property<string>("ResGuid")
+                    b.Property<string>("RevGuid")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("rev_guid");
 
-                    b.Property<string>("ResIpCancelacion")
+                    b.Property<string>("RevIpCancelacion")
                         .HasMaxLength(45)
                         .HasColumnType("character varying(45)")
                         .HasColumnName("rev_ip_cancelacion");
 
-                    b.Property<string>("ResIpIngreso")
+                    b.Property<string>("RevIpIngreso")
                         .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("character varying(45)")
                         .HasColumnName("rev_ip_ingreso");
 
-                    b.Property<string>("ResIpMod")
+                    b.Property<string>("RevIpMod")
                         .HasMaxLength(45)
                         .HasColumnType("character varying(45)")
                         .HasColumnName("rev_ip_mod");
 
-                    b.Property<string>("ResMotivoCancelacion")
+                    b.Property<string>("RevMotivoCancelacion")
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)")
                         .HasColumnName("rev_motivo_cancelacion");
 
-                    b.Property<string>("ResOrigenCanal")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("rev_origen_canal");
-
-                    b.Property<decimal>("ResSubtotal")
-                        .HasColumnType("numeric")
+                    b.Property<double>("RevSubtotal")
+                        .HasColumnType("double precision")
                         .HasColumnName("rev_subtotal");
 
-                    b.Property<decimal>("ResTotal")
-                        .HasColumnType("numeric")
+                    b.Property<double>("RevTotal")
+                        .HasColumnType("double precision")
                         .HasColumnName("rev_total");
 
-                    b.Property<string>("ResUsuarioCancelacion")
+                    b.Property<string>("RevUsuarioCancelacion")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("rev_usuario_cancelacion");
 
-                    b.Property<string>("ResUsuarioIngreso")
+                    b.Property<string>("RevUsuarioIngreso")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("rev_usuario_ingreso");
 
-                    b.Property<string>("ResUsuarioMod")
+                    b.Property<string>("RevUsuarioMod")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("rev_usuario_mod");
 
-                    b.Property<decimal>("ResValorIva")
-                        .HasColumnType("numeric")
+                    b.Property<double>("RevValorIva")
+                        .HasColumnType("double precision")
                         .HasColumnName("rev_valor_iva");
 
-                    b.HasKey("ResId");
+                    b.HasKey("RevId");
 
                     b.HasIndex("CliId");
 
@@ -1265,20 +1285,15 @@ namespace Atracciones.Backend.DataAccess.Migrations
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Ticket", b =>
                 {
                     b.Property<int>("TicId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("tck_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TicId"));
 
                     b.Property<int>("HorId")
                         .HasColumnType("integer")
                         .HasColumnName("hor_id");
-
-                    b.Property<int>("TicCapacidadMaxima")
-                        .HasColumnType("integer")
-                        .HasColumnName("tck_capacidad_maxima");
-
-                    b.Property<int>("TicCuposDisponibles")
-                        .HasColumnType("integer")
-                        .HasColumnName("tck_cupos_disponibles");
 
                     b.Property<string>("TicEstado")
                         .IsRequired()
@@ -1352,6 +1367,8 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .HasColumnName("tck_usuario_mod");
 
                     b.HasKey("TicId");
+
+                    b.HasIndex("HorId");
 
                     b.ToTable("TICKET", (string)null);
                 });
@@ -1528,7 +1545,7 @@ namespace Atracciones.Backend.DataAccess.Migrations
                 {
                     b.HasOne("Atracciones.Backend.DataAccess.Entities.Reserva", "Reserva")
                         .WithMany("Detalles")
-                        .HasForeignKey("ResId")
+                        .HasForeignKey("RevId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1622,7 +1639,7 @@ namespace Atracciones.Backend.DataAccess.Migrations
                     b.Navigation("Incluye");
                 });
 
-            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Resena", b =>
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.NoIncluyeAtraccion", b =>
                 {
                     b.HasOne("Atracciones.Backend.DataAccess.Entities.Atraccion", "Atraccion")
                         .WithMany()
@@ -1630,10 +1647,33 @@ namespace Atracciones.Backend.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Atracciones.Backend.DataAccess.Entities.Atraccion", null)
+                        .WithMany("NoIncluyeAtracciones")
+                        .HasForeignKey("AtraccionAtId");
+
+                    b.HasOne("Atracciones.Backend.DataAccess.Entities.NoIncluye", "NoIncluye")
+                        .WithMany("NoIncluyeAtracciones")
+                        .HasForeignKey("NoIncId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Atraccion");
+
+                    b.Navigation("NoIncluye");
+                });
+
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Resena", b =>
+                {
+                    b.HasOne("Atracciones.Backend.DataAccess.Entities.Atraccion", "Atraccion")
+                        .WithMany("Resena")
+                        .HasForeignKey("AtId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Atracciones.Backend.DataAccess.Entities.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteCliId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("Resenas")
+                        .HasForeignKey("CliId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Atracciones.Backend.DataAccess.Entities.Reserva", "Reserva")
@@ -1652,9 +1692,7 @@ namespace Atracciones.Backend.DataAccess.Migrations
                 {
                     b.HasOne("Atracciones.Backend.DataAccess.Entities.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("CliId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CliId");
 
                     b.HasOne("Atracciones.Backend.DataAccess.Entities.Cliente", null)
                         .WithMany("Reservas")
@@ -1686,7 +1724,7 @@ namespace Atracciones.Backend.DataAccess.Migrations
                 {
                     b.HasOne("Atracciones.Backend.DataAccess.Entities.Horario", "Horario")
                         .WithMany("Ticket")
-                        .HasForeignKey("TicId")
+                        .HasForeignKey("HorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -1724,6 +1762,10 @@ namespace Atracciones.Backend.DataAccess.Migrations
 
                     b.Navigation("IncluyeAtracciones");
 
+                    b.Navigation("NoIncluyeAtracciones");
+
+                    b.Navigation("Resena");
+
                     b.Navigation("TagAtracciones");
                 });
 
@@ -1736,6 +1778,8 @@ namespace Atracciones.Backend.DataAccess.Migrations
 
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Cliente", b =>
                 {
+                    b.Navigation("Resenas");
+
                     b.Navigation("Reservas");
                 });
 
@@ -1763,6 +1807,11 @@ namespace Atracciones.Backend.DataAccess.Migrations
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Incluye", b =>
                 {
                     b.Navigation("IncluyeAtracciones");
+                });
+
+            modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.NoIncluye", b =>
+                {
+                    b.Navigation("NoIncluyeAtracciones");
                 });
 
             modelBuilder.Entity("Atracciones.Backend.DataAccess.Entities.Reserva", b =>

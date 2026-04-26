@@ -27,24 +27,23 @@ namespace Atracciones.Backend.DataAccess.Configurations
                    .HasColumnName("hor_guid")
                    .IsRequired();
 
-            builder.Property(e => e.TicId)
-                   .HasColumnName("tck_id")
-                   .IsRequired();
-
             builder.Property(e => e.AtId)
                    .HasColumnName("at_id")
                    .IsRequired();
 
             builder.Property(e => e.HorFecha)
                    .HasColumnName("hor_fecha")
+                   .HasColumnType("date")
                    .IsRequired();
 
             builder.Property(e => e.HorHoraInicio)
                    .HasColumnName("hor_hora_inicio")
+                   .HasColumnType("time")
                    .IsRequired();
 
             builder.Property(e => e.HorHoraFin)
-                   .HasColumnName("hor_hora_fin");
+                   .HasColumnName("hor_hora_fin")
+                   .HasColumnType("time");
 
             builder.Property(e => e.HorCuposDisponibles)
                    .HasColumnName("hor_cupos_disponibles")
@@ -99,14 +98,10 @@ namespace Atracciones.Backend.DataAccess.Configurations
                    .IsUnique()
                    .HasDatabaseName("UK_HORARIO_guid");
 
-            builder.HasIndex(e => new { e.TicId, e.HorFecha, e.HorHoraInicio })
-                   .IsUnique()
-                   .HasDatabaseName("UK_HORARIO_slot");
-
             // 🔗 Relación con Ticket
             builder.HasMany(e => e.Ticket)
                    .WithOne(t => t.Horario)
-                   .HasForeignKey(t => t.HorId)
+                   .HasForeignKey(t => t.TicId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             // Relacion con Atraccion

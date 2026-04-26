@@ -9,7 +9,6 @@ namespace Atracciones.Backend.DataAccess.Entities
     {
         public int HorId { get; set; }
         public string HorGuid { get; set; }
-        public int TicId { get; set; }
         public int AtId { get; set; }
         public DateTime HorFecha { get; set; }
         public TimeSpan HorHoraInicio { get; set; }

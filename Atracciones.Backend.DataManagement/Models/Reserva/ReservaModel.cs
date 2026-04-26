@@ -9,11 +9,9 @@ namespace Atracciones.Backend.DataManagement.Models.Reserva
 {
     public class ReservaModel : BaseModel
     {
-        public int ClienteId { get; set; }
+        public int? ClienteId { get; set; }
         public DateTime FechaReserva { get; set; }
-
-        public decimal Total { get; set; }
-
+        public double Total { get; set; }
         public List<DetalleReservaModel> Detalles { get; set; } = new();
 
         public FacturaModel? Factura { get; set; }

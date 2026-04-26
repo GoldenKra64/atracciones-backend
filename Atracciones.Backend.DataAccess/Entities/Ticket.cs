@@ -16,8 +16,6 @@ namespace Atracciones.Backend.DataAccess.Entities
         public string TicTitulo { get; set; }
         public decimal TicPrecio { get; set; }
         public string TicTipoParticipante { get; set; }
-        public int TicCapacidadMaxima { get; set; }
-        public int TicCuposDisponibles { get; set; }
 
         // Auditoría ingreso
         public DateTime TicFechaIngreso { get; set; }

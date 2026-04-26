@@ -17,10 +17,6 @@ namespace Atracciones.Backend.DataAccess.Entities
         public string? AtNumEstablecimiento { get; set; }
         public string AtNombre { get; set; } = null!;
         public string? AtDescripcion { get; set; }
-
-        public int AtTotalResenias { get; set; }
-        public int AtCalificacion { get; set; }
-        public int TotalIdiomas { get; set; }
         public string? AtDireccion { get; set; }
         public int? AtDuracionMinutos { get; set; }
         public string? AtPuntoEncuentro { get; set; }
@@ -30,12 +26,6 @@ namespace Atracciones.Backend.DataAccess.Entities
 
         public bool AtIncluyeAcompaniante { get; set; }
         public bool AtIncluyeTransporte { get; set; }
-
-        // Disponibilidad
-        public bool AtDisponible { get; set; }
-        public bool AtDisponibleManana { get; set; }
-        public DateTime AtProximaFechaDisponible { get; set; }
-        public int AtCuposDisponibles { get; set; }
 
         public DateTime AtFechaIngreso { get; set; }
         public string AtUsuarioIngreso { get; set; } = null!;
@@ -61,5 +51,6 @@ namespace Atracciones.Backend.DataAccess.Entities
         public ICollection<Horario> Horario { get; set; } = new List<Horario>();
         public ICollection<IdiomaAtraccion> IdiomaAtracciones { get; set; } = new List<IdiomaAtraccion>();
         public ICollection<TagAtraccion> TagAtracciones { get; set; } = new List<TagAtraccion>();
+        public ICollection<Resena> Resena { get; set; } = new List<Resena>();
     }
 }

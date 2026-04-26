@@ -15,14 +15,14 @@ namespace Atracciones.Backend.DataManagement.Interfaces
         Task<DataPagedResult<AtraccionModel>> GetPagedAsync(
             FiltroModel filtro);
 
-        Task<AtraccionModel?> GetByIdAsync(int id);
+        Task<AtraccionModel?> GetByIdAsync(string id);
 
-        Task<int> CreateAsync(AtraccionCreateModel model);
+        Task CreateAsync(AtraccionCreateModel model);
 
         Task UpdateAsync(AtraccionUpdateModel model);
 
         Task SoftDeleteAsync(int id);
 
-        Task<DataPagedResult<AtraccionModel>> SearchAsync(AtraccionFilterModel filter);
+        // Task<DataPagedResult<AtraccionModel>> SearchAsync(AtraccionFilterModel filter);
     }
 }

@@ -6,6 +6,7 @@ using Atracciones.Backend.DataManagement.Models.Destino;
 using Atracciones.Backend.DataManagement.Models.Horario;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,9 +36,11 @@ namespace Atracciones.Backend.DataManagement.Services
             {
                 HorGuid = Guid.NewGuid().ToString(),
                 AtId = model.AtraccionId,
-                HorFecha = model.Fecha,
-                HorHoraInicio = model.HoraInicio,
-                HorHoraFin = model.HoraFin,
+                HorFecha = DateTime.ParseExact(model.Fecha, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                HorHoraInicio = TimeSpan.ParseExact(model.HoraInicio, "hh\\:mm", CultureInfo.InvariantCulture),
+                HorHoraFin = model.HoraFin != null
+                    ? TimeSpan.ParseExact(model.HoraFin, "hh\\:mm", CultureInfo.InvariantCulture)
+                    : (TimeSpan?)null,
                 HorCuposDisponibles = model.Cupos,
                 HorEstado = "ACT",
                 HorFechaIngreso = DateTime.UtcNow,

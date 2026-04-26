@@ -1,0 +1,20 @@
+﻿using Atracciones.Backend.Business.DTOs.NoIncluye;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Atracciones.Backend.Business.Interfaces
+{
+    public interface INoIncluyeBusinessService
+    {
+        Task<IEnumerable<NoIncluyeResponse>> GetAllAsync();
+
+        Task<int> CreateAsync(CreateNoIncluyeRequest request);
+
+        Task UpdateAsync(UpdateNoIncluyeRequest request);
+
+        Task LogicalDeleteAsync(int id);
+    }
+}

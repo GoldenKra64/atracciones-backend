@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataManagement.Interfaces
 {
     public interface ITicketDataService
     {
-        Task<List<TicketModel>> GetByAtraccionAsync(int atraccionId);
+        /* Task<List<TicketModel>> GetByAtraccionAsync(int atraccionId); */
 
         Task<int> CreateAsync(TicketCreateModel model);
 

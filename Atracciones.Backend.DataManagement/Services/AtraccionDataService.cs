@@ -27,7 +27,7 @@ namespace Atracciones.Backend.DataManagement.Services
         public async Task<DataPagedResult<AtraccionModel>> GetPagedAsync(
             FiltroModel filtro)
         {
-            var result = await _query.GetPagedAsync(filtro.Page, filtro.Limit, 
+            var result = await _query.GetPagedAsync(filtro.Page, filtro.Limit, filtro.Ciudad,
                 filtro.Idioma, filtro.OrdenarPor, filtro.CalificacionMin, filtro.Horario, filtro.Tipo, filtro.Subtipo);
 
             return new DataPagedResult<AtraccionModel>
@@ -39,18 +39,18 @@ namespace Atracciones.Backend.DataManagement.Services
             };
         }
 
-        public async Task<AtraccionModel?> GetByIdAsync(int id)
+        public async Task<AtraccionModel?> GetByIdAsync(string id)
         {
             var entity = await _query.GetByIdAsync(id);
             return entity == null ? null : AtraccionMapper.ToModel(entity);
         }
 
-        public async Task<int> CreateAsync(AtraccionCreateModel model)
+        public async Task CreateAsync(AtraccionCreateModel model)
         {
             var entity = AtraccionMapper.ToEntity(model);
 
             await _uow.AtraccionRepository.CreateAsync(entity);
-            return entity.AtId;
+            // 201
         }
 
         public async Task UpdateAsync(AtraccionUpdateModel model)
@@ -67,6 +67,7 @@ namespace Atracciones.Backend.DataManagement.Services
         {
             await _uow.AtraccionRepository.SoftDeleteAsync(id);
         }
+        /*
         public async Task<DataPagedResult<AtraccionModel>> SearchAsync(AtraccionFilterModel filter)
         {
             var data = await _query.SearchAsync(filter);
@@ -79,5 +80,6 @@ namespace Atracciones.Backend.DataManagement.Services
                 PageSize = data.PageSize
             };
         }
+        */
     }
 }

@@ -9,6 +9,5 @@ namespace Atracciones.Backend.DataAccess.Queries.Interfaces
 {
     public interface ITicketQuery
     {
-        Task<List<Ticket>> GetByAtraccionAsync(int atraccionId);
     }
 }

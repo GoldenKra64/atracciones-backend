@@ -8,5 +8,7 @@ using System.Threading.Tasks;
 
 namespace Atracciones.Backend.DataAccess.Repositories.Interfaces
 {
-    public interface ITicketRepository : IRepository<Ticket> { }
+    public interface ITicketRepository : IRepository<Ticket> {
+        public Task<Ticket?> GetByIdAsync(string tickGuid);
+    }
 }

@@ -4,6 +4,8 @@ using Atracciones.Backend.DataManagement.Models.Destino;
 using Atracciones.Backend.DataManagement.Models.Horario;
 using Atracciones.Backend.DataManagement.Models.Imagen;
 using Atracciones.Backend.DataManagement.Models.Incluye;
+using Atracciones.Backend.DataManagement.Models.NoIncluye;
+using Atracciones.Backend.DataManagement.Models.Resena;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,9 @@ namespace Atracciones.Backend.DataManagement.Models.Atraccion
         public List<CategoriaModel> Categorias { get; set; } = new();
         public List<IdiomaModel> Idiomas { get; set; } = new();
         public List<IncluyeModel> Incluyes { get; set; } = new();
-        public List<TagAtraccion> TagAtraccions { get; set; } = new();
+        public List<NoIncluyeModel> NoIncluyes { get; set; } = new();
+        public List<TagModel> TagAtracciones { get; set; } = new();
         public List<HorarioModel> Horarios { get; set; } = new();
+        public List<ResenaModel> Resena { get; set; } = new();
     }
 }

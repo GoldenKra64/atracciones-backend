@@ -8,10 +8,9 @@ namespace Atracciones.Backend.DataManagement.Models.Reserva
 {
     public class ReservaCreateModel
     {
-        public int ClienteId { get; set; }
-
-        public List<DetalleReservaModel> Detalles { get; set; } = new();
-
-        public DatosFacturacionModel DatosFacturacion { get; set; } = null!;
+        public string HorarioGuid { get; set; } = null!;
+        public int? ClienteId { get; set; }
+        public string Canal { get; set; } = null!;
+        public List<DetalleReservaCreateModel> Lineas { get; set; } = new();
     }
 }

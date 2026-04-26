@@ -1,15 +1,15 @@
-﻿using Atracciones.Backend.Business.DTOs.Destino;
+﻿using Atracciones.Backend.Business.DTOs.Horario;
+using Atracciones.Backend.Business.Exceptions;
 using Atracciones.Backend.Business.Interfaces;
 using Atracciones.Backend.Business.Mappers;
+using Atracciones.Backend.Business.Validators;
 using Atracciones.Backend.DataManagement.Interfaces;
-using Atracciones.Backend.Business.Exceptions;
+using Atracciones.Backend.DataManagement.Models.Horario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Atracciones.Backend.Business.DTOs.Horario;
-using Atracciones.Backend.DataManagement.Models.Horario;
 
 namespace Atracciones.Backend.Business.Services
 {
@@ -24,6 +24,8 @@ namespace Atracciones.Backend.Business.Services
 
         public async Task<int> CreateAsync(CreateHorarioRequest request)
         {
+            HorarioValidator.ValidateCreate(request);
+
             var model = HorarioBusinessMapper.ToCreateModel(request);
             return await _dataService.CreateAsync(model);
         }
@@ -41,6 +43,8 @@ namespace Atracciones.Backend.Business.Services
 
         public async Task UpdateAsync(UpdateHorarioRequest request)
         {
+            HorarioValidator.ValidateUpdate(request);
+
             var model = HorarioBusinessMapper.ToUpdateModel(request);
             await _dataService.UpdateAsync(model);
         }

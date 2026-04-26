@@ -19,14 +19,14 @@ namespace Atracciones.Backend.DataAccess.Repositories
         {
             await _context.Reservas.AddAsync(reserva);
             await _context.SaveChangesAsync();
-            return reserva.ResId;
+            return reserva.RevId;
         }
 
         public override async Task SoftDeleteAsync(int id)
         {
             var reserva = await _context.Reservas
                 .Include(r => r.Detalles)
-                .FirstOrDefaultAsync(r => r.ResId == id);
+                .FirstOrDefaultAsync(r => r.RevId == id);
 
             if (reserva == null) return;
 

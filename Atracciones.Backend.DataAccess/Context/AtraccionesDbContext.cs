@@ -46,6 +46,9 @@ namespace Atracciones.Backend.DataAccess.Context
         public DbSet<Incluye> Incluyes => Set<Incluye>();
         public DbSet<IncluyeAtraccion> IncluyeAtracciones => Set<IncluyeAtraccion>();
 
+        public DbSet<NoIncluye> NoIncluyes => Set<NoIncluye>();
+        public DbSet<NoIncluyeAtraccion> NoIncluyeAtracciones => Set<NoIncluyeAtraccion>();
+
         public DbSet<Idioma> Idiomas => Set<Idioma>();
         public DbSet<IdiomaAtraccion> IdiomaAtracciones => Set<IdiomaAtraccion>();
 

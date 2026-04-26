@@ -1,4 +1,5 @@
-﻿using Atracciones.Backend.DataAccess.Queries.Interfaces;
+﻿using Atracciones.Backend.DataAccess.Entities;
+using Atracciones.Backend.DataAccess.Queries.Interfaces;
 using Atracciones.Backend.DataManagement.Interfaces;
 using Atracciones.Backend.DataManagement.Mappers;
 using Atracciones.Backend.DataManagement.Models;
@@ -43,20 +44,49 @@ namespace Atracciones.Backend.DataManagement.Services
 
         public async Task<int> CreateAsync(ReservaCreateModel model)
         {
+            if (model == null) throw new ArgumentNullException(nameof(model));
+
             await _uow.BeginTransactionAsync();
 
             try
             {
                 var entity = ReservaMapper.ToEntity(model);
 
-                // 💥 Aquí luego puedes calcular total en Business
-                entity.ResTotal = entity.Detalles.Sum(x => x.DetSubtotal);
+                if (model.Lineas == null || !model.Lineas.Any())
+                    throw new Exception("Debe incluir al menos un detalle en la reserva.");
 
-                await _uow.ReservaRepository.CreateAsync(entity);
+                foreach (var linea in model.Lineas)
+                {
+                    if (linea.TicketId == null)
+                        throw new Exception($"Ticket inválido en la línea (TicketId: {linea.TicketId}).");
+
+                    var ticket = await _uow.TicketRepository.GetByIdAsync(linea.TicketId)
+                        ?? throw new Exception($"Ticket {linea.TicketId} not found");
+
+                    var det = new DetalleReserva
+                    {
+                        DetRevGuid = Guid.NewGuid().ToString(),
+                        TicId = ticket.TicId,
+                        TicTipoParticipante = ticket.TicTipoParticipante,
+                        TicCantidad = linea.Cantidad,
+                        TicPrecioUnitario = (double)ticket.TicPrecio,
+                        TicSubtotal = (double)(ticket.TicPrecio * linea.Cantidad),
+                        TicTitulo = ticket.TicTitulo
+                    };
+
+                    entity.Detalles.Add(det);
+                }
+
+                // Totals
+                entity.RevSubtotal = entity.Detalles.Sum(x => x.TicSubtotal);
+                entity.RevValorIva = 15;
+                entity.RevTotal = (double)(entity.RevSubtotal * (1 + entity.RevValorIva / 100));
+
+                var createdId = await _uow.ReservaRepository.CreateWithDetallesAsync(entity);
 
                 await _uow.CommitAsync();
 
-                return entity.ResId;
+                return createdId;
             }
             catch
             {

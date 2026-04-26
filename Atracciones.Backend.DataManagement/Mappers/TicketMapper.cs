@@ -19,7 +19,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Estado = entity.TicEstado,
                 Nombre = entity.TicTitulo,
                 Precio = entity.TicPrecio,
-                Stock = entity.TicCuposDisponibles,
+                Tipo = entity.TicTipoParticipante,
                 HorarioId = entity.HorId,
 
                 Horario = entity.Horario != null ? HorarioMapper.ToModel(entity.Horario) : null
@@ -31,9 +31,14 @@ namespace Atracciones.Backend.DataManagement.Mappers
             return new Ticket
             {
                 HorId = model.HorarioId,
+                TicGuid = Guid.NewGuid().ToString(),
                 TicTitulo = model.Nombre,
                 TicPrecio = model.Precio,
-                TicCuposDisponibles = model.Stock,
+                TicTipoParticipante = model.Tipo,
+
+                TicFechaIngreso = DateTime.UtcNow,
+                TicUsuarioIngreso = "system", // Este valor debería ser dinámico en un entorno real
+                TicIpIngreso = "127.0.0.1",
                 TicEstado = "ACT"
             };
         }
@@ -42,7 +47,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
             entity.HorId = model.HorarioId;
             entity.TicTitulo = model.Nombre;
             entity.TicPrecio = model.Precio;
-            entity.TicCuposDisponibles = model.Stock;
+            entity.TicTipoParticipante = model.Tipo;
         }
     }
 }

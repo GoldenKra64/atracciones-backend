@@ -9,7 +9,7 @@ namespace Atracciones.Backend.Business.Interfaces
 {
     public interface ITicketBusinessService
     {
-        Task<IEnumerable<TicketResponse>> GetByAtraccionAsync(int atraccionId);
+        /* Task<IEnumerable<TicketResponse>> GetByAtraccionAsync(int atraccionId); */
 
         Task<int> CreateAsync(CreateTicketRequest request);
 

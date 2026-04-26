@@ -18,7 +18,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 AtraccionId = entity.AtId,
                 Calificacion = entity.ResenaCalificacion,
                 Comentario = entity.ResenaComentario,
-                Fecha = entity.ResenaFechaCreacion
+                Fecha = entity.ResenaFechaCreacion.ToShortDateString()
             };
         }
 
@@ -27,10 +27,13 @@ namespace Atracciones.Backend.DataManagement.Mappers
             return new Resena
             {
                 CliId = model.ClienteId,
+                ResenaGuid = Guid.NewGuid().ToString(),
                 AtId = model.AtraccionId,
                 ResenaCalificacion = model.Calificacion,
                 ResenaComentario = model.Comentario,
                 ResenaFechaCreacion = DateTime.UtcNow,
+                ResenaIpCreacion = "127.0.0.1",
+                ResenaUsuarioCreacion = "system",
                 ResenaEstado = "ACT"
             };
         }

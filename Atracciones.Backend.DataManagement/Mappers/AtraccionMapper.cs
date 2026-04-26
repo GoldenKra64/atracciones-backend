@@ -2,6 +2,7 @@
 using Atracciones.Backend.DataManagement.Models.Atraccion;
 using Atracciones.Backend.DataManagement.Models.Horario;
 using Atracciones.Backend.DataManagement.Models.Imagen;
+using Atracciones.Backend.DataManagement.Models.Resena;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,11 @@ namespace Atracciones.Backend.DataManagement.Mappers
                     .Select(ia => CatalogosMapper.ToModel(ia.Incluye))
                     .ToList() ?? new(),
 
+                NoIncluyes = entity.NoIncluyeAtracciones?
+                    .Where(ia => ia.NoIncluye != null)
+                    .Select(ia => CatalogosMapper.ToModel(ia.NoIncluye))
+                    .ToList() ?? new(),
+
                 Horarios = entity.Horario?
                     .Select(ia => new HorarioModel
                     {
@@ -63,7 +69,23 @@ namespace Atracciones.Backend.DataManagement.Mappers
                         Fecha = ia.HorFecha.ToString("yyyy-MM-dd"),
                         HoraInicio = ia.HorHoraInicio.ToString(@"hh\:mm"),
                         HoraFin = ia.HorHoraFin?.ToString(@"hh\:mm"),
-                        Cupos = ia.HorCuposDisponibles
+                        Cupos = ia.HorCuposDisponibles,
+                        Tickets = ia.Ticket?.Select(TicketMapper.ToModel).ToList() ?? new()
+                    }).ToList() ?? new(),
+
+                TagAtracciones = entity.TagAtracciones?
+                    .Where(ta => ta.Tag != null)
+                    .Select(ta => CatalogosMapper.ToModel(ta.Tag))
+                    .ToList() ?? new(),
+
+                Resena = entity.Resena?
+                    .Select(r => new ResenaModel
+                    {
+                        AtraccionId = r.AtId,
+                        Comentario = r.ResenaComentario,
+                        Calificacion = r.ResenaCalificacion,
+                        Fecha = r.ResenaFechaCreacion.ToShortDateString(),
+                        ClienteId = r.CliId
                     }).ToList() ?? new(),
             };
         }
@@ -88,6 +110,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
             entity.CategoriaAtracciones = (model.CategoriaIds ?? Enumerable.Empty<int>()).Select(cateId => new CategoriaAtraccion { CatId = cateId, Atraccion = entity }).ToList();
             entity.IncluyeAtracciones = (model.IncluyeIds ?? Enumerable.Empty<int>()).Select(incId => new IncluyeAtraccion { IncId = incId, Atraccion = entity }).ToList();
             entity.IdiomaAtracciones = (model.IdiomaIds ?? Enumerable.Empty<int>()).Select(idiId => new IdiomaAtraccion { IdId = idiId, Atraccion = entity }).ToList();
+            entity.NoIncluyeAtracciones = (model.NoIncluyeIds ?? Enumerable.Empty<int>()).Select(noIncId => new NoIncluyeAtraccion { NoIncId = noIncId, Atraccion = entity }).ToList();
             return entity;
         }
         public static void UpdateEntity(Atraccion entity, AtraccionUpdateModel model)
@@ -110,6 +133,10 @@ namespace Atracciones.Backend.DataManagement.Mappers
 
             entity.IdiomaAtracciones = (model.IdiomaIds ?? Enumerable.Empty<int>())
                 .Select(idiId => new IdiomaAtraccion { IdId = idiId, AtId = entity.AtId })
+                .ToList();
+
+            entity.NoIncluyeAtracciones = (model.NoIncluyeIds ?? Enumerable.Empty<int>())
+                .Select(noIncId => new NoIncluyeAtraccion { NoIncId = noIncId, AtId = entity.AtId })
                 .ToList();
         }
     }

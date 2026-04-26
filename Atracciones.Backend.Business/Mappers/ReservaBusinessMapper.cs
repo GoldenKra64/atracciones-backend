@@ -18,19 +18,14 @@ namespace Atracciones.Backend.Business.Mappers
             {
                 ClienteId = request.ClienteId,
 
-                Detalles = request.Detalles.Select(d => new DetalleReservaModel
+                Lineas = request.Lineas.Select(d => new DetalleReservaCreateModel
                 {
-                    TicketId = d.TicketId,
-                    Cantidad = d.Cantidad
+                    TicketId = d.tck_guid,
+                    Cantidad = d.cantidad
                 }).ToList(),
 
-                DatosFacturacion = new DatosFacturacionModel
-                {
-                    Nombres = request.DatosFacturacion.Nombres,
-                    Apellidos = request.DatosFacturacion.Apellidos,
-                    Correo = request.DatosFacturacion.Correo,
-                    Telefono = request.DatosFacturacion.Telefono
-                }
+                Canal = request.origen_canal,
+                HorarioGuid = request.hor_guid
             };
         }
 
@@ -43,7 +38,6 @@ namespace Atracciones.Backend.Business.Mappers
                 Guid = model.Guid,
                 ClienteId = model.ClienteId,
                 FechaReserva = model.FechaReserva,
-                Total = model.Total,
 
                 Detalles = model.Detalles.Select(d => new DetalleReservaResponse
                 {

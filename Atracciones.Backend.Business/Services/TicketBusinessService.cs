@@ -19,11 +19,13 @@ namespace Atracciones.Backend.Business.Services
             _dataService = dataService;
         }
 
+        /*
         public async Task<IEnumerable<TicketResponse>> GetByAtraccionAsync(int atraccionId)
         {
             var data = await _dataService.GetByAtraccionAsync(atraccionId);
             return data.Select(TicketBusinessMapper.ToResponse);
         }
+        */
 
         public async Task<int> CreateAsync(CreateTicketRequest request)
         {

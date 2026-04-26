@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Atracciones.Backend.DataManagement.Models.Ticket;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace Atracciones.Backend.DataManagement.Models.Horario
         public string HoraInicio { get; set; }      // "HH:mm"
         public string? HoraFin { get; set; }        // "HH:mm"
         public int Cupos { get; set; }
+        public List<TicketModel> Tickets { get; set; } = new List<TicketModel>();
     }
 }

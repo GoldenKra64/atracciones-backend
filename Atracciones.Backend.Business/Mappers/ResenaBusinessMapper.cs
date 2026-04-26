@@ -39,7 +39,7 @@ namespace Atracciones.Backend.Business.Mappers
                 AtraccionId = model.AtraccionId,
                 Calificacion = model.Calificacion,
                 Comentario = model.Comentario,
-                Fecha = model.Fecha
+                Fecha = DateTime.Parse(model.Fecha)
             };
         }
     }

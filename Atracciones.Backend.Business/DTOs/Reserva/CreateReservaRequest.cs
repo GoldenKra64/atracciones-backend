@@ -9,10 +9,9 @@ namespace Atracciones.Backend.Business.DTOs.Reserva
 {
     public class CreateReservaRequest
     {
-        public int ClienteId { get; set; }
-
-        public List<DetalleReservaRequest> Detalles { get; set; } = new();
-
-        public DatosFacturacionRequest DatosFacturacion { get; set; } = null!;
+        public int? ClienteId { get; set; }
+        public string hor_guid { get; set; } = null!;
+        public string origen_canal { get; set; } = null!;
+        public List<DetalleReservaRequest> Lineas { get; set; } = new();
     }
 }

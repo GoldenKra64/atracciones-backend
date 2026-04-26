@@ -10,7 +10,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/atracciones")]
     public class AtraccionController : ControllerBase
     {
         private readonly IAtraccionBusinessService _service;
@@ -21,10 +21,10 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(string id)
         {
             var data = await _service.GetByIdAsync(id);
-            return Ok(ApiResponse<AtraccionResponse>.Ok(data));
+            return Ok(ApiResponse<AtraccionDetalleDto>.Ok(data));
         }
 
         [HttpGet()]
@@ -32,14 +32,14 @@ namespace Atracciones.Backend.Api.Controllers.v1
             [FromQuery] FiltroDto? filtro)
         {
             var data = await _service.GetPagedAsync(filtro);
-            return Ok(ApiResponse<PagedResponse<AtraccionResponse>>.Ok(data));
-        }
+            return Ok(ApiResponse<PagedResponse<ListadoAtracciones>>.Ok(data));
+        }   
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateAtraccionRequest request)
         {
-            var id = await _service.CreateAsync(request);
-            return Ok(ApiResponse<int>.Ok(id));
+            await _service.CreateAsync(request);
+            return Created();
         }
 
         [HttpPut]

@@ -15,21 +15,21 @@ namespace Atracciones.Backend.DataManagement.Mappers
         {
             return new ReservaModel
             {
-                Id = entity.ResId,
-                Guid = entity.ResGuid,
-                Estado = entity.ResEstado,
+                Id = entity.RevId,
+                Guid = entity.RevGuid,
+                Estado = entity.RevEstado,
 
                 ClienteId = entity.CliId,
-                FechaReserva = entity.ResFechaReservaUtc,
-                Total = entity.ResTotal,
+                FechaReserva = entity.RevFechaReservaUtc,
+                Total = entity.RevTotal,
 
                 Detalles = entity.Detalles?
                     .Select(d => new DetalleReservaModel
                     {
-                        TicketId = d.TicId,
-                        Cantidad = d.DetCantidad,
-                        PrecioUnitario = d.DetPrecioUnitario,
-                        Subtotal = d.DetSubtotal
+                        TicketId = d.Ticket.TicGuid,
+                        Cantidad = d.TicCantidad,
+                        PrecioUnitario = d.TicPrecioUnitario,
+                        Subtotal = d.TicSubtotal
                     }).ToList() ?? new(),
 
                 Factura = entity.Factura != null
@@ -43,16 +43,14 @@ namespace Atracciones.Backend.DataManagement.Mappers
             return new Reserva
             {
                 CliId = model.ClienteId,
-                ResFechaReservaUtc = DateTime.UtcNow,
-                ResEstado = "ACT",
-
-                Detalles = model.Detalles.Select(d => new DetalleReserva
-                {
-                    TicId = d.TicketId,
-                    DetCantidad = d.Cantidad,
-                    DetPrecioUnitario = d.PrecioUnitario,
-                    DetSubtotal = d.Subtotal
-                }).ToList()
+                RevGuid = Guid.NewGuid().ToString(),
+                RevCodigo = $"R-{DateTime.UtcNow:yyyyMMddHHmmssfff}",
+                RevFechaReservaUtc = DateTime.UtcNow,
+                RevEstado = "PEN",
+                RevIpIngreso = "127.0.0.1",
+                RevUsuarioIngreso = "system",
+                RevCanal = model.Canal,
+                Detalles = new List<DetalleReserva>()
             };
         }
     }

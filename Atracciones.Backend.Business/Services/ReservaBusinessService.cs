@@ -16,15 +16,19 @@ namespace Atracciones.Backend.Business.Services
     public class ReservaBusinessService : IReservaBusinessService
     {
         private readonly IReservaDataService _dataService;
+        private readonly ITicketDataService _ticketService;
+        private readonly IHorarioDataService _horarioService;
 
-        public ReservaBusinessService(IReservaDataService dataService)
+        public ReservaBusinessService(IReservaDataService dataService, ITicketDataService ticketService, IHorarioDataService horarioService)
         {
             _dataService = dataService;
+            _ticketService = ticketService;
+            _horarioService = horarioService;
         }
 
         public async Task<int> CreateAsync(CreateReservaRequest request)
         {
-            ReservaValidator.ValidateCreate(request);
+            // ReservaValidator.ValidateCreate(request);
 
             var model = ReservaBusinessMapper.ToCreateModel(request);
 

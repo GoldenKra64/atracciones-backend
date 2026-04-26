@@ -11,12 +11,12 @@ namespace Atracciones.Backend.Business.Interfaces
 {
     public interface IAtraccionBusinessService
     {
-        Task<AtraccionResponse> GetByIdAsync(int id);
+        Task<AtraccionDetalleDto> GetByIdAsync(string id);
 
-        Task<PagedResponse<AtraccionResponse>> GetPagedAsync(
+        Task<PagedResponse<ListadoAtracciones>> GetPagedAsync(
             FiltroDto filtro);
 
-        Task<int> CreateAsync(CreateAtraccionRequest request);
+        Task CreateAsync(CreateAtraccionRequest request);
 
         Task UpdateAsync(UpdateAtraccionRequest request);
 

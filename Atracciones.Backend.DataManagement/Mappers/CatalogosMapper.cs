@@ -3,6 +3,7 @@ using Atracciones.Backend.DataManagement.Models;
 using Atracciones.Backend.DataManagement.Models.Categoria;
 using Atracciones.Backend.DataManagement.Models.Destino;
 using Atracciones.Backend.DataManagement.Models.Incluye;
+using Atracciones.Backend.DataManagement.Models.NoIncluye;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,15 @@ namespace Atracciones.Backend.DataManagement.Mappers
             };
         }
 
+        public static NoIncluyeModel ToModel(NoIncluye entity)
+        {
+            return new NoIncluyeModel
+            {
+                Id = entity.NoIncId,
+                Descripcion = entity.NoIncDescripcion
+            };
+        }
+
         public static TagModel ToModel(Tag entity)
         {
             return new TagModel
@@ -79,6 +89,10 @@ namespace Atracciones.Backend.DataManagement.Mappers
         public static void UpdateEntity(Incluye entity, IncluyeUpdateModel model)
         {
             entity.IncDescripcion = model.Descripcion;
+        }
+        public static void UpdateEntity(NoIncluye entity, NoIncluyeUpdateModel model)
+        {
+            entity.NoIncDescripcion = model.Descripcion;
         }
     }
 }

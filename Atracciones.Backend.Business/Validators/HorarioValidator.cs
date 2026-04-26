@@ -20,10 +20,38 @@ namespace Atracciones.Backend.Business.Validators
             if (request.Cupos < 0)
                 throw new ValidationException("Los cupos no pueden ser negativos");
 
-            if (request.Fecha.Date < DateTime.UtcNow.Date)
+            if (!DateTime.TryParseExact(
+                    request.Fecha,
+                    "yyyy-MM-dd",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out var fecha))
+            {
+                throw new ValidationException("Formato de fecha inválido. Use yyyy-MM-dd");
+            }
+
+            if (fecha.Date < DateTime.UtcNow.Date)
                 throw new ValidationException("La fecha no puede ser pasada");
 
-            if (request.HoraFin.HasValue && request.HoraFin <= request.HoraInicio)
+            if (!TimeSpan.TryParseExact(
+                    request.HoraInicio,
+                    @"hh\:mm",
+                    CultureInfo.InvariantCulture,
+                    out var horaInicio))
+            {
+                throw new ValidationException("Formato de hora_inicio inválido. Use HH:mm");
+            }
+            
+            if (!TimeSpan.TryParseExact(
+                    request.HoraFin,
+                    @"hh\:mm",
+                    CultureInfo.InvariantCulture,
+                    out var horaFin))
+            {
+                throw new ValidationException("Formato de hora_fin inválido. Use HH:mm");
+            }
+
+            if (horaFin <= horaInicio)
                 throw new ValidationException("HoraFin debe ser mayor a HoraInicio");
         }
 

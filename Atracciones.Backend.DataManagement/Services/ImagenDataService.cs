@@ -23,6 +23,7 @@ namespace Atracciones.Backend.DataManagement.Services
             var entity = new Imagen
             {
                 AtId = model.AtraccionId,
+                ImgGuid = Guid.NewGuid().ToString(),
                 ImgUrl = model.Url,
                 ImgDescripcion = model.Descripcion,
                 ImgEstado = "ACT",

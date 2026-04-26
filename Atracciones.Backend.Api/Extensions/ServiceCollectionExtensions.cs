@@ -37,6 +37,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IIdiomaDataService, IdiomaDataService>();
             services.AddScoped<IImagenDataService, ImagenDataService>();
             services.AddScoped<IIncluyeDataService, IncluyeDataService>();
+            services.AddScoped<INoIncluyeDataService, NoIncluyeDataService>();
             services.AddScoped<IResenaDataService, ResenaDataService>();
             services.AddScoped<IReservaDataService, ReservaDataService>();
             services.AddScoped<ITicketDataService, TicketDataService>();
@@ -69,6 +70,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IFacturaRepository, FacturaRepository>();
             services.AddScoped<IImagenRepository, ImagenRepository>();
             services.AddScoped<IIncluyeRepository, IncluyeRepository>();
+            services.AddScoped<INoIncluyeRepository, NoIncluyeRepository>();
             services.AddScoped<IResenaRepository, ResenaRepository>();
             services.AddScoped<IRepository<Idioma>, IdiomaRepository>();
             services.AddScoped<IReservaRepository, ReservaRepository>();
@@ -99,6 +101,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IIdiomaBusinessService, IdiomaBusinessService>();
             services.AddScoped<IImagenBusinessService, ImagenBusinessService>();
             services.AddScoped<IIncluyeBusinessService, IncluyeBusinessService>();
+            services.AddScoped<INoIncluyeBusinessService, NoIncluyeBusinessService>();
             services.AddScoped<IResenaBusinessService, ResenaBusinessService>();
             services.AddScoped<IReservaBusinessService, ReservaBusinessService>();
             services.AddScoped<ITicketBusinessService, TicketBusinessService>();

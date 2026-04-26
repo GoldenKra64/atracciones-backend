@@ -18,13 +18,6 @@ namespace Atracciones.Backend.Api.Controllers.v1
             _service = service;
         }
 
-        [HttpGet("atraccion/{id}")]
-        public async Task<IActionResult> GetByAtraccion(int id)
-        {
-            var data = await _service.GetByAtraccionAsync(id);
-            return Ok(ApiResponse<IEnumerable<TicketResponse>>.Ok(data));
-        }
-
         [HttpPost]
         public async Task<IActionResult> Create(CreateTicketRequest request)
         {

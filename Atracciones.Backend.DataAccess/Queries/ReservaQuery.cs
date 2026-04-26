@@ -32,7 +32,7 @@ namespace Atracciones.Backend.DataAccess.Queries
             var total = await query.CountAsync();
 
             var items = await query
-                .OrderByDescending(x => x.ResFechaReservaUtc)
+                .OrderByDescending(x => x.RevFechaReservaUtc)
                 .Skip((page - 1) * size)
                 .Take(size)
                 .ToListAsync();
@@ -54,7 +54,7 @@ namespace Atracciones.Backend.DataAccess.Queries
                         .ThenInclude(t => t.Horario)
                             .ThenInclude(h => h.Atraccion)
                 .Include(r => r.Factura)
-                .FirstOrDefaultAsync(r => r.ResId == reservaId);
+                .FirstOrDefaultAsync(r => r.RevId == reservaId);
         }
     }
 }

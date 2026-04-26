@@ -16,69 +16,65 @@ namespace Atracciones.Backend.DataAccess.Configurations
             builder.ToTable("RESERVAS");
 
             // 🔑 PK
-            builder.HasKey(e => e.ResId);
+            builder.HasKey(e => e.RevId);
 
             // 🔗 Columnas
-            builder.Property(e => e.ResId).HasColumnName("rev_id");
-            builder.Property(e => e.ResGuid).HasColumnName("rev_guid");
+            builder.Property(e => e.RevId).HasColumnName("rev_id");
+            builder.Property(e => e.RevGuid).HasColumnName("rev_guid");
 
-            builder.Property(e => e.ResCodigo)
+            builder.Property(e => e.RevCodigo)
                    .HasColumnName("rev_codigo")
                    .HasMaxLength(20);
 
             builder.Property(e => e.CliId).HasColumnName("cli_id");
 
-            builder.Property(e => e.ResFechaReservaUtc)
+            builder.Property(e => e.RevFechaReservaUtc)
                    .HasColumnName("rev_fecha_reserva_utc");
 
-            builder.Property(e => e.ResSubtotal)
+            builder.Property(e => e.RevSubtotal)
                    .HasColumnName("rev_subtotal");
 
-            builder.Property(e => e.ResValorIva)
+            builder.Property(e => e.RevValorIva)
                    .HasColumnName("rev_valor_iva");
 
-            builder.Property(e => e.ResTotal)
+            builder.Property(e => e.RevTotal)
                    .HasColumnName("rev_total");
 
-            builder.Property(e => e.ResOrigenCanal)
-                   .HasColumnName("rev_origen_canal")
-                   .HasMaxLength(50);
-
-            builder.Property(e => e.ResUsuarioIngreso)
+            builder.Property(e => e.RevUsuarioIngreso)
                    .HasColumnName("rev_usuario_ingreso")
                    .HasMaxLength(100);
 
-            builder.Property(e => e.ResIpIngreso)
+            builder.Property(e => e.RevIpIngreso)
                    .HasColumnName("rev_ip_ingreso")
                    .HasMaxLength(45);
 
-            builder.Property(e => e.ResFechaMod)
+            builder.Property(e => e.RevFechaMod)
                    .HasColumnName("rev_fecha_mod");
 
-            builder.Property(e => e.ResUsuarioMod)
+            builder.Property(e => e.RevUsuarioMod)
                    .HasColumnName("rev_usuario_mod")
                    .HasMaxLength(100);
 
-            builder.Property(e => e.ResIpMod)
+            builder.Property(e => e.RevIpMod)
                    .HasColumnName("rev_ip_mod")
                    .HasMaxLength(45);
 
-            builder.Property(e => e.ResFechaCancelacion)
+            builder.Property(e => e.RevFechaCancelacion)
                    .HasColumnName("rev_fecha_cancelacion");
 
-            builder.Property(e => e.ResUsuarioCancelacion)
+            builder.Property(e => e.RevUsuarioCancelacion)
                    .HasColumnName("rev_usuario_cancelacion")
                    .HasMaxLength(100);
 
-            builder.Property(e => e.ResIpCancelacion)
+            builder.Property(e => e.RevIpCancelacion)
                    .HasColumnName("rev_ip_cancelacion")
                    .HasMaxLength(45);
 
-            builder.Property(e => e.ResMotivoCancelacion)
+            builder.Property(e => e.RevMotivoCancelacion)
                    .HasColumnName("rev_motivo_cancelacion")
                    .HasMaxLength(300);
 
-            builder.Property(e => e.ResEstado)
+            builder.Property(e => e.RevEstado)
                    .HasColumnName("rev_estado")
                    .HasMaxLength(3);
 
@@ -88,7 +84,7 @@ namespace Atracciones.Backend.DataAccess.Configurations
 
             builder.HasMany(x => x.Detalles)
                 .WithOne(d => d.Reserva)
-                .HasForeignKey(d => d.ResId);
+                .HasForeignKey(d => d.RevId);
 
             // 🔥 1:1 con Factura
             builder.HasOne(x => x.Factura)

@@ -35,12 +35,6 @@ namespace Atracciones.Backend.DataAccess.Configurations
                    .HasColumnName("tck_tipo_participante")
                    .HasMaxLength(30);
 
-            builder.Property(e => e.TicCapacidadMaxima)
-                   .HasColumnName("tck_capacidad_maxima");
-
-            builder.Property(e => e.TicCuposDisponibles)
-                   .HasColumnName("tck_cupos_disponibles");
-
             builder.Property(e => e.TicFechaIngreso)
                    .HasColumnName("tck_fecha_ingreso");
 
@@ -81,7 +75,7 @@ namespace Atracciones.Backend.DataAccess.Configurations
             // 🔗 Relación con Horario
             builder.HasOne(e => e.Horario)
                    .WithMany(a => a.Ticket)
-                   .HasForeignKey(e => e.TicId)
+                   .HasForeignKey(e => e.HorId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             // 🔗 Relación con DetalleReserva

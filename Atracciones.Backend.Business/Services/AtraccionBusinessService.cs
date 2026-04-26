@@ -23,13 +23,13 @@ namespace Atracciones.Backend.Business.Services
             _dataService = dataService;
         }
 
-        public async Task<int> CreateAsync(CreateAtraccionRequest request)
+        public async Task CreateAsync(CreateAtraccionRequest request)
         {
             AtraccionValidator.ValidateCreate(request);
 
             var model = AtraccionBusinessMapper.ToCreateModel(request);
 
-            return await _dataService.CreateAsync(model);
+            await _dataService.CreateAsync(model);
         }
 
         public async Task UpdateAsync(UpdateAtraccionRequest request)
@@ -41,17 +41,17 @@ namespace Atracciones.Backend.Business.Services
             await _dataService.UpdateAsync(model);
         }
 
-        public async Task<AtraccionResponse> GetByIdAsync(int id)
+        public async Task<AtraccionDetalleDto> GetByIdAsync(string id)
         {
             var data = await _dataService.GetByIdAsync(id);
 
             if (data == null)
                 throw new NotFoundException("Atracción", id);
 
-            return AtraccionBusinessMapper.ToResponse(data);
+            return AtraccionBusinessMapper.ToResponseDetalle(data);
         }
 
-        public async Task<PagedResponse<AtraccionResponse>> GetPagedAsync(
+        public async Task<PagedResponse<ListadoAtracciones>> GetPagedAsync(
             FiltroDto filtro)
         {
             var filtroModel = AtraccionBusinessMapper.ToFilterModel(filtro);

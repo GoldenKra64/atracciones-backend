@@ -22,6 +22,7 @@ namespace Atracciones.Backend.DataAccess.Queries
         public async Task<List<Horario>> GetAllAsync()
         {
             return await _context.Horarios
+                .Where(x => x.HorEstado == "ACT")
                 .OrderBy(x => x.HorId)
                 .ToListAsync();
         }

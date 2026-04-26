@@ -1,4 +1,8 @@
-﻿using Atracciones.Backend.Business.DTOs.Ticket;
+﻿using Atracciones.Backend.Business.DTOs.Horario;
+using Atracciones.Backend.Business.DTOs.Ticket;
+using Atracciones.Backend.DataManagement.Models.Imagen;
+using Atracciones.Backend.DataManagement.Models.Incluye;
+using Atracciones.Backend.DataManagement.Models.NoIncluye;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,55 +14,18 @@ namespace Atracciones.Backend.Business.DTOs.Atraccion
     public class AtraccionDetalleDto
     {
         // 🆔 Identificación
-        public Guid Id { get; set; }
-        public string Nombre { get; set; }
+        public string id { get; set; }
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
+        public List<string> imagenes { get; set; } = new();
+        public List<string> incluye { get; set; } = new();
+        public List<string> no_incluye { get; set; } = new();
+        public string punto_encuentro { get; set; }
+        public Boolean incluye_transporte { get; set; }
+        public Boolean incluye_acompaniante { get; set; }
+        public List<TicketDto> tickets { get; set; } = new();
+        public List<HorarioDto> horarios { get; set; } = new();
 
-        // 🌍 Ubicación
-        public string Ciudad { get; set; }
-        public string Pais { get; set; }
-
-        // 🏷️ Categoría
-        public string TipoTagname { get; set; }
-        public string TipoNombre { get; set; }
-        public string? SubtipoTagname { get; set; }
-        public string? SubtipoNombre { get; set; }
-
-        // 🧾 Descripciones
-        public string Descripcion { get; set; }
-        public string DescripcionCorta { get; set; }
-
-        // 🖼️ Imágenes
-        public string ImagenPrincipal { get; set; }
-        public List<string> Imagenes { get; set; } = new();
-
-        // 🎁 Incluye / No incluye
-        public List<string> Incluye { get; set; } = new();
-        public List<string> NoIncluye { get; set; } = new();
-
-        // 📍 Logística
-        public string PuntoEncuentro { get; set; }
-        public bool IncluyeTransporte { get; set; }
-        public bool IncluyeAcompaniante { get; set; }
-
-        // ⏱️ Duración
-        public int DuracionMinutos { get; set; }
-
-        // 💰 Precio
-        public decimal PrecioDesde { get; set; }
-        public string Moneda { get; set; } = "USD";
-
-        // ⭐ Rating
-        public decimal Calificacion { get; set; }
-        public int TotalResenas { get; set; }
-
-        // 🌍 Idiomas
-        public List<string> IdiomasDisponibles { get; set; } = new();
-
-        // 🎟️ Tickets
-        public List<TicketDto> Tickets { get; set; } = new();
-
-        // 📦 Disponibilidad (CRÍTICO)
-        // public DisponibilidadDto Disponibilidad { get; set; }
 
         // 🔗 HATEOAS
         public LinksDto Links { get; set; }

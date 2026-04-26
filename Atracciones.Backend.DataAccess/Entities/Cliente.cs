@@ -34,5 +34,6 @@ namespace Atracciones.Backend.DataAccess.Entities
         // Navegación
         public Usuario Usuario { get; set; } = null!;
         public ICollection<Reserva> Reservas { get; set; }
+        public ICollection<Resena> Resenas { get; set; }
     }
 }

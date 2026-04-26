@@ -9,9 +9,9 @@ namespace Atracciones.Backend.Business.DTOs.Horario
     public class CreateHorarioRequest
     {
         public int AtraccionId { get; set; }
-        public DateTime Fecha { get; set; }
-        public TimeSpan HoraInicio { get; set; }
-        public TimeSpan? HoraFin { get; set; }
+        public string Fecha { get; set; }
+        public string HoraInicio { get; set; }
+        public string? HoraFin { get; set; }
         public int Cupos { get; set; }
     }
 }

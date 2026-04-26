@@ -19,11 +19,13 @@ namespace Atracciones.Backend.DataAccess.Queries
             _context = context;
         }
 
+        /*
         public async Task<List<Ticket>> GetByAtraccionAsync(int atraccionId)
         {
             return await _context.Tickets
-                .Where(t => t.Horario.Atraccion.AtId == atraccionId)
+                .Where(t => t.Horario.Atraccion.AtId == atraccionId && t.TicEstado == "ACT")
                 .ToListAsync();
         }
+        */
     }
 }

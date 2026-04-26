@@ -17,7 +17,7 @@ namespace Atracciones.Backend.Business.Mappers
                 HorarioId = request.HorarioId,
                 Nombre = request.Nombre,
                 Precio = request.Precio,
-                Stock = request.Stock
+                Tipo = request.Tipo
             };
         }
 
@@ -28,7 +28,7 @@ namespace Atracciones.Backend.Business.Mappers
                 Id = request.Id,
                 Nombre = request.Nombre,
                 Precio = request.Precio,
-                Stock = request.Stock,
+                Tipo = request.Tipo,
                 HorarioId = request.HorarioId
             };
         }
@@ -41,7 +41,7 @@ namespace Atracciones.Backend.Business.Mappers
                 Guid = model.Guid,
                 Nombre = model.Nombre,
                 Precio = model.Precio,
-                Stock = model.Stock,
+                Tipo = model.Tipo,
                 Horario = HorarioBusinessMapper.ToResponse(model.Horario)
             };
         }

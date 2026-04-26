@@ -27,6 +27,13 @@ namespace Atracciones.Backend.DataAccess.Queries
                     .ThenInclude(ia => ia.Idioma)
                 .Include(a => a.IncluyeAtracciones)
                     .ThenInclude(ia => ia.Incluye)
+                .Include(a => a.NoIncluyeAtracciones)
+                    .ThenInclude(ia => ia.NoIncluye)
+                .Include(a => a.TagAtracciones)
+                    .ThenInclude(ta => ta.Tag)
+                .Include(h => h.Horario)
+                    .ThenInclude(t => t.Ticket)
+                .Include(r => r.Resena)
                 .FirstOrDefaultAsync(x => x.AtGuid == id);
         }
         public async Task<PagedResult<Atraccion>> SearchAsync(AtraccionFilterModel filter)
@@ -117,6 +124,7 @@ namespace Atracciones.Backend.DataAccess.Queries
                 .Include(a => a.IdiomaAtracciones)
                     .ThenInclude(ia => ia.Idioma)
                 .Include(a => a.Horario)
+                .Include(r => r.Resena)
                 .Where(a => a.AtEstado == "ACT")
                 .AsQueryable();
 
@@ -135,7 +143,7 @@ namespace Atracciones.Backend.DataAccess.Queries
                 switch (ordenarPor.ToLower())
                 {
                     case "highest_weighted_rating":
-                        query = query.OrderByDescending(x => x.AtCalificacion);
+                        query = query.OrderByDescending(x => x.Resena.Select(r => r.ResenaCalificacion).DefaultIfEmpty().Average());
                         break;
                     case "lowest_price":
                         query = query.OrderBy(x => x.AtPrecioReferencia);
@@ -148,7 +156,7 @@ namespace Atracciones.Backend.DataAccess.Queries
 
             if (calificacionMin.HasValue)
             {
-                query = query.Where(x => x.AtCalificacion >= calificacionMin.Value);
+                query = query.Where(x => x.Resena.Select(r => r.ResenaCalificacion).DefaultIfEmpty().Min() >= calificacionMin.Value);
             }
 
             if (horario != null)    /* 20:00:00-21:00:00*/

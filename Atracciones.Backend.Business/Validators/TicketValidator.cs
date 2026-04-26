@@ -20,8 +20,8 @@ namespace Atracciones.Backend.Business.Validators
             if (request.Precio <= 0)
                 errors["Precio"] = new[] { "Debe ser mayor a 0" };
 
-            if (request.Stock < 0)
-                errors["Stock"] = new[] { "No puede ser negativo" };
+            if (string.IsNullOrWhiteSpace(request.Tipo))
+                errors["Tipo"] = new[] { "Obligatorio" };
 
             if (errors.Any())
                 throw new ValidationException(errors);

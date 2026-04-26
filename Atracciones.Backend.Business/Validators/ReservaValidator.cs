@@ -18,22 +18,19 @@ namespace Atracciones.Backend.Business.Validators
             if (request.ClienteId <= 0)
                 errors["ClienteId"] = new[] { "Cliente inválido" };
 
-            if (request.Detalles == null || !request.Detalles.Any())
-                errors["Detalles"] = new[] { "Debe incluir al menos un detalle" };
+            if (request.Lineas == null || !request.Lineas.Any())
+                errors["Lineas"] = new[] { "Debe incluir al menos un detalle" };
 
-            foreach (var d in request.Detalles)
+            foreach (var d in request.Lineas)
             {
-                if (d.TicketId <= 0)
+                if (d.tck_guid == null)
                     errors["TicketId"] = new[] { "Ticket inválido" };
 
-                if (d.Cantidad <= 0)
+                if (d.cantidad <= 0)
                     errors["Cantidad"] = new[] { "Cantidad debe ser mayor a 0" };
             }
 
-            if (request.DatosFacturacion == null)
-                errors["DatosFacturacion"] = new[] { "Obligatorio" };
-
-            ValidateDetalle(request.Detalles, errors);
+            ValidateDetalle(request.Lineas, errors);
 
             if (errors.Any())
                 throw new ValidationException(errors);
@@ -47,10 +44,10 @@ namespace Atracciones.Backend.Business.Validators
         }
         private static void ValidateDetalleReserva(DetalleReservaRequest detalle, Dictionary<string, string[]> errors, int index)
         {
-            if (detalle.TicketId <= 0)
+            if (detalle.tck_guid != null)
                 errors[$"Detalles[{index}].TicketId"] = new[] { "Inválido" };
 
-            if (detalle.Cantidad <= 0)
+            if (detalle.cantidad <= 0)
                 errors[$"Detalles[{index}].Cantidad"] = new[] { "Debe ser mayor a 0" };
         }
     }

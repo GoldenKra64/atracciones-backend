@@ -18,9 +18,9 @@ namespace Atracciones.Backend.DataManagement.Mappers
             return new HorarioModel
             {
                 AtraccionId = entity.AtId,
-                Fecha = entity.HorFecha.ToString("yyyy-MM-dd"),
-                HoraInicio = entity.HorHoraInicio.ToString("HH:mm"),
-                HoraFin = entity.HorHoraFin?.ToString("HH:mm"),
+                Fecha = entity.HorFecha.ToShortDateString(),
+                HoraInicio = entity.HorHoraInicio.ToString(),
+                HoraFin = entity.HorHoraFin?.ToString(),
                 Cupos = entity.HorCuposDisponibles
             };
         }
@@ -32,11 +32,11 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 HorEstado = "ACT",
                 HorFecha = DateTime.ParseExact(model.Fecha, "yyyy-MM-dd", CultureInfo.InvariantCulture),
 
-                HorHoraInicio = TimeSpan.ParseExact(model.HoraInicio, @"hh\:mm", CultureInfo.InvariantCulture),
+                HorHoraInicio = TimeSpan.Parse(model.HoraInicio, CultureInfo.InvariantCulture),
 
-                HorHoraFin = string.IsNullOrEmpty(model.HoraFin)
-                    ? (TimeSpan?)null
-                    : TimeSpan.ParseExact(model.HoraFin, @"hh\:mm", CultureInfo.InvariantCulture),
+                HorHoraFin = model.HoraFin != null
+                    ? TimeSpan.Parse(model.HoraFin, CultureInfo.InvariantCulture)
+                    : (TimeSpan?)null,
 
                 HorCuposDisponibles = model.Cupos,
 
@@ -47,10 +47,11 @@ namespace Atracciones.Backend.DataManagement.Mappers
         {
             entity.AtId = model.AtraccionId;
             entity.HorFecha = DateTime.ParseExact(model.Fecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            entity.HorHoraInicio = TimeSpan.ParseExact(model.HoraInicio, @"hh\:mm", CultureInfo.InvariantCulture);
-            entity.HorHoraFin = string.IsNullOrEmpty(model.HoraFin)
-                ? (TimeSpan?)null
-                : TimeSpan.ParseExact(model.HoraFin, @"hh\:mm", CultureInfo.InvariantCulture);
+            entity.HorHoraInicio = TimeSpan.Parse(model.HoraInicio, CultureInfo.InvariantCulture);
+
+            entity.HorHoraFin = model.HoraFin != null
+                ? TimeSpan.Parse(model.HoraFin, CultureInfo.InvariantCulture)
+                : (TimeSpan?)null;
             entity.HorCuposDisponibles = model.Cupos;
         }
     }

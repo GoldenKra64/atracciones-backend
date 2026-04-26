@@ -20,20 +20,18 @@ namespace Atracciones.Backend.DataAccess.Configurations
 
             // 🔗 Columnas
             builder.Property(e => e.DetResId).HasColumnName("rdet_id");
-            builder.Property(e => e.DetResGuid).HasColumnName("rdet_guid");
+            builder.Property(e => e.DetRevGuid).HasColumnName("rdet_guid");
 
-            builder.Property(e => e.ResId).HasColumnName("rev_id");
+            builder.Property(e => e.RevId).HasColumnName("rev_id");
             builder.Property(e => e.TicId).HasColumnName("tck_id");
 
-            builder.Property(e => e.DetTitulo).HasColumnName("rdet_titulo");
-
-            builder.Property(e => e.DetCantidad).HasColumnName("rdet_cantidad");
-            builder.Property(e => e.DetPrecioUnitario).HasColumnName("rdet_precio_unit");
-            builder.Property(e => e.DetSubtotal).HasColumnName("rdet_subtotal");
+            builder.Property(e => e.TicTipoParticipante).HasColumnName("rdet_tipo_participante");
+            builder.Property(e => e.TicPrecioUnitario).HasColumnName("rdet_precio_unit");
+            builder.Property(e => e.TicSubtotal).HasColumnName("rdet_subtotal");
 
             builder.HasOne(x => x.Reserva)
                 .WithMany(r => r.Detalles)
-                .HasForeignKey(x => x.ResId);
+                .HasForeignKey(x => x.RevId);
 
             builder.HasOne(x => x.Ticket)
                 .WithMany(t => t.DetalleReserva)

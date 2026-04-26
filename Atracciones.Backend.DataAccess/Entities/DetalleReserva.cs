@@ -9,16 +9,16 @@ namespace Atracciones.Backend.DataAccess.Entities
     public class DetalleReserva
     {
         public int DetResId { get; set; }
-        public string DetResGuid { get; set; }
+        public string DetRevGuid { get; set; }
 
-        public int ResId { get; set; }
+        public int RevId { get; set; }
         public int TicId { get; set; }
 
-        public string? DetTitulo { get; set; }
-
-        public int DetCantidad { get; set; }
-        public decimal DetPrecioUnitario { get; set; }
-        public decimal DetSubtotal { get; set; }
+        public string? TicTipoParticipante { get; set; }
+        public string TicTitulo { get; set; } = null!;
+        public int TicCantidad { get; set; }
+        public double TicPrecioUnitario { get; set; }
+        public double TicSubtotal { get; set; }
 
         // Navegación
         public Reserva Reserva { get; set; } = null!;
