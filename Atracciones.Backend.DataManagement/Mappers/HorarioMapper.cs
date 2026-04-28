@@ -17,6 +17,8 @@ namespace Atracciones.Backend.DataManagement.Mappers
         {
             return new HorarioModel
             {
+                HorarioId = entity.HorId,
+                HorarioGuid = entity.HorGuid,
                 AtraccionId = entity.AtId,
                 Fecha = entity.HorFecha.ToShortDateString(),
                 HoraInicio = entity.HorHoraInicio.ToString(),

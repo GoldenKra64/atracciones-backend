@@ -52,6 +52,7 @@ namespace Atracciones.Backend.Business.Mappers
         {
             return new TagResponse
             {
+                Id = model.Id,
                 Nombre = model.Nombre
             };
         }

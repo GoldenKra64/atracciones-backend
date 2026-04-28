@@ -15,7 +15,7 @@ namespace Atracciones.Backend.Business.Mappers
             return new ResenaCreateModel
             {
                 ClienteId = request.ClienteId,
-                AtraccionId = request.AtraccionId,
+                AtraccionGuid = request.AtraccionGuid,
                 Calificacion = request.Calificacion,
                 Comentario = request.Comentario
             };

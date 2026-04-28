@@ -10,5 +10,6 @@ namespace Atracciones.Backend.DataAccess.Queries.Interfaces
     public interface IDestinoQuery
     {
         Task<List<Destino>> GetAllAsync();
+        Task<Destino> GetByIdAsync(int id);
     }
 }

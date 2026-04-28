@@ -10,23 +10,16 @@ using System.Threading.Tasks;
 
 namespace Atracciones.Backend.DataAccess.Queries
 {
-    public class TicketQuery : ITicketQuery
+    public class ImagenQuery : IImagenQuery
     {
         private readonly AtraccionesDbContext _context;
-
-        public TicketQuery(AtraccionesDbContext context)
+        public ImagenQuery(AtraccionesDbContext context)
         {
             _context = context;
         }
-
-        public async Task<List<Ticket?>> GetAllAsync()
+        public async Task<List<Imagen?>> GetAllAsync()
         {
-            return await _context.Tickets.Where(c => c.TicEstado == "ACT").ToListAsync();
-        }
-
-        public async Task<Ticket?> GetByIdAsync(int id)
-        {
-            return await _context.Tickets.Where(c => c.TicId == id).FirstOrDefaultAsync();
+            return await _context.Imagenes.Where(c => c.ImgEstado == "ACT").ToListAsync();
         }
     }
 }

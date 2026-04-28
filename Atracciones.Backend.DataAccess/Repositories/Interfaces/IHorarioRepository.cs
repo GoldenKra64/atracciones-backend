@@ -8,5 +8,6 @@ using System.Threading.Tasks;
 
 namespace Atracciones.Backend.DataAccess.Repositories.Interfaces
 {
-    public interface IHorarioRepository : IRepository<Horario> { }
+    public interface IHorarioRepository : IRepository<Horario> {
+    }
 }

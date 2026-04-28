@@ -1,8 +1,11 @@
 ﻿using Atracciones.Backend.DataAccess.Entities;
+using Atracciones.Backend.DataAccess.Queries.Interfaces;
 using Atracciones.Backend.DataManagement.Interfaces;
+using Atracciones.Backend.DataManagement.Mappers;
 using Atracciones.Backend.DataManagement.Models.Imagen;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,33 +15,47 @@ namespace Atracciones.Backend.DataManagement.Services
     public class ImagenDataService : IImagenDataService
     {
         private readonly IUnitOfWork _uow;
+        private readonly IImagenQuery _query;
 
-        public ImagenDataService(IUnitOfWork uow)
+        public ImagenDataService(IUnitOfWork uow, IImagenQuery query)
         {
             _uow = uow;
+            _query = query;
         }
 
         public async Task<int> CreateAsync(ImagenCreateModel model)
         {
-            var entity = new Imagen
-            {
-                AtId = model.AtraccionId,
-                ImgGuid = Guid.NewGuid().ToString(),
-                ImgUrl = model.Url,
-                ImgDescripcion = model.Descripcion,
-                ImgEstado = "ACT",
-                ImgFechaIngreso = DateTime.UtcNow,
-                ImgIpIngreso = "127.0.1",
-                ImgUsuarioIngreso = "system" // Solo es para pruebas
-            };
+            var entity = ImagenMapper.ToEntity(model);
 
             await _uow.ImagenRepository.CreateAsync(entity);
             return entity.ImgId;
         }
 
+        public async Task<List<ImagenModel>> GetAllAsync()
+        {
+            var model = await _query.GetAllAsync();
+            return model.Select(ImagenMapper.ToModel).ToList();
+        }
+
+        public async Task<ImagenModel> GetByIdAsync(int id)
+        {
+            var model = await _uow.ImagenRepository.GetByIdAsync(id);
+            return ImagenMapper.ToModel(model);
+        }
+
         public async Task SoftDeleteAsync(int id)
         {
             await _uow.ImagenRepository.SoftDeleteAsync(id);
+        }
+
+        public async Task UpdateAsync(ImagenUpdateModel model)
+        {
+            var entity = await _uow.ImagenRepository.GetByIdAsync(model.Id)
+                 ?? throw new Exception("Imagen no encontrada");
+
+            ImagenMapper.UpdateEntity(entity, model);
+
+            await _uow.ImagenRepository.UpdateAsync(entity);
         }
     }
 }

@@ -1,17 +1,16 @@
-﻿using Atracciones.Backend.Business.DTOs.Incluye;
+﻿using Atracciones.Backend.Business.DTOs.NoIncluye;
 using Atracciones.Backend.Business.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Atracciones.Backend.Business.Validators
 {
-    public static class IncluyeValidator
+    public static class NoIncluyeValidator
     {
-        public static void ValidateCreate(CreateIncluyeRequest request)
+        public static void ValidateCreate(CreateNoIncluyeRequest request)
         {
             var errors = new Dictionary<string, string[]>();
 
@@ -25,7 +24,7 @@ namespace Atracciones.Backend.Business.Validators
                 throw new ValidationException(errors);
         }
 
-        public static void ValidateUpdate(UpdateIncluyeRequest request)
+        public static void ValidateUpdate(UpdateNoIncluyeRequest request)
         {
             if (request.Id <= 0)
                 throw new ValidationException("Id inválido");

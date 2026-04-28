@@ -19,7 +19,7 @@ namespace Atracciones.Backend.Business.Services
             _dataService = dataService;
         }
 
-        public async Task<IEnumerable<ResenaResponse>> GetByAtraccionAsync(int atraccionId)
+        public async Task<IEnumerable<ResenaResponse>> GetByAtraccionAsync(string atraccionId)
         {
             var data = await _dataService.GetByAtraccionAsync(atraccionId);
             return data.Select(ResenaBusinessMapper.ToResponse);

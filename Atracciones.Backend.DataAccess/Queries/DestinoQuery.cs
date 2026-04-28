@@ -25,5 +25,10 @@ namespace Atracciones.Backend.DataAccess.Queries
                 .OrderBy(x => x.DesNombre)
                 .ToListAsync();
         }
+        public async Task<Destino> GetByIdAsync(int id)
+        {
+            return await _context.Destinos.Where(x => x.DesId == id)
+                .OrderBy(x => x.DesNombre).FirstOrDefaultAsync();
+        }
     }
 }

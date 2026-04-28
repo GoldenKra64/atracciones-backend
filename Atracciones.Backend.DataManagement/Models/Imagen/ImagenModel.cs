@@ -11,5 +11,6 @@ namespace Atracciones.Backend.DataManagement.Models.Imagen
         public int Id { get; set; }
         public string Url { get; set; } = null!;
         public string? Descripcion { get; set; }
+        public int AtraccionId { get; set; }
     }
 }

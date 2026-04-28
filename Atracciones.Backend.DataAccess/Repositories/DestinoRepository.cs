@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Atracciones.Backend.DataAccess.Repositories
 {
-    public class HorarioRepository : Repository<Horario>, IHorarioRepository
+    public class DestinoRepository : Repository<Destino>, IDestinoRepository
     {
-        public HorarioRepository(AtraccionesDbContext context) : base(context) { }
+        public DestinoRepository(AtraccionesDbContext context) : base(context) { }
     }
 }

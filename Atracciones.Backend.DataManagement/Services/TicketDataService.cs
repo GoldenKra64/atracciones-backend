@@ -21,14 +21,6 @@ namespace Atracciones.Backend.DataManagement.Services
             _uow = uow;
         }
 
-        /*
-        public async Task<List<TicketModel>> GetByAtraccionAsync(int atraccionId)
-        {
-            var data = await _query.GetByAtraccionAsync(atraccionId);
-            return data.Select(TicketMapper.ToModel).ToList();
-        }
-        */
-
         public async Task<int> CreateAsync(TicketCreateModel model)
         {
             var entity = TicketMapper.ToEntity(model);
@@ -49,6 +41,18 @@ namespace Atracciones.Backend.DataManagement.Services
         public async Task SoftDeleteAsync(int id)
         {
             await _uow.TicketRepository.SoftDeleteAsync(id);
+        }
+
+        public async Task<List<TicketModel>> GetAllAsync()
+        {
+            var data = await _query.GetAllAsync();
+            return data.Select(TicketMapper.ToModel).ToList();
+        }
+
+        public async Task<TicketModel> GetByIdAsync(int id)
+        {
+            var data = await _query.GetByIdAsync(id);
+            return TicketMapper.ToModel(data);
         }
     }
 }

@@ -4,13 +4,14 @@ using Atracciones.Backend.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Atracciones.Backend.DataAccess.Repositories
 {
-    public class DestinoRepository : Repository<Destino>, IDestinoRepository
+    public class HorarioRepository : Repository<Horario>, IHorarioRepository
     {
-        public DestinoRepository(AtraccionesDbContext context) : base(context) { }
+        public HorarioRepository(AtraccionesDbContext context) : base(context) { }
     }
 }

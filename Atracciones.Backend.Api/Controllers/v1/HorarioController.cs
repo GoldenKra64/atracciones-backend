@@ -25,7 +25,14 @@ namespace Atracciones.Backend.Api.Controllers.v1
             var data = await _service.GetAllAsync();
             return Ok(ApiResponse<IEnumerable<HorarioDto>>.Ok(data));
         }
-        
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var data = await _service.GetByIdAsync(id);
+            return Ok(ApiResponse<HorarioDto>.Ok(data));
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateHorarioRequest request)
@@ -34,9 +41,10 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<int>.Ok(id, "Horario creado"));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateHorarioRequest request)
+        [HttpPut("{guid:guid}")]
+        public async Task<IActionResult> Update(UpdateHorarioRequest request, string guid)
         {
+            request.Guid = guid;
             await _service.UpdateAsync(request);
             return Ok(ApiResponse<string>.Ok("OK", "Horario actualizado"));
         }

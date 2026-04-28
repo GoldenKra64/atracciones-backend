@@ -8,9 +8,8 @@ namespace Atracciones.Backend.Business.DTOs.Resena
 {
     public class CreateResenaRequest
     {
-        public int ClienteId { get; set; }
-        public int AtraccionId { get; set; }
-
+        public int? ClienteId { get; set; }
+        public string AtraccionGuid { get; set; }
         public int Calificacion { get; set; }
         public string? Comentario { get; set; }
     }

@@ -9,7 +9,7 @@ namespace Atracciones.Backend.Business.Interfaces
 {
     public interface IResenaBusinessService
     {
-        Task<IEnumerable<ResenaResponse>> GetByAtraccionAsync(int atraccionId);
+        Task<IEnumerable<ResenaResponse>> GetByAtraccionAsync(string atraccionId);
 
         Task<int> CreateAsync(CreateResenaRequest request);
 

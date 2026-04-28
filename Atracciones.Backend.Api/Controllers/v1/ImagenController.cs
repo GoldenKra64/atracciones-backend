@@ -18,11 +18,33 @@ namespace Atracciones.Backend.Api.Controllers.v1
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var data = await _service.GetAllAsync();
+            return Ok(ApiResponse<List<ImagenResponse>>.Ok(data));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var data = await _service.GetByIdAsync(id);
+            return Ok(ApiResponse<ImagenResponse>.Ok(data));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateImagenRequest request)
         {
             var id = await _service.CreateAsync(request);
-            return Ok(ApiResponse<int>.Ok(id));
+            return Ok(ApiResponse<int>.Ok(id, "Imagen creada"));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(UpdateImagenRequest request, int id)
+        {
+            request.Id = id;
+            await _service.UpdateAsync(request);
+            return Ok(ApiResponse<string>.Ok("OK", "Imagen actualizada"));
         }
 
         [HttpDelete("{id}")]

@@ -16,6 +16,10 @@ namespace Atracciones.Backend.DataAccess.Queries
             _context = context;
         }
 
+        public async Task<List<Atraccion?>> GetAtraccionTypeAsync()
+        {
+            return await _context.Atracciones.ToListAsync();
+        }
         public async Task<Atraccion?> GetByIdAsync(string id)
         {
             return await _context.Atracciones

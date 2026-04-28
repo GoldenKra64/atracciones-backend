@@ -11,7 +11,7 @@ namespace Atracciones.Backend.DataManagement.Interfaces
     public interface IHorarioDataService
     {
         Task<List<HorarioModel>> GetAllAsync();
-
+        Task<HorarioModel> GetByIdAsync(string id);
         Task<int> CreateAsync(HorarioCreateModel model);
 
         Task UpdateAsync(HorarioUpdateModel model);

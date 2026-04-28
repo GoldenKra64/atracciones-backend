@@ -9,7 +9,7 @@ namespace Atracciones.Backend.DataManagement.Interfaces
 {
     public interface IResenaDataService
     {
-        Task<List<ResenaModel>> GetByAtraccionAsync(int atraccionId);
+        Task<List<ResenaModel>> GetByAtraccionAsync(string atraccionId);
 
         Task<int> CreateAsync(ResenaCreateModel model);
 

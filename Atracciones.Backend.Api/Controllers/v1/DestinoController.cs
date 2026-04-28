@@ -26,14 +26,12 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<IEnumerable<DestinoResponse>>.Ok(data));
         }
 
-        /*
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var data = await _service.GetByIdAsync(id);
             return Ok(ApiResponse<DestinoResponse>.Ok(data));
         }
-        */
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateDestinoRequest request)
@@ -42,9 +40,10 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<int>.Ok(id, "Destino creado"));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateDestinoRequest request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(UpdateDestinoRequest request, int id)
         {
+            request.Id = id;
             await _service.UpdateAsync(request);
             return Ok(ApiResponse<string>.Ok("OK", "Destino actualizado"));
         }

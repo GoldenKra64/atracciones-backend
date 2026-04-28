@@ -16,17 +16,12 @@ namespace Atracciones.Backend.Business.Mappers
             {
                 Id = model.Id,
                 Guid = model.Guid,
+                Estado = model.Estado,
+                Total = model.Total,
+                Observacion = model.Observacion,
                 Numero = model.Numero,
                 FechaEmision = model.FechaEmision,
-                OrigenCanal = model.OrigenCanal,
-
-                DatosFacturacion = new DatosFacturacionResponse
-                {
-                    Nombres = model.DatosFacturacion.Nombres,
-                    Apellidos = model.DatosFacturacion.Apellidos,
-                    Telefono = model.DatosFacturacion.Telefono,
-                    Correo = model.DatosFacturacion.Correo
-                }
+                OrigenCanal = model.OrigenCanal
             };
         }
     }

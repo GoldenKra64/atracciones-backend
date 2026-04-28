@@ -10,6 +10,7 @@ namespace Atracciones.Backend.Business.Interfaces
     public interface INoIncluyeBusinessService
     {
         Task<IEnumerable<NoIncluyeResponse>> GetAllAsync();
+        Task<NoIncluyeResponse> GetByIdAsync(int id);
 
         Task<int> CreateAsync(CreateNoIncluyeRequest request);
 

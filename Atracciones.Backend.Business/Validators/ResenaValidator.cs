@@ -20,9 +20,6 @@ namespace Atracciones.Backend.Business.Validators
             if (request.ClienteId <= 0)
                 errors["ClienteId"] = new[] { "Cliente inválido" };
 
-            if (request.AtraccionId <= 0)
-                errors["AtraccionId"] = new[] { "Atracción inválida" };
-
             if (errors.Any())
                 throw new ValidationException(errors);
         }
@@ -35,7 +32,7 @@ namespace Atracciones.Backend.Business.Validators
             ValidateCreate(new CreateResenaRequest
             {
                 ClienteId = request.ClienteId,
-                AtraccionId = request.AtraccionId,
+                AtraccionGuid = request.AtraccionGuid,
                 Calificacion = request.Calificacion,
                 Comentario = request.Comentario
             });

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Atracciones.Backend.Business.DTOs.Horario;
+using Atracciones.Backend.Business.Validators;
 
 namespace Atracciones.Backend.Business.Services
 {
@@ -26,15 +27,22 @@ namespace Atracciones.Backend.Business.Services
             var data = await _dataService.GetAllAsync();
             return data.Select(DestinoBusinessMapper.ToResponse);
         }
+        public async Task<DestinoResponse> GetByIdAsync(int id)
+        {
+            var data = await _dataService.GetByIdAsync(id);
+            return DestinoBusinessMapper.ToResponse(data);
+        }
 
         public async Task<int> CreateAsync(CreateDestinoRequest request)
         {
+            DestinoValidator.ValidateCreate(request);
             var model = DestinoBusinessMapper.ToCreateModel(request);
             return await _dataService.CreateAsync(model);
         }
 
         public async Task UpdateAsync(UpdateDestinoRequest request)
         {
+            DestinoValidator.ValidateUpdate(request);
             var model = DestinoBusinessMapper.ToUpdateModel(request);
             await _dataService.UpdateAsync(model);
         }

@@ -9,7 +9,5 @@ namespace Atracciones.Backend.Business.DTOs.Destino
     public class UpdateDestinoRequest : CreateDestinoRequest
     {
         public int Id { get; set; }
-
-        public string Estado { get; set; } = null!;
     }
 }

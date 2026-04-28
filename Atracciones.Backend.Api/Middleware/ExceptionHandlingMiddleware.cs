@@ -33,7 +33,15 @@ namespace Atracciones.Backend.Api.Middleware
             var message = "Error interno del servidor";
             var errors = new List<string> { };
 
-            if (exception is UnauthorizedBusinessException unauthEx)
+            if (exception is ValidationException valExcept)
+            {
+                statusCode = StatusCodes.Status400BadRequest;
+                message = valExcept.Message;
+                var validationMessages = valExcept.Errors
+                    .SelectMany(kvp => kvp.Value.Select(v => string.IsNullOrWhiteSpace(kvp.Key) ? v : $"{kvp.Key}: {v}"));
+                errors.AddRange(validationMessages);
+            }
+            else if (exception is UnauthorizedBusinessException unauthEx)
             {
                 statusCode = StatusCodes.Status401Unauthorized;
                 message = unauthEx.Message;
@@ -48,17 +56,15 @@ namespace Atracciones.Backend.Api.Middleware
                 {
                     errors.Add($"ErrorCode: {businessEx.ErrorCode}");
                 }
-            } else if (exception is NotFoundException notFoundEx) {
+            }
+            else if (exception is NotFoundException notFoundEx)
+            {
                 statusCode = StatusCodes.Status404NotFound;
                 message = notFoundEx.Message;
                 errors.Add(notFoundEx.Message);
-            } else if (exception is ValidationException valExcept) {
-                statusCode = StatusCodes.Status400BadRequest;
-                message = valExcept.Message;
-                var validationMessages = valExcept.Errors
-                    .SelectMany(kvp => kvp.Value.Select(v => string.IsNullOrWhiteSpace(kvp.Key) ? v : $"{kvp.Key}: {v}"));
-                errors.AddRange(validationMessages);
-            } else {
+            }
+            else
+            {
                 errors.Add(exception.InnerException?.ToString() ?? exception.ToString());
             }
 

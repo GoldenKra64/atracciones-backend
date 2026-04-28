@@ -26,7 +26,7 @@ namespace Atracciones.Backend.DataManagement.Mappers
         {
             return new Resena
             {
-                CliId = model.ClienteId,
+                CliId = model.ClienteId.Value,
                 ResenaGuid = Guid.NewGuid().ToString(),
                 AtId = model.AtraccionId,
                 ResenaCalificacion = model.Calificacion,

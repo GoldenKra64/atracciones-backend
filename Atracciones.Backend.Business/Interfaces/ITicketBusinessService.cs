@@ -9,8 +9,8 @@ namespace Atracciones.Backend.Business.Interfaces
 {
     public interface ITicketBusinessService
     {
-        /* Task<IEnumerable<TicketResponse>> GetByAtraccionAsync(int atraccionId); */
-
+        Task<List<TicketRes>> GetAllAsync();
+        Task<TicketRes> GetByIdAsync(int id);
         Task<int> CreateAsync(CreateTicketRequest request);
 
         Task UpdateAsync(UpdateTicketRequest request);

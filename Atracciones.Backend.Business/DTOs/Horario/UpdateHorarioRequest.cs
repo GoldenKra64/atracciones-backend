@@ -9,13 +9,12 @@ namespace Atracciones.Backend.Business.DTOs.Horario
 {
     public class UpdateHorarioRequest
     {
+        public string? Guid { get; set; }
         public int Id { get; set; }
         public int AtraccionId { get; set; }
         public string Fecha { get; set; }
         public string HoraInicio { get; set; }
         public string? HoraFin { get; set; }
         public int Cupos { get; set; }
-
-        public string Estado { get; set; } = null!;
     }
 }

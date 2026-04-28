@@ -25,6 +25,13 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<IEnumerable<IncluyeResponse>>.Ok(data));
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var data = await _service.GetByIdAsync(id);
+            return Ok(ApiResponse<IncluyeResponse>.Ok(data));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateIncluyeRequest request)
         {
@@ -32,9 +39,11 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<int>.Ok(id, "Incluye creado"));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateIncluyeRequest request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(UpdateIncluyeRequest request, int id)
         {
+            request.Id = id;
+
             await _service.UpdateAsync(request);
             return Ok(ApiResponse<string>.Ok("OK", "Incluye actualizado"));
         }

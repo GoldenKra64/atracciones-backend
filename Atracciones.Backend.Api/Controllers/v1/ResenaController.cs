@@ -1,8 +1,11 @@
 ﻿using Asp.Versioning;
 using Atracciones.Backend.Api.Models.Common;
 using Atracciones.Backend.Business.DTOs.Resena;
+using Atracciones.Backend.Business.Exceptions;
 using Atracciones.Backend.Business.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Atracciones.Backend.Api.Controllers.v1
 {
@@ -19,15 +22,25 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpGet("atraccion/{id}")]
-        public async Task<IActionResult> GetByAtraccion(int id)
+        public async Task<IActionResult> GetByAtraccion(string id)
         {
             var data = await _service.GetByAtraccionAsync(id);
             return Ok(ApiResponse<IEnumerable<ResenaResponse>>.Ok(data));
         }
 
         [HttpPost]
+        [Authorize(Roles = "CLIENTE")]
         public async Task<IActionResult> Create(CreateResenaRequest request)
         {
+            var clienteId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (clienteId == null)
+            {
+                throw new UnauthorizedBusinessException("Cliente ID is missing");
+            }
+
+            request.ClienteId = int.Parse(clienteId);
+
             var id = await _service.CreateAsync(request);
             return Ok(ApiResponse<int>.Ok(id));
         }
@@ -35,6 +48,21 @@ namespace Atracciones.Backend.Api.Controllers.v1
         [HttpPut]
         public async Task<IActionResult> Update(UpdateResenaRequest request)
         {
+            var clienteId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (clienteId == null)
+            {
+                throw new UnauthorizedBusinessException("Cliente ID is missing");
+            }
+
+            if (clienteId != request.ClienteId.ToString())
+            {
+                throw new UnauthorizedBusinessException("No puedes modificar una reseña que no sea tuya");
+            }
+
+
+            request.ClienteId = int.Parse(clienteId);
+
             await _service.UpdateAsync(request);
             return Ok(ApiResponse<string>.Ok("OK"));
         }

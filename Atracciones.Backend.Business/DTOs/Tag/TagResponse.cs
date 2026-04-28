@@ -8,6 +8,7 @@ namespace Atracciones.Backend.Business.DTOs.Tag
 {
     public class TagResponse
     {
+        public int Id { get; set; }
         public string Nombre { get; set; }
     }
 }

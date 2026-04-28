@@ -27,7 +27,14 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<AtraccionDetalleDto>.Ok(data, "Detalle de atracciones obtenido exitosamente"));
         }
 
-        [HttpGet()]
+        [HttpGet("type")]
+        public async Task<IActionResult> GetType()
+        {
+            var data = await _service.GetAtraccionType();
+            return Ok(ApiResponse<List<AtraccionTypeResponse>>.Ok(data, "Tipos de atracciones obtenidos exitosamente"));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetPaged(
             [FromQuery] FiltroDto? filtro)
         {

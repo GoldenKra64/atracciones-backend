@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atracciones.Backend.Business.DTOs.Factura
+namespace Atracciones.Backend.DataManagement.Models.Imagen
 {
-    public class UpdateDatosFacturacionRequest : DatosFacturacionRequest
+    public class ImagenUpdateModel : ImagenCreateModel
     {
         public int Id { get; set; }
     }

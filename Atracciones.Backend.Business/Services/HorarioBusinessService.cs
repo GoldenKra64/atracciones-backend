@@ -36,6 +36,12 @@ namespace Atracciones.Backend.Business.Services
             return data.Select(HorarioBusinessMapper.ToResponse);
         }
 
+        public async Task<HorarioDto> GetByIdAsync(string id)
+        {
+            var data = await _dataService.GetByIdAsync(id);
+            return HorarioBusinessMapper.ToResponse(data);
+        }
+
         public async Task LogicalDeleteAsync(int id)
         {
             await _dataService.SoftDeleteAsync(id);
@@ -43,6 +49,9 @@ namespace Atracciones.Backend.Business.Services
 
         public async Task UpdateAsync(UpdateHorarioRequest request)
         {
+            var horario = await _dataService.GetByIdAsync(request.Guid);
+            request.Id = horario.HorarioId;
+
             HorarioValidator.ValidateUpdate(request);
 
             var model = HorarioBusinessMapper.ToUpdateModel(request);

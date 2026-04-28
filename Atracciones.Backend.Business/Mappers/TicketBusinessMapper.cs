@@ -3,6 +3,7 @@ using Atracciones.Backend.DataManagement.Models.Ticket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,6 +44,18 @@ namespace Atracciones.Backend.Business.Mappers
                 Precio = model.Precio,
                 Tipo = model.Tipo,
                 Horario = HorarioBusinessMapper.ToResponse(model.Horario)
+            };
+        }
+        public static TicketRes ToResponseNoHorario(TicketModel model)
+        {
+            return new TicketRes
+            {
+                Id = model.Id,
+                Guid = model.Guid,
+                Nombre = model.Nombre,
+                Precio = model.Precio,
+                Tipo = model.Tipo,
+                HorarioId = model.HorarioId
             };
         }
     }

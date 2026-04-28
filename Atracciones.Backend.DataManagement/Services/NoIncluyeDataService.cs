@@ -56,5 +56,11 @@ namespace Atracciones.Backend.DataManagement.Services
 
             await _repo.UpdateAsync(entity);
         }
+
+        public async Task<NoIncluyeModel> GetByIdAsync(int id)
+        {
+            var data = await _repo.GetByIdAsync(id);
+            return CatalogosMapper.ToModel(data);
+        }
     }
 }

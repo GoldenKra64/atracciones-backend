@@ -10,7 +10,7 @@ namespace Atracciones.Backend.DataManagement.Interfaces
     public interface IDestinoDataService
     {
         Task<List<DestinoModel>> GetAllAsync();
-
+        Task<DestinoModel> GetByIdAsync(int id);
         Task<int> CreateAsync(DestinoCreateModel model);
 
         Task UpdateAsync(DestinoUpdateModel model);

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
+using Atracciones.Backend.Business.Validators;
 
 namespace Atracciones.Backend.Business.Services
 {
@@ -23,12 +24,14 @@ namespace Atracciones.Backend.Business.Services
 
         public async Task<int> CreateAsync(CreateClienteRequest request)
         {
+            ClienteValidator.ValidateCreate(request);
             var model = ClienteBusinessMapper.ToCreateModel(request);
             return await _dataService.CreateAsync(model);
         }
 
         public async Task UpdateAsync(UpdateClienteRequest request)
         {
+            ClienteValidator.ValidateUpdate(request);
             var model = ClienteBusinessMapper.ToUpdateModel(request);
             await _dataService.UpdateAsync(model);
         }

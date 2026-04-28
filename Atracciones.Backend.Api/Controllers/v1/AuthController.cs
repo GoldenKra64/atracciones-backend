@@ -2,7 +2,9 @@
 using Atracciones.Backend.Api.Models.Common;
 using Atracciones.Backend.Business.DTOs.Usuario;
 using Atracciones.Backend.Business.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Atracciones.Backend.Api.Controllers.v1
 {
@@ -30,6 +32,24 @@ namespace Atracciones.Backend.Api.Controllers.v1
 
 
             return Ok(ApiResponse<LoginResponse>.Ok(data));
+        }
+
+        [HttpPost("login-admin")]
+        public async Task<IActionResult> CheckAdmin(LoginRequest request)
+        {
+            var data = await _service.LoginAsync(request);
+
+            if (data == null)
+            {
+                return Unauthorized(ApiErrorResponse.Fail("Credenciales inválidas"));
+            }
+
+            if (data.Roles.Contains("ADMIN"))
+            {
+                return Ok(ApiResponse<LoginResponse>.Ok(data));
+            }
+
+            return Unauthorized();
         }
 
         [HttpPost]

@@ -18,6 +18,21 @@ namespace Atracciones.Backend.Api.Controllers.v1
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var data = await _service.GetAllAsync();
+            return Ok(ApiResponse<List<TicketRes>>.Ok(data, "Tickets traidos con éxito"));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var data = await _service.GetByIdAsync(id);
+            return Ok(ApiResponse<TicketRes>.Ok(data, "Tickets traidos con éxito"));
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateTicketRequest request)
         {
@@ -25,9 +40,10 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<int>.Ok(id));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateTicketRequest request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(UpdateTicketRequest request, int id)
         {
+            request.Id = id;
             await _service.UpdateAsync(request);
             return Ok(ApiResponse<string>.Ok("OK"));
         }

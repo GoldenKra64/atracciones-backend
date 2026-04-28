@@ -8,7 +8,7 @@ namespace Atracciones.Backend.Business.Exceptions
 {
     public class ValidationException : BusinessException
     {
-        public IDictionary<string, string[]> Errors { get; }
+        public Dictionary<string, string[]> Errors { get; }
 
         public ValidationException(string message)
             : base(message, "VALIDATION_ERROR")
@@ -16,8 +16,8 @@ namespace Atracciones.Backend.Business.Exceptions
             Errors = new Dictionary<string, string[]>();
         }
 
-        public ValidationException(IDictionary<string, string[]> errors)
-            : base("Uno o más errores de validación ocurrieron.", "VALIDATION_ERROR")
+        public ValidationException(Dictionary<string, string[]> errors)
+        : base("Uno o más errores de validación ocurrieron.")
         {
             Errors = errors;
         }

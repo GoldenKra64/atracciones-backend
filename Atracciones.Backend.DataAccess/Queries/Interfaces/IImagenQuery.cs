@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Atracciones.Backend.DataAccess.Queries.Interfaces
 {
-    public interface ITicketQuery
+    public interface IImagenQuery
     {
-        Task<List<Ticket?>> GetAllAsync();
-        Task<Ticket?> GetByIdAsync(int id);
+        public Task<List<Imagen?>> GetAllAsync();
     }
 }

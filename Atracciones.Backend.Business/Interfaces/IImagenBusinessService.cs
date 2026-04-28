@@ -9,8 +9,10 @@ namespace Atracciones.Backend.Business.Interfaces
 {
     public interface IImagenBusinessService
     {
+        Task<List<ImagenResponse>> GetAllAsync();
+        Task<ImagenResponse> GetByIdAsync(int id);
         Task<int> CreateAsync(CreateImagenRequest request);
-
+        Task UpdateAsync(UpdateImagenRequest request);
         Task LogicalDeleteAsync(int id);
     }
 }

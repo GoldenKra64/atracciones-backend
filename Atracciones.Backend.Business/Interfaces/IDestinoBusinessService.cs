@@ -11,6 +11,7 @@ namespace Atracciones.Backend.Business.Interfaces
     public interface IDestinoBusinessService
     {
         Task<IEnumerable<DestinoResponse>> GetAllAsync();
+        Task<DestinoResponse> GetByIdAsync(int id);
 
         Task<int> CreateAsync(CreateDestinoRequest request);
 

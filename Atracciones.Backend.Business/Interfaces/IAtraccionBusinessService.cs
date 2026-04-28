@@ -16,6 +16,7 @@ namespace Atracciones.Backend.Business.Interfaces
         Task<PagedResponse<ListadoAtracciones>> GetPagedAsync(
             FiltroDto filtro);
 
+        Task<List<AtraccionTypeResponse>> GetAtraccionType();
         Task CreateAsync(CreateAtraccionRequest request);
 
         Task UpdateAsync(UpdateAtraccionRequest request);

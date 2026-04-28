@@ -1,7 +1,9 @@
 ﻿using Asp.Versioning;
 using Atracciones.Backend.Api.Models.Common;
 using Atracciones.Backend.Business.DTOs.Cliente;
+using Atracciones.Backend.Business.Exceptions;
 using Atracciones.Backend.Business.Interfaces;
+using Atracciones.Backend.DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -25,6 +27,21 @@ namespace Atracciones.Backend.Api.Controllers.v1
             var data = await _service.GetByIdAsync(id);
             return Ok(ApiResponse<ClienteResponse>.Ok(data));
         }
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfile()
+        {
+            var id = User.Claims.FirstOrDefault(c => ClaimTypes.NameIdentifier == c.Type)?.Value;
+
+            if (id == null)
+            {
+                throw new UnauthorizedBusinessException("Cliente ID is missing");
+            }
+
+            int cliId = int.Parse(id);
+
+            var data = await _service.GetByIdAsync(cliId);
+            return Ok(ApiResponse<ClienteResponse>.Ok(data));
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -40,9 +57,10 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<int>.Ok(id, "Cliente creado"));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateClienteRequest request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(UpdateClienteRequest request, int id)
         {
+            request.Id = id;
             await _service.UpdateAsync(request);
             return Ok(ApiResponse<string>.Ok("OK", "Cliente actualizado"));
         }

@@ -28,6 +28,12 @@ namespace Atracciones.Backend.DataManagement.Services
             return data.Select(CatalogosMapper.ToModel).ToList();
         }
 
+        public async Task<DestinoModel> GetByIdAsync(int id)
+        {
+            var data = await _query.GetByIdAsync(id);
+            return CatalogosMapper.ToModel(data);
+        }
+
         public async Task<int> CreateAsync(DestinoCreateModel model)
         {
             var entity = new Destino

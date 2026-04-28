@@ -9,7 +9,5 @@ namespace Atracciones.Backend.Business.DTOs.NoIncluye
     public class UpdateNoIncluyeRequest : CreateNoIncluyeRequest
     {
         public int Id { get; set; }
-
-        public string Estado { get; set; } = null!;
     }
 }

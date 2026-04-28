@@ -1,6 +1,7 @@
 ﻿using Atracciones.Backend.DataAccess.Common;
 using Atracciones.Backend.DataAccess.Entities;
 using Atracciones.Backend.DataAccess.Filters;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,6 @@ namespace Atracciones.Backend.DataAccess.Queries.Interfaces
             string? subTipo);
 
         Task<Atraccion?> GetByIdAsync(string id); // Guid
+        Task<List<Atraccion?>> GetAtraccionTypeAsync();
     }
 }

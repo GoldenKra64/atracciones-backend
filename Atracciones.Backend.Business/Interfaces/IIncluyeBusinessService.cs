@@ -10,6 +10,7 @@ namespace Atracciones.Backend.Business.Interfaces
     public interface IIncluyeBusinessService
     {
         Task<IEnumerable<IncluyeResponse>> GetAllAsync();
+        Task<IncluyeResponse> GetByIdAsync(int id);
 
         Task<int> CreateAsync(CreateIncluyeRequest request);
 

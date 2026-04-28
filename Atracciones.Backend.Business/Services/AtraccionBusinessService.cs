@@ -67,5 +67,11 @@ namespace Atracciones.Backend.Business.Services
         {
             await _dataService.SoftDeleteAsync(id);
         }
+
+        public async Task<List<AtraccionTypeResponse>> GetAtraccionType()
+        {
+            var data = await _dataService.GetAtraccionTypeAsync();
+            return data.Select(AtraccionBusinessMapper.ToModelType).ToList();
+        }
     }
 }

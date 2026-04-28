@@ -8,6 +8,7 @@ namespace Atracciones.Backend.Business.DTOs.Ticket
 {
     public class TicketDto
     {
+        public int HorId { get; set; }
         public string TckGuid { get; set; }
         public string Tipo { get; set; }
         public decimal Precio { get; set; }

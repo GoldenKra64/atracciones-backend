@@ -50,6 +50,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IClienteQuery, ClienteQuery>();
             services.AddScoped<IAtraccionQuery, AtraccionQuery>();
             services.AddScoped<IDestinoQuery, DestinoQuery>();
+            services.AddScoped<IFacturaQuery, FacturaQuery>();
             services.AddScoped<ICategoriaQuery, CategoriaQuery>();
             services.AddScoped<IIdiomaQuery, IdiomaQuery>();
             services.AddScoped<IResenaQuery, ResenaQuery>();
@@ -57,6 +58,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<ITicketQuery, TicketQuery>();
             services.AddScoped<IHorarioQuery, HorarioQuery>();
             services.AddScoped<ITagQuery, TagQuery>();
+            services.AddScoped<IImagenQuery, ImagenQuery>();
 
             // ===============================
             // REPOSITORIES

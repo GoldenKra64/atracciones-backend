@@ -14,21 +14,27 @@ namespace Atracciones.Backend.DataManagement.Services
     {
         private readonly IResenaQuery _query;
         private readonly IUnitOfWork _uow;
+        private readonly IAtraccionQuery aquery;
 
-        public ResenaDataService(IResenaQuery query, IUnitOfWork uow)
+        public ResenaDataService(IResenaQuery query, IUnitOfWork uow, IAtraccionQuery aquery)
         {
             _query = query;
             _uow = uow;
+            this.aquery = aquery;
         }
 
-        public async Task<List<ResenaModel>> GetByAtraccionAsync(int atraccionId)
+        public async Task<List<ResenaModel>> GetByAtraccionAsync(string atraccionId)
         {
-            var data = await _query.GetByAtraccionAsync(atraccionId);
+            var atId = await aquery.GetByIdAsync(atraccionId);
+            var data = await _query.GetByAtraccionAsync(atId.AtId);
             return data.Select(ResenaMapper.ToModel).ToList();
         }
 
         public async Task<int> CreateAsync(ResenaCreateModel model)
         {
+            var atraccion = await aquery.GetByIdAsync(model.AtraccionGuid);
+            model.AtraccionId = atraccion.AtId;
+
             var entity = ResenaMapper.ToEntity(model);
             await _uow.ResenaRepository.CreateAsync(entity);
             return entity.ResenaId;

@@ -12,8 +12,32 @@ namespace Atracciones.Backend.Business.Validators
     {
         public static void ValidateCreate(CreateImagenRequest request)
         {
+            var errors = new Dictionary<string, string[]>();
+
             if (string.IsNullOrWhiteSpace(request.Url))
-                throw new ValidationException("Url obligatoria");
+                errors["URL"] = new[] { "La URL no puede ser nula" };
+
+            if (Uri.TryCreate(request.Url, UriKind.Absolute, out var uriResult))
+            {
+                // IGNORE
+            }
+            else
+            {
+                errors["URL"] = new[] { "Debe especificarse una URL" };
+            }
+
+            if (errors.Any())
+                throw new ValidationException(errors);
+        }
+
+        public static void ValidateUpdate(UpdateImagenRequest request)
+        {
+            if (request.Id < 0)
+            {
+                throw new ValidationException("ID inválida");
+            }
+
+            ValidateCreate(request);
         }
     }
 }

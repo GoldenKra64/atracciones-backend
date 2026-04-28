@@ -15,6 +15,7 @@ namespace Atracciones.Backend.DataManagement.Interfaces
         Task UpdateAsync(NoIncluyeUpdateModel model);
 
         Task<IEnumerable<NoIncluyeModel>> GetAllAsync();
+        Task<NoIncluyeModel> GetByIdAsync(int id);
 
         Task SoftDeleteAsync(int id);
     }

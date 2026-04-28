@@ -8,12 +8,13 @@ namespace Atracciones.Backend.DataManagement.Models.Factura
 {
     public class FacturaModel : BaseModel
     {
+        public int Id { get; set; }
+        public string Guid { get; set; }
         public string Numero { get; set; } = null!;
-        public DateTime FechaEmision { get; set; }
-
+        public string FechaEmision { get; set; }
+        public double Total { get; set; }
         public string OrigenCanal { get; set; } = null!;
         public string? Observacion { get; set; }
-
-        public DatosFacturacionModel DatosFacturacion { get; set; } = null!;
+        public string Estado { get; set; }
     }
 }

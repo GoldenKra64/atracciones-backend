@@ -41,6 +41,8 @@ namespace Atracciones.Backend.Business.Mappers
         {
             return new HorarioDto
             {
+                HorarioId = model.HorarioId,
+                HorarioGuid = model.HorarioGuid,
                 AtraccionId = model.AtraccionId,
                 Fecha = model.Fecha,
                 HoraInicio = model.HoraInicio,

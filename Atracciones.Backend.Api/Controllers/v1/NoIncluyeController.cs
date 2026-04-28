@@ -25,6 +25,13 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<IEnumerable<NoIncluyeResponse>>.Ok(data));
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var data = await _service.GetByIdAsync(id);
+            return Ok(ApiResponse<NoIncluyeResponse>.Ok(data));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateNoIncluyeRequest request)
         {
@@ -32,9 +39,10 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<int>.Ok(id, "No Incluye creado"));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateNoIncluyeRequest request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(UpdateNoIncluyeRequest request, int id)
         {
+            request.Id = id;
             await _service.UpdateAsync(request);
             return Ok(ApiResponse<string>.Ok("OK", "No Incluye actualizado"));
         }

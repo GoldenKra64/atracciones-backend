@@ -15,8 +15,8 @@ namespace Atracciones.Backend.DataAccess.Entities
 
         public string CliTipoIdentificacion { get; set; } = null!;
         public string CliNumeroIdentificacion { get; set; } = null!;
-        public string? CliNombres { get; set; }
-        public string? CliApellidos { get; set; }
+        public string CliNombres { get; set; }
+        public string CliApellidos { get; set; }
         public string CliCorreo { get; set; } = null!;
         public string? CliTelefono { get; set; }
         public string? CliDireccion { get; set; }

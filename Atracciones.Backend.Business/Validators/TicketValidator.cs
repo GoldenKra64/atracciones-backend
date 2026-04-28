@@ -23,8 +23,28 @@ namespace Atracciones.Backend.Business.Validators
             if (string.IsNullOrWhiteSpace(request.Tipo))
                 errors["Tipo"] = new[] { "Obligatorio" };
 
+            // Tipo de identificación válido
+            var tiposValidos = new[] { "JUNIOR", "SENIOR", "CARETAKER", "ELDER", "YOUNG ADULT" };
+
+            if (string.IsNullOrWhiteSpace(request.Tipo) ||
+                !tiposValidos.Contains(request.Tipo.ToUpper()))
+            {
+                errors["Tipo"] = new[]
+                {
+                    "Solo puede ser: JUNIOR, SENIOR, CARETAKER, ELDER, YOUNG ADULT"
+                };
+            }
+
             if (errors.Any())
                 throw new ValidationException(errors);
+        }
+
+        public static void ValidateUpdate(UpdateTicketRequest request)
+        {
+            if (request.Id <= 0)
+            {
+                throw new ValidationException("El ID no es valido");
+            }
         }
     }
 }

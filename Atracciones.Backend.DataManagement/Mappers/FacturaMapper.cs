@@ -18,9 +18,9 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Id = entity.FacId,
                 Guid = entity.FacGuid,
                 Estado = entity.FacEstado,
-
+                Total = (double) entity.FacTotal,
                 Numero = entity.FacNumero,
-                FechaEmision = entity.FacFechaEmision,
+                FechaEmision = entity.FacFechaEmision.ToShortDateString(),
                 OrigenCanal = entity.FacOrigenCanal,
                 Observacion = entity.FacObservacion
             };

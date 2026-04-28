@@ -1,6 +1,7 @@
 ﻿using Atracciones.Backend.Business.DTOs.Incluye;
 using Atracciones.Backend.Business.Interfaces;
 using Atracciones.Backend.Business.Mappers;
+using Atracciones.Backend.Business.Validators;
 using Atracciones.Backend.DataManagement.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,14 +26,22 @@ namespace Atracciones.Backend.Business.Services
             return data.Select(IncluyeBusinessMapper.ToResponse);
         }
 
+        public async Task<IncluyeResponse> GetByIdAsync(int id)
+        {
+            var data = await _dataService.GetByIdAsync(id);
+            return IncluyeBusinessMapper.ToResponse(data);
+        }
+
         public async Task<int> CreateAsync(CreateIncluyeRequest request)
         {
+            IncluyeValidator.ValidateCreate(request);
             var model = IncluyeBusinessMapper.ToCreateModel(request);
             return await _dataService.CreateAsync(model);
         }
 
         public async Task UpdateAsync(UpdateIncluyeRequest request)
         {
+            IncluyeValidator.ValidateUpdate(request);
             var model = IncluyeBusinessMapper.ToUpdateModel(request);
             await _dataService.UpdateAsync(model);
         }

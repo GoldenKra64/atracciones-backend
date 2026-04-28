@@ -201,9 +201,11 @@ namespace Atracciones.Backend.Business.Mappers
                 imagenes = model.Imagenes?.Select(i => i.Url).Where(url => !string.IsNullOrEmpty(url)).ToList() ?? new List<string>(),
                 incluye = model.Incluyes?.Select(i => i.Descripcion).Where(s => !string.IsNullOrWhiteSpace(s)).ToList() ?? new List<string>(),
                 no_incluye = model.NoIncluyes?.Select(i => i.Descripcion).Where(s => !string.IsNullOrWhiteSpace(s)).ToList() ?? new List<string>(),
-                horarios = model.Horarios?.Select(h => new HorarioDto
+                horarios_proximos = model.Horarios?.Select(h => new HorarioDto
                 {
                     AtraccionId = h.AtraccionId,
+                    HorarioId = h.HorarioId,
+                    HorarioGuid = h.HorarioGuid,
                     Cupos = h.Cupos,
                     Fecha = h.Fecha,
                     HoraInicio = h.HoraInicio,
@@ -212,6 +214,7 @@ namespace Atracciones.Backend.Business.Mappers
                 tickets = model.Horarios?.SelectMany(h => h.Tickets ?? new List<TicketModel>())
                     .Select(t => new TicketDto
                     {
+                        HorId = t.HorarioId,
                         TckGuid = t.Guid,
                         Tipo = t.Tipo,
                         Precio = t.Precio,
@@ -222,6 +225,14 @@ namespace Atracciones.Backend.Business.Mappers
                     Self = $"/api/atracciones/{model.Guid}",
                     Listado = $"/api/destinos/{model.Guid}"
                 }
+            };
+        }
+        public static AtraccionTypeResponse ToModelType(AtraccionTypeModel model)
+        {
+            return new AtraccionTypeResponse
+            {
+                Id = model.Id,
+                Name = model.Nombre
             };
         }
     }

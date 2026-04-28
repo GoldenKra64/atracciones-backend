@@ -27,7 +27,20 @@ namespace Atracciones.Backend.Business.Mappers
             return new ImagenResponse
             {
                 Id = model.Id,
-                Url = model.Url
+                Url = model.Url,
+                Descripcion = model.Descripcion,
+                AtraccionId = model.AtraccionId
+            };
+        }
+
+        public static ImagenUpdateModel ToUpdateModel(UpdateImagenRequest model)
+        {
+            return new ImagenUpdateModel
+            {
+                Id = model.Id,
+                Url = model.Url,
+                Descripcion = model.Descripcion,
+                AtraccionId = model.AtraccionId
             };
         }
     }

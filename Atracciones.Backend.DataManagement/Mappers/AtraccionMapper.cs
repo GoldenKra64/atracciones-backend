@@ -65,6 +65,8 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Horarios = entity.Horario?
                     .Select(ia => new HorarioModel
                     {
+                        HorarioId = ia.HorId,
+                        HorarioGuid = ia.HorGuid,
                         AtraccionId = ia.AtId,
                         Fecha = ia.HorFecha.ToString("yyyy-MM-dd"),
                         HoraInicio = ia.HorHoraInicio.ToString(@"hh\:mm"),
@@ -138,6 +140,15 @@ namespace Atracciones.Backend.DataManagement.Mappers
             entity.NoIncluyeAtracciones = (model.NoIncluyeIds ?? Enumerable.Empty<int>())
                 .Select(noIncId => new NoIncluyeAtraccion { NoIncId = noIncId, AtId = entity.AtId })
                 .ToList();
+        }
+
+        public static AtraccionTypeModel ToTypeModel(Atraccion atraccion)
+        {
+            return new AtraccionTypeModel
+            {
+                Id = atraccion.AtId,
+                Nombre = atraccion.AtNombre
+            };
         }
     }
 }

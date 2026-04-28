@@ -30,6 +30,12 @@ namespace Atracciones.Backend.DataManagement.Services
             return data.Select(HorarioMapper.ToModel).ToList();
         }
 
+        public async Task<HorarioModel> GetByIdAsync(string id)
+        {
+            var data = await _query.GetByGuidAsync(id);
+            return HorarioMapper.ToModel(data);
+        }
+
         public async Task<int> CreateAsync(HorarioCreateModel model)
         {
             var entity = new Horario
