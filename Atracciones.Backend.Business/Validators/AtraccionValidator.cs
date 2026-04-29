@@ -17,11 +17,22 @@ namespace Atracciones.Backend.Business.Validators
             if (string.IsNullOrWhiteSpace(request.Nombre))
                 errors["Nombre"] = new[] { "Obligatorio" };
 
+            if (string.IsNullOrWhiteSpace(request.Direccion))
+                errors["Direccion"] = new[] { "Obligatorio" };
+
+            if (request.Descripcion != null && string.IsNullOrWhiteSpace(request.Descripcion))
+                errors["Descripcion"] = new[] { "No se admiten valores vacios (puede ir nulo)" };
+
             if (request.DestinoId <= 0)
                 errors["DestinoId"] = new[] { "Inválido" };
 
             if (request.PrecioReferencia != null && request.PrecioReferencia < 0)
                 errors["Precio"] = new[] { "No puede ser negativo" };
+
+            if (request.DuracionMinutos != null && request.DuracionMinutos < 0)
+            {
+                errors["Duracion minutos"] = new[] { "No puede ser negativo" };
+            }
 
             if (!request.CategoriaIds.Any())
                 errors["Categorias"] = new[] { "Debe tener al menos una categoría" };
@@ -32,13 +43,19 @@ namespace Atracciones.Backend.Business.Validators
             if (request.IncluyeIds != null && request.IncluyeIds.Any(i => i <= 0))
                 errors["Incluyes"] = new[] { "Incluyes inválidos" };
 
+            if (request.NoIncluyeIds != null && request.NoIncluyeIds.Any(i => i <= 0))
+                errors["No Incluye"] = new[] { "No Incluye ID inválidos" };
+
+            if (request.TagIds != null && request.TagIds.Any(i => i <= 0))
+                errors["Tags"] = new[] { "IDs de Etiquetas inválidos" };
+
             if (errors.Any())
                 throw new ValidationException(errors);
         }
 
         public static void ValidateUpdate(UpdateAtraccionRequest request)
         {
-            if (request.Id <= 0)
+            if (request.Id == null)
                 throw new ValidationException("Id inválido");
 
             ValidateCreate(request);

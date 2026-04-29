@@ -62,8 +62,17 @@ namespace Atracciones.Backend.DataAccess.Queries
                 .Include(r => r.Detalles)
                     .ThenInclude(d => d.Ticket)
                         .ThenInclude(t => t.Horario)
-                            .ThenInclude(h => h.Atraccion)
+                            .ThenInclude(h => h.Atraccion).AsTracking()
                 .FirstOrDefaultAsync(r => r.RevGuid == id);
+        }
+
+        public async Task<List<Reserva?>> GetAllAsync()
+        {
+            return await _context.Reservas
+                .Include(r => r.Detalles)
+                    .ThenInclude(x => x.Ticket)
+                        .ThenInclude(x => x.Horario)
+                            .ThenInclude(x => x.Atraccion).Where(x => x.RevEstado == "PEN").ToListAsync();
         }
     }
 }

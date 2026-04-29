@@ -8,5 +8,7 @@ using System.Threading.Tasks;
 
 namespace Atracciones.Backend.DataAccess.Repositories.Interfaces
 {
-    public interface IAtraccionRepository : IRepository<Atraccion> { }
+    public interface IAtraccionRepository : IRepository<Atraccion> {
+        public Task SoftDeleteAsync(string id);
+    }
 }

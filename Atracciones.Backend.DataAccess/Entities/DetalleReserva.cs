@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,6 @@ namespace Atracciones.Backend.DataAccess.Entities
 {
     public class DetalleReserva
     {
-        public int DetResId { get; set; }
         public string DetRevGuid { get; set; }
 
         public int RevId { get; set; }

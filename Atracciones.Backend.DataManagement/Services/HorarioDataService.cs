@@ -70,7 +70,7 @@ namespace Atracciones.Backend.DataManagement.Services
 
         public async Task SoftDeleteAsync(int id)
         {
-            await _uow.DestinoRepository.SoftDeleteAsync(id);
+            await _uow.HorarioRepository.SoftDeleteAsync(id);
         }
     }
 }

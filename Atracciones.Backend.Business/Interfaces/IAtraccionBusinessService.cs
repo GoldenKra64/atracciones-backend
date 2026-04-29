@@ -17,10 +17,12 @@ namespace Atracciones.Backend.Business.Interfaces
             FiltroDto filtro);
 
         Task<List<AtraccionTypeResponse>> GetAtraccionType();
+        Task<AtraccionResponse> GetInternalById(string id);
+        Task<List<AtraccionResponse>> GetAllInternalAsync();
         Task CreateAsync(CreateAtraccionRequest request);
 
         Task UpdateAsync(UpdateAtraccionRequest request);
 
-        Task LogicalDeleteAsync(int id);
+        Task LogicalDeleteAsync(string id);
     }
 }

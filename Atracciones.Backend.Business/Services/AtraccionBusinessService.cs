@@ -51,6 +51,16 @@ namespace Atracciones.Backend.Business.Services
             return AtraccionBusinessMapper.ToResponseDetalle(data);
         }
 
+        public async Task<List<AtraccionResponse>> GetAllInternalAsync()
+        {
+            var data = await _dataService.GetAllInternalAsync();
+
+            if (data == null)
+                throw new NotFoundException("Atracción", "Atracciones no encontradas");
+
+            return data.Select(AtraccionBusinessMapper.ToAtraccionResponse).ToList();
+        }
+
         public async Task<PagedResponse<ListadoAtracciones>> GetPagedAsync(
             FiltroDto filtro)
         {
@@ -63,7 +73,7 @@ namespace Atracciones.Backend.Business.Services
             );
         }
 
-        public async Task LogicalDeleteAsync(int id)
+        public async Task LogicalDeleteAsync(string id)
         {
             await _dataService.SoftDeleteAsync(id);
         }
@@ -72,6 +82,12 @@ namespace Atracciones.Backend.Business.Services
         {
             var data = await _dataService.GetAtraccionTypeAsync();
             return data.Select(AtraccionBusinessMapper.ToModelType).ToList();
+        }
+
+        public async Task<AtraccionResponse> GetInternalById(string id)
+        {
+            var data = await _dataService.GetInternalByIdAsync(id);
+            return AtraccionBusinessMapper.ToAtraccionResponse(data);
         }
     }
 }

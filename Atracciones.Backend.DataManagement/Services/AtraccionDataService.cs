@@ -51,12 +51,11 @@ namespace Atracciones.Backend.DataManagement.Services
             var entity = AtraccionMapper.ToEntity(model);
 
             await _uow.AtraccionRepository.CreateAsync(entity);
-            // 201
         }
 
         public async Task UpdateAsync(AtraccionUpdateModel model)
         {
-            var entity = await _uow.AtraccionRepository.GetByIdAsync(model.Id)
+            var entity = await _query.GetInternalByIdAsync(model.Id)
                 ?? throw new Exception("Atracción no encontrada");
 
             AtraccionMapper.UpdateEntity(entity, model);
@@ -64,7 +63,7 @@ namespace Atracciones.Backend.DataManagement.Services
             await _uow.AtraccionRepository.UpdateAsync(entity);
         }
 
-        public async Task SoftDeleteAsync(int id)
+        public async Task SoftDeleteAsync(string id)
         {
             await _uow.AtraccionRepository.SoftDeleteAsync(id);
         }
@@ -73,6 +72,18 @@ namespace Atracciones.Backend.DataManagement.Services
         {
             var model = await _query.GetAtraccionTypeAsync();
             return model.Select(AtraccionMapper.ToTypeModel).ToList();
+        }
+
+        public async Task<AtraccionModel> GetInternalByIdAsync(string id)
+        {
+            var model = await _query.GetInternalByIdAsync(id);
+            return AtraccionMapper.ToModel(model);
+        }
+
+        public async Task<List<AtraccionModel?>> GetAllInternalAsync()
+        {
+            var model = await _query.GetAllInternalAsync();
+            return model.Select(AtraccionMapper.ToModel).ToList();
         }
     }
 }

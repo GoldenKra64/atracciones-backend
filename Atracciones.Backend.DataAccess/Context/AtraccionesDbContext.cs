@@ -125,8 +125,14 @@ namespace Atracciones.Backend.DataAccess.Context
 
                 if (entry.State == EntityState.Deleted)
                 {
-                    entry.State = EntityState.Modified;
-                    SetValueIfExists(entry, "FechaEliminacion", DateTime.UtcNow);
+                    var prop = entry.Metadata.GetProperties()
+                        .FirstOrDefault(p => p.Name == "FechaEliminacion" || p.Name.EndsWith("FechaEliminacion"));
+
+                    if (prop != null)
+                    {
+                        entry.State = EntityState.Modified;
+                        entry.CurrentValues[prop.Name] = DateTime.UtcNow;
+                    }
                 }
             }
         }

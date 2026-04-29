@@ -19,7 +19,7 @@ namespace Atracciones.Backend.Business.DTOs.Reserva
         public double rev_subtotal { get; set; }
         public double rev_valor_iva { get; set; }
         public double rev_total { get; set; }
-        public string moneda { get; set; } = "USD";
+        public string? moneda { get; set; } = "USD";
         public string rev_estado { get; set; } = string.Empty;
         public string rev_fecha_reserva_utc { get; set; } = string.Empty;
         public List<DetalleReservaResponse> detalle { get; set; } = new();

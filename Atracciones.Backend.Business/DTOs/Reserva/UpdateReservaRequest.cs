@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atracciones.Backend.Business.DTOs.Atracciones
+namespace Atracciones.Backend.Business.DTOs.Reserva
 {
-    public class UpdateAtraccionRequest : CreateAtraccionRequest
+    public class UpdateReservaRequest : CreateReservaRequest
     {
         public string? Id { get; set; }
     }

@@ -4,6 +4,7 @@ using Atracciones.Backend.Business.DTOs.Cliente;
 using Atracciones.Backend.Business.Exceptions;
 using Atracciones.Backend.Business.Interfaces;
 using Atracciones.Backend.DataAccess.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -22,6 +23,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetById(int id)
         {
             var data = await _service.GetByIdAsync(id);
@@ -44,6 +46,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpGet]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetAll()
         {
             var data = await _service.GetAllAsync();
@@ -51,6 +54,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Create(CreateClienteRequest request)
         {
             var id = await _service.CreateAsync(request);
@@ -58,6 +62,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Update(UpdateClienteRequest request, int id)
         {
             request.Id = id;
@@ -66,6 +71,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Delete(int id)
         {
             await _service.LogicalDeleteAsync(id);

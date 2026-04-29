@@ -2,6 +2,7 @@
 using Atracciones.Backend.Api.Models.Common;
 using Atracciones.Backend.Business.DTOs.Imagen;
 using Atracciones.Backend.Business.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atracciones.Backend.Api.Controllers.v1
@@ -40,6 +41,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Update(UpdateImagenRequest request, int id)
         {
             request.Id = id;
@@ -48,6 +50,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Delete(int id)
         {
             await _service.LogicalDeleteAsync(id);

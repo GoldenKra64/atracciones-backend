@@ -36,7 +36,15 @@ namespace Atracciones.Backend.Api.Controllers.v1
             return Ok(ApiResponse<PagedResponse<ReservaResponse>>.Ok(data));
         }
 
-        [HttpPost]
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var data = await _service.GetAllAsync();
+            return Ok(ApiResponse<List<ReservaResponse>>.Ok(data));
+        }
+
+
+        [HttpPost("cliente")]
         [Authorize(Roles = "CLIENTE")]
         public async Task<IActionResult> Create(CreateReservaRequest request)
         {
@@ -49,14 +57,39 @@ namespace Atracciones.Backend.Api.Controllers.v1
 
             request.ClienteId = int.Parse(clienteId);
             var response = await _service.CreateAsync(request);
-            return Ok(ApiResponse<ReservaResponse>.Ok(response, "Reserva creada exitosamente", 201));
+            
+            response = await _service.GetByIdAsync(response.rev_guid);
+
+            return Ok(ApiResponse<ReservaResponse>.Ok(response, "Reserva creada y aprobada exitosamente", 201));
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpPost()]
+        public async Task<IActionResult> CreatePublic(CreateReservaRequest request)
+        {
+            var response = await _service.CreatePublicAsync(request);
+            return Ok(ApiResponse<ReservaResponse>.Ok(response, "Reserva y Factura creadas exitosamente", 201));
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Delete(string id)
         {
             await _service.LogicalDeleteAsync(id);
             return Ok(ApiResponse<string>.Ok(null, "Reserva eliminada exitosamente", 204));
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Update(UpdateReservaRequest request, string id)
+        {
+            request.Id = id;
+            var response = await _service.UpdateAsync(request);
+            return Ok(ApiResponse<ReservaResponse>.Ok(response, "Reserva actualizada exitosamente", 200));
+        }
+
+        [HttpPost("{id:guid}/approve")]
+        public async Task<IActionResult> Approve(string id)
+        {
+            await _service.ApproveAsync(id);
+            return Ok(ApiResponse<string>.Ok(null, "Reserva y Factura generadas exitosamente", 200));
         }
     }
 }

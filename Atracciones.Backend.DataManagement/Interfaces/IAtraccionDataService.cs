@@ -17,12 +17,14 @@ namespace Atracciones.Backend.DataManagement.Interfaces
             FiltroModel filtro);
 
         Task<AtraccionModel?> GetByIdAsync(string id);
+        Task<AtraccionModel?> GetInternalByIdAsync(string id);
+        Task<List<AtraccionModel?>> GetAllInternalAsync();
 
         Task CreateAsync(AtraccionCreateModel model);
 
         Task UpdateAsync(AtraccionUpdateModel model);
 
-        Task SoftDeleteAsync(int id);
+        Task SoftDeleteAsync(string id);
 
         Task<List<AtraccionTypeModel?>> GetAtraccionTypeAsync();
     }

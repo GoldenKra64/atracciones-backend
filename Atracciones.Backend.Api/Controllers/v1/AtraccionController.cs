@@ -4,6 +4,7 @@ using Atracciones.Backend.Business.DTOs;
 using Atracciones.Backend.Business.DTOs.Atraccion;
 using Atracciones.Backend.Business.DTOs.Atracciones;
 using Atracciones.Backend.Business.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Atracciones.Backend.Api.Controllers.v1
@@ -28,6 +29,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpGet("type")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetType()
         {
             var data = await _service.GetAtraccionType();
@@ -40,24 +42,37 @@ namespace Atracciones.Backend.Api.Controllers.v1
         {
             var data = await _service.GetPagedAsync(filtro);
             return Ok(ApiResponse<PagedResponse<ListadoAtracciones>>.Ok(data, "Listado de atracciones obtenido exitosamente"));
-        }   
+        }
+
+        [HttpGet("internal/{id:guid}")]
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> GetByIdInternal(string id)
+        {
+            var data = await _service.GetInternalById(id);
+            return Ok(ApiResponse<AtraccionResponse>.Ok(data, "Atracción obtenida exitosamente"));
+        }
+
 
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Create(CreateAtraccionRequest request)
         {
             await _service.CreateAsync(request);
             return Created();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateAtraccionRequest request)
+        [HttpPut("{id:guid}")]
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> Update(UpdateAtraccionRequest request, string id)
         {
+            request.Id = id;
             await _service.UpdateAsync(request);
             return Ok(ApiResponse<string>.Ok("OK"));
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> Delete(string id)
         {
             await _service.LogicalDeleteAsync(id);
             return Ok(ApiResponse<string>.Ok("OK"));

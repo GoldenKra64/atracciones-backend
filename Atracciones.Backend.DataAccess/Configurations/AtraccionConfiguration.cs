@@ -31,11 +31,11 @@ namespace Atracciones.Backend.DataAccess.Configurations
                 .HasMaxLength(300);
 
             builder.Property(x => x.AtPrecioReferencia)
-                .HasColumnType("decimal(10,2)");
+                .HasColumnType("double(10,2)");
 
             builder.Property(x => x.AtEstado)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(3);
 
             builder.Property(e => e.AtId).HasColumnName("at_id");
             builder.Property(e => e.AtGuid).HasColumnName("at_guid");

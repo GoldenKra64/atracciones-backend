@@ -25,5 +25,7 @@ namespace Atracciones.Backend.DataAccess.Queries.Interfaces
 
         Task<Atraccion?> GetByIdAsync(string id); // Guid
         Task<List<Atraccion?>> GetAtraccionTypeAsync();
+        Task<Atraccion?> GetInternalByIdAsync(string id);
+        Task<List<Atraccion?>> GetAllInternalAsync();
     }
 }

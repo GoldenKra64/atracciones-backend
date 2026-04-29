@@ -23,6 +23,7 @@ namespace Atracciones.Backend.Api.Controllers.v1
         }
 
         [HttpGet("reserva/{reservaId}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetByReserva(int reservaId)
         {
             var data = await _service.GetByReservaAsync(reservaId);

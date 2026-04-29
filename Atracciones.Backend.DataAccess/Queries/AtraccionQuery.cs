@@ -123,6 +123,8 @@ namespace Atracciones.Backend.DataAccess.Queries
                     .ThenInclude(ca => ca.Categoria)
                 .Include(a => a.IncluyeAtracciones)
                     .ThenInclude(ia => ia.Atraccion)
+                .Include(a => a.NoIncluyeAtracciones)
+                    .ThenInclude(ia => ia.Atraccion)
                 .Include(a => a.TagAtracciones)
                     .ThenInclude(ta => ta.Tag)
                 .Include(a => a.IdiomaAtracciones)
@@ -199,6 +201,40 @@ namespace Atracciones.Backend.DataAccess.Queries
                 PageNumber = pageNumber,
                 PageSize = pageSize
             };
+        }
+
+        public async Task<Atraccion?> GetInternalByIdAsync(string id)
+        {
+            return await _context.Atracciones
+                .Include(a => a.Destino)
+                .Include(a => a.CategoriaAtracciones)
+                    .ThenInclude(c => c.Categoria)
+                .Include(a => a.IdiomaAtracciones)
+                    .ThenInclude(ia => ia.Idioma)
+                .Include(a => a.IncluyeAtracciones)
+                    .ThenInclude(ia => ia.Incluye)
+                .Include(a => a.NoIncluyeAtracciones)
+                    .ThenInclude(ia => ia.NoIncluye)
+                .Include(a => a.TagAtracciones)
+                    .ThenInclude(ta => ta.Tag)
+                 .Where(c => c.AtGuid == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Atraccion?>> GetAllInternalAsync()
+        {
+            return await _context.Atracciones
+                .Include(a => a.Destino)
+                .Include(a => a.CategoriaAtracciones)
+                    .ThenInclude(c => c.Categoria)
+                .Include(a => a.IdiomaAtracciones)
+                    .ThenInclude(ia => ia.Idioma)
+                .Include(a => a.IncluyeAtracciones)
+                    .ThenInclude(ia => ia.Incluye)
+                .Include(a => a.NoIncluyeAtracciones)
+                    .ThenInclude(ia => ia.NoIncluye)
+                .Include(a => a.TagAtracciones)
+                    .ThenInclude(ta => ta.Tag)
+                 .Where(c => c.AtEstado == "ACT").ToListAsync();
         }
     }
 }

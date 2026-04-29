@@ -1,4 +1,4 @@
-﻿using Atracciones.Backend.DataAccess.Context;
+using Atracciones.Backend.DataAccess.Context;
 using Atracciones.Backend.DataAccess.Repositories.Interfaces;
 using Atracciones.Backend.DataAccess.Common;
 using Microsoft.EntityFrameworkCore;
@@ -44,7 +44,7 @@ namespace Atracciones.Backend.DataAccess.Repositories
             var entity = await GetByIdAsync(id);
             if (entity == null) return;
 
-            var prop = entity.GetType().GetProperty("Estado");
+            var prop = entity.GetType().GetProperties().FirstOrDefault(p => p.Name.EndsWith("Estado"));
             if (prop != null)
             {
                 StatusChange.SetEstado(entity, "INA");

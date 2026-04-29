@@ -28,7 +28,7 @@ namespace Atracciones.Backend.Business.Services
 
         public async Task<ReservaResponse> CreateAsync(CreateReservaRequest request)
         {
-            // ReservaValidator.ValidateCreate(request);
+            ReservaValidator.ValidateCreate(request);
 
             if (request.Lineas == null || !request.Lineas.Any())
                 throw new ValidationException("Debe incluir al menos un detalle en la reserva.");
@@ -42,6 +42,27 @@ namespace Atracciones.Backend.Business.Services
             var model = ReservaBusinessMapper.ToCreateModel(request);
 
             var created = await _dataService.CreateAsync(model);
+
+            return ReservaBusinessMapper.ToResponse(created);
+        }
+
+        public async Task<ReservaResponse> CreatePublicAsync(CreateReservaRequest request)
+        {
+
+            ReservaValidator.ValidateCreate(request);
+
+            if (request.Lineas == null || !request.Lineas.Any())
+                throw new ValidationException("Debe incluir al menos un detalle en la reserva.");
+
+            foreach (var linea in request.Lineas)
+            {
+                if (linea.tck_guid == null)
+                    throw new ValidationException($"Ticket {linea.tck_guid} not found");
+            }
+
+            var model = ReservaBusinessMapper.ToCreateModel(request);
+
+            var created = await _dataService.CreateAsync(model, true);
 
             return ReservaBusinessMapper.ToResponse(created);
         }
@@ -69,9 +90,30 @@ namespace Atracciones.Backend.Business.Services
             );
         }
 
-        public async Task LogicalDeleteAsync(int id)
+        public async Task LogicalDeleteAsync(string id)
         {
             await _dataService.SoftDeleteAsync(id);
+        }
+
+        public async Task<List<ReservaResponse>> GetAllAsync()
+        {
+            var data = await _dataService.GetAllAsync();
+            return data.Select(ReservaBusinessMapper.ToResponse).ToList();
+        }
+
+        public async Task<ReservaResponse> UpdateAsync(UpdateReservaRequest request)
+        {
+            ReservaValidator.ValidateUpdate(request);
+
+            var model = ReservaBusinessMapper.ToUpdateModel(request);
+            var data = await _dataService.UpdateAsync(model);
+
+            return ReservaBusinessMapper.ToResponse(data);
+        }
+
+        public async Task ApproveAsync(string id)
+        {
+            await _dataService.ApproveAsync(id);
         }
     }
 }

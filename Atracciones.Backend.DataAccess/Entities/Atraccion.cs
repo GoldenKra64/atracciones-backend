@@ -17,7 +17,7 @@ namespace Atracciones.Backend.DataAccess.Entities
         public string? AtNumEstablecimiento { get; set; }
         public string AtNombre { get; set; } = null!;
         public string? AtDescripcion { get; set; }
-        public string? AtDireccion { get; set; }
+        public string AtDireccion { get; set; }
         public int? AtDuracionMinutos { get; set; }
         public string? AtPuntoEncuentro { get; set; }
         public string? AtMoneda { get; set; }

@@ -23,6 +23,7 @@ namespace Atracciones.Backend.DataAccess.Queries
         {
             return await _context.Destinos
                 .OrderBy(x => x.DesNombre)
+                .Where(x => x.DesEstado == "ACT")
                 .ToListAsync();
         }
         public async Task<Destino> GetByIdAsync(int id)

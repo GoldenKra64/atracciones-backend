@@ -62,5 +62,17 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 Detalles = new List<DetalleReserva>()
             };
         }
+
+        public static Reserva ToUpdateModel(Reserva entity, UpdateReservaModel model)
+        {
+            entity.CliId = model.ClienteId;
+            entity.RevCanal = model.Canal;
+
+            entity.RevFechaMod = DateTime.UtcNow;
+            entity.RevUsuarioMod = "SYSTEM";
+            entity.RevIpMod = "127.0.0.1";
+
+            return entity;
+        }
     }
 }

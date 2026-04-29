@@ -1,4 +1,4 @@
-﻿using Atracciones.Backend.Business.DTOs;
+using Atracciones.Backend.Business.DTOs;
 using Atracciones.Backend.Business.DTOs.Reserva;
 using System;
 using System.Collections.Generic;
@@ -11,14 +11,17 @@ namespace Atracciones.Backend.Business.Interfaces
     public interface IReservaBusinessService
     {
         Task<ReservaResponse> GetByIdAsync(string id);
-
+        Task<List<ReservaResponse>> GetAllAsync();
         Task<PagedResponse<ReservaResponse>> GetByClienteAsync(
             int clienteId,
             int page,
             int size);
 
         Task<ReservaResponse> CreateAsync(CreateReservaRequest request);
+        Task<ReservaResponse> CreatePublicAsync(CreateReservaRequest request);
+        Task<ReservaResponse> UpdateAsync(UpdateReservaRequest request);
 
-        Task LogicalDeleteAsync(int id);
+        Task LogicalDeleteAsync(string id);
+        Task ApproveAsync(string id);
     }
 }

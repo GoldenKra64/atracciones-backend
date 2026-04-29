@@ -63,30 +63,31 @@ namespace Atracciones.Backend.Business.Mappers
                 IdiomaIds = request.IdiomaIds,
                 IncluyeIds = request.IncluyeIds,
                 NoIncluyeIds = request.NoIncluyeIds,
+                TagIds = request.TagIds
                 // ImageIds = request.ImageIds,
                 // HorarioIds = request.HorarioIds
             };
         }
 
         // 🔹 Model → Response
-        /*
-        public static AtraccionResponse ToResponse(AtraccionModel model)
+        
+        public static AtraccionResponse ToAtraccionResponse(AtraccionModel model)
         {
             return new AtraccionResponse
             {
                 Id = model.Id,
                 Guid = model.Guid,
                 Nombre = model.Nombre,
+                Direccion = model.Direccion,
+                DuracionMinutos = model.DuracionMinutos,
+                Moneda = model.Moneda ?? "USD",
+                PuntoEncuentro = model.PuntoEncuentro,
                 Descripcion = model.Descripcion,
-                PrecioReferencia = model.PrecioReferencia,
+                PrecioReferencia = (double) model.PrecioReferencia,
                 IncluyeAcompaniante = model.IncluyeAcompaniante,
                 IncluyeTransporte = model.IncluyeTransporte,
 
                 Destino = DestinoBusinessMapper.ToResponse(model.Destino),
-
-                Imagenes = model.Imagenes
-                    .Select(CatalogosBusinessMapper.ToResponse)
-                    .ToList(),
 
                 Categorias = model.Categorias
                     .Select(CatalogosBusinessMapper.ToResponse)
@@ -98,10 +99,18 @@ namespace Atracciones.Backend.Business.Mappers
 
                 Incluyes = model.Incluyes
                     .Select(IncluyeBusinessMapper.ToResponse)
+                    .ToList(),
+
+                NoIncluyes = model.NoIncluyes
+                    .Select(NoIncluyeBusinessMapper.ToResponse)
+                    .ToList(),
+
+                TagAtracciones = model.TagAtracciones
+                    .Select(CatalogosBusinessMapper.ToResponse)
                     .ToList()
+                
             };
         }
-        */
         public static ListadoAtracciones ToResponse(AtraccionModel model)
         {
             var destinoNombre = model.Destino?.Nombre ?? string.Empty;

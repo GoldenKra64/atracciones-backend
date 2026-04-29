@@ -1,4 +1,5 @@
 ﻿using Atracciones.Backend.Business.DTOs.Reserva;
+using Atracciones.Backend.DataAccess.Entities;
 using Atracciones.Backend.DataManagement.Models;
 using Atracciones.Backend.DataManagement.Models.Reserva;
 using System;
@@ -59,6 +60,21 @@ namespace Atracciones.Backend.Business.Mappers
                     precio_unit = d.precio_unit,
                     subtotal = d.subtotal
                 }).ToList(),
+            };
+        }
+
+        public static UpdateReservaModel ToUpdateModel(UpdateReservaRequest model) {
+            return new UpdateReservaModel
+            {
+                Id = model.Id,
+                ClienteId = model.ClienteId,
+                HorarioGuid = model.hor_guid,
+                Canal = model.origen_canal,
+                Lineas = model.Lineas.Select(x => new DetalleReservaCreateModel
+                {
+                    TicketId = x.tck_guid,
+                    Cantidad = x.cantidad
+                }).ToList()
             };
         }
     }

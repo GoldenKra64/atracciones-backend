@@ -22,24 +22,41 @@ namespace Atracciones.Backend.DataAccess.Repositories
             return reserva.RevId;
         }
 
-        public override async Task SoftDeleteAsync(int id)
+        public async Task<Reserva> UpdateAsync(Reserva reserva)
+        {
+            _context.Reservas.Update(reserva);
+            await _context.SaveChangesAsync();
+            return reserva;
+        }
+
+        public Task DeleteDetalleAsync(DetalleReserva detalle)
+        {
+            _context.Set<DetalleReserva>().Remove(detalle);
+            return Task.CompletedTask;
+        }
+
+        public async Task SoftDeleteAsync(string id)
         {
             var reserva = await _context.Reservas
                 .Include(r => r.Detalles)
-                .FirstOrDefaultAsync(r => r.RevId == id);
+                .FirstOrDefaultAsync(r => r.RevGuid == id);
 
             if (reserva == null) return;
 
-            // 🔥 Cabecera
-            StatusChange.SetEstado(reserva, "ANU");
+            reserva.RevEstado = "ANU";
 
-            // 🔥 Detalles
-            foreach (var det in reserva.Detalles)
-            {
-                // si tienes estado en detalle
-                var prop = det.GetType().GetProperty("Estado");
-                prop?.SetValue(det, "ANU");
-            }
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ApproveAsync(string id)
+        {
+            var reserva = await _context.Reservas
+                .Include(r => r.Detalles)
+                .FirstOrDefaultAsync(r => r.RevGuid == id);
+
+            if (reserva == null) return;
+
+            reserva.RevEstado = "APR";
 
             await _context.SaveChangesAsync();
         }

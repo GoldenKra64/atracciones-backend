@@ -16,10 +16,9 @@ namespace Atracciones.Backend.DataAccess.Configurations
             builder.ToTable("RESERVA_DETALLE");
 
             // 🔑 PK
-            builder.HasKey(e => e.DetResId);
+            builder.HasKey(e => new { e.RevId, e.TicId });
 
             // 🔗 Columnas
-            builder.Property(e => e.DetResId).HasColumnName("rdet_id");
             builder.Property(e => e.DetRevGuid).HasColumnName("rdet_guid");
 
             builder.Property(e => e.RevId).HasColumnName("rev_id");

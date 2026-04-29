@@ -23,7 +23,7 @@ namespace Atracciones.Backend.DataAccess.Queries
         {
             return await _context.Categorias
                 .Include(c => c.Children)
-                .Where(c => c.CatParentId == null)
+                .Where(c => c.CatParentId == null && c.CatEstado == "ACT")
                 .ToListAsync();
         }
     }

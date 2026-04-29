@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atracciones.Backend.DataManagement.Models.Atraccion
+namespace Atracciones.Backend.DataManagement.Models.Reserva
 {
-    public class AtraccionUpdateModel : AtraccionCreateModel
+    public class UpdateReservaModel : ReservaCreateModel
     {
         public string Id { get; set; }
     }

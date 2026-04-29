@@ -18,7 +18,7 @@ namespace Atracciones.Backend.DataManagement.Models.Atraccion
     {
         public string Nombre { get; set; } = null!;
         public string? Descripcion { get; set; }
-        public string? Direccion { get; set; }
+        public string Direccion { get; set; }
         public int? DuracionMinutos { get; set; }
         public decimal? PrecioReferencia { get; set; }
 
