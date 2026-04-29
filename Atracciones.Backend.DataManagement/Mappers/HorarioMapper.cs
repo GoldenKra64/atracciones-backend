@@ -20,9 +20,9 @@ namespace Atracciones.Backend.DataManagement.Mappers
                 HorarioId = entity.HorId,
                 HorarioGuid = entity.HorGuid,
                 AtraccionId = entity.AtId,
-                Fecha = entity.HorFecha.ToShortDateString(),
-                HoraInicio = entity.HorHoraInicio.ToString(),
-                HoraFin = entity.HorHoraFin?.ToString(),
+                Fecha = entity.HorFecha.ToString("yyyy-MM-dd"),
+                HoraInicio = entity.HorHoraInicio.ToString(@"hh\:mm"),
+                HoraFin = entity.HorHoraFin?.ToString(@"hh\:mm"),
                 Cupos = entity.HorCuposDisponibles
             };
         }
