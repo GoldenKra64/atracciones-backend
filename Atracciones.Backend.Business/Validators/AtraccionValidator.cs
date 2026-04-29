@@ -20,9 +20,6 @@ namespace Atracciones.Backend.Business.Validators
             if (string.IsNullOrWhiteSpace(request.Direccion))
                 errors["Direccion"] = new[] { "Obligatorio" };
 
-            if (request.Descripcion != null && string.IsNullOrWhiteSpace(request.Descripcion))
-                errors["Descripcion"] = new[] { "No se admiten valores vacios (puede ir nulo)" };
-
             if (request.DestinoId <= 0)
                 errors["DestinoId"] = new[] { "Inválido" };
 

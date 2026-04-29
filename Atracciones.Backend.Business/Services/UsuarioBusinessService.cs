@@ -4,6 +4,7 @@ using Atracciones.Backend.Business.DTOs.Usuario;
 using Atracciones.Backend.Business.Exceptions;
 using Atracciones.Backend.Business.Interfaces;
 using Atracciones.Backend.Business.Mappers;
+using Atracciones.Backend.Business.Validators;
 using Atracciones.Backend.DataManagement.Interfaces;
 using Microsoft.Extensions.Options;
 using System;
@@ -37,7 +38,11 @@ namespace Atracciones.Backend.Business.Services
 
         public async Task<int> CreateAsync(CreateUsuarioRequest request)
         {
+            UsuarioValidator.ValidateCreate(request);
+
             var model = UsuarioBusinessMapper.ToCreateModel(request);
+
+            ClienteValidator.ValidateCreate(request.Cliente);
             var cliente = ClienteBusinessMapper.ToCreateModel(request.Cliente);
 
             var id = await _dataService.CreateAsync(model);

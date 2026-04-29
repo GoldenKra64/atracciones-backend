@@ -50,6 +50,11 @@ namespace Atracciones.Backend.Business.Validators
                 errors["Telefono"] = new[] { "El teléfono solo debe contener números" };
             }
 
+            if (request.Telefono.Length != 10)
+            {
+                errors["Telefono"] = new[] { "El teléfono debe de tener 10 caracteres de longitud" };
+            }
+
             // CEDULA
             if (string.IsNullOrWhiteSpace(request.NumeroIdentificacion))
             {
@@ -69,6 +74,18 @@ namespace Atracciones.Backend.Business.Validators
                         errors["TipoIdentificacion"] = new[]
                         {
                     "Solo puede ser: CEDULA, RUC o PASAPORTE"
+                };
+            }
+
+            bool esCedula = request.TipoIdentificacion == "CEDULA" && request.NumeroIdentificacion.Length == 10;
+            bool esRuc = request.TipoIdentificacion == "RUC" && request.NumeroIdentificacion.Length == 13;
+            bool esPasaporte = request.TipoIdentificacion == "PASAPORTE" && request.NumeroIdentificacion.Length == 13;
+
+            if (!(esCedula || esRuc || esPasaporte))
+            {
+                errors["Numero Identificacion"] = new[]
+                {
+                    "El número de identificación no es válido según el tipo seleccionado"
                 };
             }
 
