@@ -59,6 +59,7 @@ namespace Atracciones.Backend.Api.Extensions
             services.AddScoped<IHorarioQuery, HorarioQuery>();
             services.AddScoped<ITagQuery, TagQuery>();
             services.AddScoped<IImagenQuery, ImagenQuery>();
+            services.AddScoped<IUsuarioQuery, UsuarioQuery>();
 
             // ===============================
             // REPOSITORIES

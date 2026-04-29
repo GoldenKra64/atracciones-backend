@@ -38,6 +38,12 @@ namespace Atracciones.Backend.Business.Services
 
         public async Task<int> CreateAsync(CreateUsuarioRequest request)
         {
+
+            if (await _dataService.UserIsRegistered(request.Login))
+            {
+                throw new ValidationException("Usuario ya se encuentra registrado");
+            }
+
             UsuarioValidator.ValidateCreate(request);
 
             var model = UsuarioBusinessMapper.ToCreateModel(request);

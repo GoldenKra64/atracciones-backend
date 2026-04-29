@@ -16,6 +16,7 @@ namespace Atracciones.Backend.DataManagement.Interfaces
         Task<UsuarioModel?> GetByIdAsync(int id);
 
         Task<UsuarioModel?> LoginAsync(string login, string password);
+        Task<bool> UserIsRegistered(string login);
 
         Task ChangePasswordAsync(int usuarioId, string actual, string nuevo);
 

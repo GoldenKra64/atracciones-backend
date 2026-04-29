@@ -1,4 +1,5 @@
-﻿using Atracciones.Backend.DataAccess.Repositories.Interfaces;
+﻿using Atracciones.Backend.DataAccess.Queries.Interfaces;
+using Atracciones.Backend.DataAccess.Repositories.Interfaces;
 using Atracciones.Backend.DataManagement.Interfaces;
 using Atracciones.Backend.DataManagement.Mappers;
 using Atracciones.Backend.DataManagement.Models.Usuario;
@@ -13,10 +14,12 @@ namespace Atracciones.Backend.DataManagement.Services
     public class UsuarioDataService : IUsuarioDataService
     {
         private readonly IUnitOfWork _uow;
+        private readonly IUsuarioQuery _query;
 
-        public UsuarioDataService(IUnitOfWork uow)
+        public UsuarioDataService(IUnitOfWork uow, IUsuarioQuery query)
         {
             _uow = uow;
+            _query = query;
         }
 
         // ===============================
@@ -54,6 +57,11 @@ namespace Atracciones.Backend.DataManagement.Services
             return entity == null
                 ? null
                 : UsuarioMapper.ToModel(entity);
+        }
+
+        public async Task<bool> UserIsRegistered(string login)
+        {
+            return await _query.UserIsAlreadyRegistered(login);
         }
 
         // ===============================
